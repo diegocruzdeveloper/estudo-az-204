@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Estudos Interativo AZ-204</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #3D405B;
+        }
+       .chart-container {
+            position: relative;
+            margin: auto;
+            height: 30vh;
+            width: 100%;
+            max-width: 400px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+           .chart-container {
+                height: 40vh;
+            }
+        }
+       .nav-button {
+            transition: all 0.3s ease;
+        }
+       .nav-button.active {
+            background-color: #81B29A;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+       .nav-button:not(.active):hover {
+            background-color: #e8e6e1;
+        }
+       .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+       .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+       .code-block {
+            position: relative;
+        }
+       .copy-button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: #F8F7F4;
+            color: #3D405B;
+            border: 1px solid #c7c6c3;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+       .copy-button:hover {
+            background-color: #e8e6e1;
+        }
+       .hidden-view {
+            display: none;
+        }
+        /* CORREÇÃO: Modal inicialmente oculto */
+       .modal {
+            display: none; /* Alterado de 'display: flex;' para 'display: none;' */
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+            align-items: center; /* Mantido para centralização quando visível */
+            justify-content: center; /* Mantido para centralização quando visível */
+            padding: 1rem;
+        }
+       .modal-content {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            max-width: 48rem; /* Equivalent to max-w-4xl */
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+       .modal-header {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            padding: 1.5rem; /* Equivalent to p-6 */
+            border-bottom: 1px solid #e5e7eb; /* Equivalent to border-b border-gray-200 */
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            z-index: 10;
+        }
+       .modal-body {
+            padding: 2rem; /* Equivalent to p-8 */
+            padding-top: 0; /* Override default padding-top from p-8 for modal body */
+        }
+       .prose ul {
+            list-style-type: disc;
+            margin-left: 1.25em;
+        }
+       .prose ul li {
+            margin-bottom: 0.5em;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-30 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-[#81B29A] rounded-full flex items-center justify-center text-white font-bold text-lg">A</div>
+                    <h1 class="text-xl md:text-2xl font-bold text-[#3D405B]">Guia de Estudos AZ-204</h1>
+                </div>
+                <div class="hidden md:flex items-center space-x-2 bg-gray-200/50 p-1 rounded-full">
+                    <button id="dashboard-nav-button" class="nav-button px-4 py-2 rounded-full text-sm font-semibold active">Painel</button>
+                    <button id="compare-nav-button" class="nav-button px-4 py-2 rounded-full text-sm font-semibold">Comparar Serviços</button>
+                    <button id="cli-nav-button" class="nav-button px-4 py-2 rounded-full text-sm font-semibold">CLI & SDK</button>
+                </div>
+                 <div class="md:hidden">
+                    <select id="mobile-nav-select" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                        <option value="dashboard">Painel</option>
+                        <option value="compare">Comparar</option>
+                        <option value="cli">CLI & SDK</option>
+                    </select>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+
+        <div id="dashboard-view" class="">
+            <section id="dashboard" class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-2">Painel de Tópicos do Exame AZ-204</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Visualize a distribuição dos tópicos do exame e explore os serviços PaaS do Azure. Clique em uma seção do gráfico ou em um filtro para focar em uma área de conhecimento.</p>
+            </section>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                <div class="lg:col-span-1 bg-white p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-bold text-center mb-4">Peso dos Domínios no Exame</h3>
+                    <div class="chart-container">
+                        <canvas id="examWeightsChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-lg flex flex-col justify-center">
+                     <h3 class="text-xl font-bold text-center mb-4">Filtro por Domínio</h3>
+                     <p class="text-center text-gray-500 mb-6">Selecione um domínio para ver os serviços relacionados.</p>
+                    <div id="domain-filter-buttons" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+                        <button data-filter="all" class="filter-button p-3 rounded-lg text-sm font-semibold transition-colors duration-200 bg-[#81B29A] text-white">Todos</button>
+                        </div>
+                </div>
+            </div>
+
+            <section id="services">
+                <h2 class="text-2xl font-bold mb-6 text-center">Serviços PaaS do Azure</h2>
+                <div id="services-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    </div>
+                 <div id="no-services-message" class="text-center py-16 hidden">
+                    <p class="text-gray-500">Nenhum serviço encontrado para este filtro.</p>
+                </div>
+            </section>
+        </div>
+
+        <div id="compare-view" class="hidden-view">
+            <section id="comparison" class="text-center mb-12">
+                 <h2 class="text-3xl font-bold mb-2">Análise Comparativa de Serviços</h2>
+                 <p class="text-lg text-gray-600 max-w-3xl mx-auto">Selecione dois serviços para comparar suas características, casos de uso e limitações lado a lado.</p>
+            </section>
+
+            <div class="bg-white p-6 rounded-2xl shadow-lg mb-8">
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
+                    <div>
+                        <label for="compare1" class="block text-sm font-medium text-gray-700">Serviço 1</label>
+                        <select id="compare1" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-[#81B29A] focus:border-[#81B29A] sm:text-sm rounded-md">
+                            <option value="">Selecione...</option>
+                            </select>
+                    </div>
+                    <div>
+                        <label for="compare2" class="block text-sm font-medium text-gray-700">Serviço 2</label>
+                         <select id="compare2" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-[#81B29A] focus:border-[#81B29A] sm:text-sm rounded-md">
+                            <option value="">Selecione...</option>
+                             </select>
+                    </div>
+                 </div>
+            </div>
+
+            <div id="comparison-results">
+                 <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                     <div class="lg:col-span-3">
+                         <div id="comparison-columns" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                             </div>
+                     </div>
+                     <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-lg">
+                         <h3 class="text-xl font-bold text-center mb-4">Gráfico Comparativo</h3>
+                         <div class="chart-container" style="max-width: 500px; height: 45vh;">
+                             <canvas id="comparisonChart"></canvas>
+                         </div>
+                     </div>
+                 </div>
+            </div>
+            <div id="no-comparison-selected" class="text-center py-16 bg-gray-50 rounded-2xl">
+                <p class="text-gray-500">Por favor, selecione dois serviços para iniciar a comparação.</p>
+            </div>
+        </div>
+        
+        <div id="cli-view" class="hidden-view">
+            <section id="cli_sdk" class="text-center mb-12">
+                 <h2 class="text-3xl font-bold mb-2">Referência Rápida: CLI & SDK</h2>
+                 <p class="text-lg text-gray-600 max-w-3xl mx-auto">Uma coleção consolidada dos comandos e trechos de código mais importantes para cada serviço. <strong class="text-red-600">Importante: Estes comandos devem ser executados no seu Azure Cloud Shell ou ambiente local com a Azure CLI/SDK autenticada. Nunca insira credenciais sensíveis diretamente em uma página web.</strong></p>
+            </section>
+            
+            <div id="cli-sdk-content" class="space-y-8">
+                </div>
+        </div>
+
+    </main>
+    
+    <div id="service-modal" class="modal">
+        <div class="modal-content">
+             <div class="modal-header">
+                <div class="flex items-center space-x-4">
+                     <div id="modal-icon-container" class="w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center">
+                        <span id="modal-icon" class="text-3xl text-white"></span>
+                    </div>
+                    <div>
+                        <h2 id="modal-name" class="text-2xl font-bold"></h2>
+                        <p id="modal-tagline" class="text-gray-500"></p>
+                    </div>
+                </div>
+                <button id="modal-close-button" class="text-gray-400 hover:text-gray-600">
+                    <span class="text-2xl">&times;</span>
+                </button>
+            </div>
+            
+            <div id="modal-body-content" class="modal-body space-y-8">
+                </div>
+        </div>
+    </div>
+    
+    <script>
+        const app = (() => {
+            let activeView = 'dashboard';
+            let activeFilter = 'all';
+            let isModalOpen = false;
+            let selectedService = null;
+            let comparison = {
+                service1: '',
+                service2: '',
+                data1: null,
+                data2: null,
+            };
+            let charts = {};
+            const domains = {
+                compute: { name: 'Computação', weight: 27.5, color: '#81B29A' },
+                storage: { name: 'Armazenamento', weight: 17.5, color: '#F2CC8F' },
+                security: { name: 'Segurança', weight: 17.5, color: '#E07A5F' },
+                monitoring: { name: 'Monitoramento', weight: 7.5, color: '#3D405B' },
+                connectivity: { name: 'Conectividade', weight: 22.5, color: '#8E8D8A' },
+            };
+            let servicesData = []; // Inicializado como array vazio
+
+            const views = {
+                dashboard: document.getElementById('dashboard-view'),
+                compare: document.getElementById('compare-view'),
+                cli: document.getElementById('cli-view'),
+            };
+
+            const navButtons = {
+                dashboard: document.getElementById('dashboard-nav-button'),
+                compare: document.getElementById('compare-nav-button'),
+                cli: document.getElementById('cli-nav-button'),
+            };
+
+            const mobileNavSelect = document.getElementById('mobile-nav-select');
+            const domainFilterButtonsContainer = document.getElementById('domain-filter-buttons');
+            const servicesGrid = document.getElementById('services-grid');
+            const noServicesMessage = document.getElementById('no-services-message');
+            const serviceModal = document.getElementById('service-modal');
+            const modalCloseButton = document.getElementById('modal-close-button');
+            const modalIconContainer = document.getElementById('modal-icon-container');
+            const modalIcon = document.getElementById('modal-icon');
+            const modalName = document.getElementById('modal-name');
+            const modalTagline = document.getElementById('modal-tagline');
+            const modalBodyContent = document.getElementById('modal-body-content');
+
+            const compareSelect1 = document.getElementById('compare1');
+            const compareSelect2 = document.getElementById('compare2');
+            const comparisonResultsDiv = document.getElementById('comparison-results');
+            const noComparisonSelectedDiv = document.getElementById('no-comparison-selected');
+            const comparisonColumnsDiv = document.getElementById('comparison-columns');
+            const cliSdkContentDiv = document.getElementById('cli-sdk-content');
+
+
+            const loadData = () => {
+                servicesData = [
+                    {
+                        id: 'acr',
+                        name: 'Azure Container Registry (ACR)',
+                        tagline: 'Registro gerenciado para imagens de contêiner',
+                        domain: 'compute',
+                        icon: '🚢',
+                        comparison_metrics: { 'Custo': 3, 'Escalabilidade': 4, 'Controle': 4, 'Estado': 5, 'Simplicidade': 3 },
+                        details: {
+                            overview: `<ul><li>Serviço de registro gerenciado para imagens de contêiner Docker e artefatos relacionados (como gráficos Helm).</li><li>Oferece segurança, replicação geográfica e integração com ferramentas de desenvolvimento e orquestração.</li></ul>`,
+                            useCases: `<p>Ideal para:</p><ul><li>Hospedagem de imagens para implantação em serviços como Azure Kubernetes Service (AKS), Azure Container Instances (ACI) e Azure Container Apps.</li><li>Ideal para pipelines de CI/CD.</li></ul>`,
+                            limitations: `<p>Pontos a considerar:</p><ul><li>Custos associados ao armazenamento e transferência de dados.</li><li>A complexidade pode aumentar com a necessidade de replicação geográfica e segurança avançada.</li></ul>`,
+                        },
+                        cli: [
+                            { command: 'az acr create --resource-group <rg_name> --name <acr_name> --sku Basic', description: 'Cria um novo Registro de Contêiner do Azure.' },
+                            { command: 'az acr build --registry <acr_name> --image <image_name>:<tag> .', description: 'Cria uma imagem Docker e a envia para o ACR.' },
+                            { command: 'az acr repository list --name <acr_name> --output table', description: 'Lista os repositórios em um ACR.' },
+                            { command: 'docker push <acr_name>.azurecr.io/<image_name>:<tag>', description: 'Envia uma imagem Docker local para o ACR (após login).' },
+                        ]
+                    },
+                    {
+                        id: 'aci',
+                        name: 'Azure Container Instances (ACI)',
+                        tagline: 'Execute contêineres sem servidor',
+                        domain: 'compute',
+                        icon: '🚀',
+                        comparison_metrics: { 'Custo': 4, 'Escalabilidade': 3, 'Controle': 2, 'Estado': 2, 'Simplicidade': 5 },
+                        details: {
+                            overview: `<ul><li>Permite executar contêineres Docker diretamente no Azure sem a necessidade de gerenciar máquinas virtuais ou orquestradores.</li><li>Oferece inicialização rápida e modelo de cobrança por segundo.</li></ul>`,
+                            useCases: `<p>Ideal para:</p><ul><li>Cargas de trabalho simples e isoladas.</li><li>Tarefas de automação e processamento de eventos.</li><li>Ambientes de teste/desenvolvimento.</li><li>Cenários de burst para AKS.</li></ul>`,
+                            limitations: `<p>Pontos a considerar:</p><ul><li>Não é um orquestrador completo (não oferece recursos avançados de rede ou balanceamento de carga como Kubernetes).</li><li>Ideal para cargas de trabalho efêmeras e sem estado.</li></ul>`,
+                        },
+                        cli: [
+                            { command: 'az container create --resource-group <rg_name> --name <container_name> --image <image_name> --dns-name-label <dns_label> --ports 80', description: 'Cria uma instância de contêiner.' },
+                            { command: 'az container attach --resource-group <rg_name> --name <container_name>', description: 'Anexa a saída de log de um contêiner.' },
+                            { command: 'az container delete --resource-group <rg_name> --name <container_name> --yes', description: 'Exclui uma instância de contêiner.' },
+                        ]
+                    },
+                    {
+                        id: 'container_apps',
+                        name: 'Azure Container Apps',
+                        tagline: 'Microsserviços em contêineres serverless',
+                        domain: 'compute',
+                        icon: '📦',
+                        comparison_metrics: { 'Custo': 4, 'Escalabilidade': 5, 'Controle': 3, 'Estado': 4, 'Simplicidade': 3 },
+                        details: {
+                            overview: `<ul><li>Construído sobre Kubernetes e tecnologias de código aberto como Dapr, KEDA e Envoy.</li><li>Permite executar microsserviços e aplicativos conteinerizados em um ambiente sem servidor.</li><li>Suporta HTTP/S, gRPC, WebSockets e eventos.</li></ul>`,
+                            useCases: `<p>Ideal para:</p><ul><li>Construção de arquiteturas de microsserviços.</li><li>APIs baseadas em eventos.</li><li>Processamento em segundo plano.</li><li>Aplicações web que precisam de dimensionamento dinâmico e integração com Dapr para resiliência e observabilidade.</li></ul>`,
+                            limitations: `<p>Pontos a considerar:</p><ul><li>Mais complexo que ACI para casos de uso simples.</li><li>Embora seja "sem servidor", ainda há conceitos de orquestração subjacentes que precisam ser compreendidos.</li></ul>`,
+                        },
+                        cli: [
+                            { command: 'az containerapp env create --name <env_name> --resource-group <rg_name> --location <region>', description: 'Cria um ambiente de Container Apps.' },
+                            { command: 'az containerapp create --name <app_name> --resource-group <rg_name> --environment <env_name> --image <image_name> --target-port 80 --ingress external', description: 'Cria um Container App a partir de uma imagem.' },
+                        ]
+                    },
+                    {
+                        id: 'app_service',
+                        name: 'App Service',
+                        tagline: 'Hospedagem de apps web e APIs',
+                        domain: 'compute',
+                        icon: '☁️',
+                        comparison_metrics: { 'Custo': 3, 'Escalabilidade': 4, 'Controle': 3, 'Estado': 4, 'Simplicidade': 5 },
+                        details: {
+                            overview: `<ul><li>Plataforma PaaS totalmente gerenciada para hospedar aplicações web, APIs REST e backends móveis.</li><li>Suporte a múltiplas linguagens (.NET, Java, Node.js, Python, etc.) e contêineres.</li><li>Oferece escalabilidade, alta disponibilidade e integração com outros serviços Azure.</li></ul>`,
+                            useCases: `<p>Ideal para:</p><ul><li>Aplicações web corporativas.</li><li>Sites de e-commerce.</li><li>APIs RESTful para clientes web e móveis.</li><li>Ambientes de desenvolvimento e teste.</li></ul>`,
+                            limitations: `<p>Pontos a considerar:</p><ul><li>Menos controle sobre o sistema operacional subjacente.</li><li>Dependência da plataforma Azure para gerenciamento de infraestrutura.</li><li>Planos de preços podem ser complexos.</li></ul>`,
+                        },
+                        cli: [
+                            { command: 'az webapp up --name <app_name> --resource-group <rg_name> --location <region>', description: 'Cria e implanta uma app web (simplificado).' },
+                            { command: 'az webapp create --name <app_name> --resource-group <rg_name> --plan <plan_name>', description: 'Cria uma app web em um plano existente.' },
+                            { command: 'az webapp deployment slot create --name <app_name> --resource-group <rg_name> --slot staging', description: 'Cria um slot de implantação.' },
+                            { command: 'az webapp deploy --resource-group <rg_name> --name <app_name> --src-path "path/to/your/code.zip"', description: 'Implanta código para uma app web existente a partir de um ZIP.' },
+                            { command: 'az webapp config appsettings set --name <app_name> --resource-group <rg_name> --settings "CONNECTION_STRING=YourValue"', description: 'Define uma configuração de aplicativo.' },
+                            { command: 'az webapp log config --name <app_name> --resource-group <rg_name> --web-server-logging filesystem --level verbose', description: 'Configura o log do servidor web.' },
+                            { command: 'az webapp config set --name <app_name> --resource-group <rg_name> --https-only true', description: 'Força HTTPS para o aplicativo.' },
+                            { command: 'az webapp config hostname add --webapp-name <app_name> --resource-group <rg_name> --hostname <custom_domain>', description: 'Adiciona um nome de host personalizado.' },
+                            { command: 'az webapp config set --name <app_name> --resource-group <rg_name> --min-replicas 2 --max-replicas 10 --autoscale-rule-type CPU --autoscale-rule-value 70', description: 'Configura o dimensionamento automático (exemplo).' },
+                            { command: 'az webapp deployment slot swap --resource-group <rg_name> --name <app_name> --slot staging --target-slot production', description: 'Troca um slot de implantação para produção.' },
+                        ]
+                    },
+                    {
+                        id: 'functions',
+                        name: 'Azure Functions',
+                        tagline: 'Computação serverless orientada a eventos',
+                        domain: 'compute',
+                        icon: '⚡️',
+                        comparison_metrics: { 'Custo': 5, 'Escalabilidade': 5, 'Controle': 2, 'Estado': 2, 'Simplicidade': 4 },
+                        details: {
+                            overview: `<ul><li>Serviço de computação sem servidor baseado em eventos que permite executar pequenos trechos de código ("funções") sem se preocupar com a infraestrutura.</li><li>Pague apenas pelo tempo de execução do código.</li><li>Implementa associações (bindings) de entrada e saída e gatilhos (HTTP, temporizador, dados, webhooks).</li></ul>`,
+                            useCases: `<p>Ideal para:</p><ul><li>Processamento de eventos em tempo real.</li><li>Tarefas agendadas.</li><li>APIs leves.</li><li>Processamento de dados e integração de sistemas.</li></ul>`,
+                            limitations: `<p>Pontos a considerar:</p><ul><li>Tempo de execução limitado em planos de consumo.</li><li>Não é ideal para cargas de trabalho de longa duração ou que exigem controle total sobre o ambiente de execução.</li></ul>`,
+                        },
+                        cli: [
+                            { command: 'az functionapp create --name <app_name> --resource-group <rg_name> --consumption-plan-location <region> --runtime node --storage-account <storage>', description: 'Cria um Function App.' },
+                            { command: 'func new --name MyHttpTrigger --template "HTTP trigger"', description: 'Cria uma nova função localmente (usando Core Tools).' },
+                            { command: 'func host start', description: 'Executa a função localmente para teste (usando Core Tools).' },
+                            { command: 'az functionapp deployment source config --name <app_name> --resource-group <rg_name> --branch master --repo-url <repo_url> --git-token <token>', description: 'Configura a implantação contínua de um repositório Git.' },
+                            { command: 'az functionapp config appsettings set --name <app_name> --resource-group <rg_name> --settings "AzureWebJobsStorage=<storage_connection_string>"', description: 'Define a string de conexão de armazenamento para o Function App.' },
+                            { command: 'func azure functionapp publish <app_name>', description: 'Publica um projeto de funções local para o Azure.' },
+                        ]
+                    },
+                    {
+                        id: 'cosmos_db',
+                        name: 'Azure Cosmos DB',
+                        tagline: 'BD NoSQL globalmente distribuído',
+                        domain: 'storage',
+                        icon: '🌍',
+                        comparison_metrics: { 'Custo': 2, 'Escalabilidade': 5, 'Controle': 4, 'Estado': 5, 'Simplicidade': 3 },
+                        details: {
+                            overview: `<ul><li>Banco de dados NoSQL multi-modelo e distribuído globalmente.</li><li>Oferece latência de milissegundos de dígito único em qualquer escala, garantia de alta disponibilidade e consistência.</li><li>APIs para SQL, MongoDB, Cassandra, Gremlin e Table.</li></ul>`,
+                            useCases: `<p>Ideal para:</p><ul><li>Aplicações de IoT e telemetria.</li><li>Jogos (perfis de usuário, placares).</li><li>E-commerce (catálogos de produtos, carrinhos de compra).</li><li>Aplicações web e móveis com requisitos de escala global.</li></ul>`,
+                            limitations: `<p>Pontos a considerar:</p><ul><li>Custo pode ser elevado; requer provisionamento cuidadoso de RUs (Request Units).</li><li>A escolha da chave de partição é CRÍTICA para o desempenho.</li><li>Consultas complexas entre contêineres podem ser ineficientes.</li></ul>`,
+                        },
+                        cli: [
+                            { command: 'az cosmosdb create --name <account_name> --resource-group <rg_name> --locations regionName=<region> failoverPriority=0 --default-consistency-level Session', description: 'Cria uma conta Cosmos DB.' },
+                            { command: 'az cosmosdb sql database create --account-name <account_name> --name <db_name> --resource-group <rg_name>', description: 'Cria um banco de dados SQL API.' },
+                            { command: 'az cosmosdb sql container create --account-name <account_name> --database-name <db_name> --name <container_name> --partition-key-path /id --throughput 400', description: 'Cria um contêiner SQL API.' },
+                        ],
+                        sdk: [
+                            { description: 'Criar um item (C#)', snippet: `ItemResponse<MyItem> response = await container.CreateItemAsync(item, new PartitionKey(item.partitionKey));` },
+                            { description: 'Ler um item (C#)', snippet: `ItemResponse<MyItem> response = await container.ReadItemAsync<MyItem>(itemId, new PartitionKey(partitionKey));` },
+                            { description: 'Consultar itens (C#)', snippet: `var query = new QueryDefinition("SELECT * FROM c WHERE c.partitionKey = @key").WithParameter("@key", partitionKey);\nvar iterator = container.GetItemQueryIterator<MyItem>(query);` },
+                            { description: 'Atualizar um item (C#)', snippet: `ItemResponse<MyItem> response = await container.UpsertItemAsync(updatedItem, new PartitionKey(updatedItem.partitionKey));` },
+                            { description: 'Implementar Feed de Alterações (C# - Exemplo básico com Function)', snippet: `// Exemplo de trigger de Azure Function para Change Feed\n[FunctionName("CosmosDbChangeFeedProcessor")]\npublic static async Task Run([CosmosDBTrigger(\n    databaseName: "myDatabase",\n    containerName: "myContainer",\n    Connection = "CosmosDBConnection",\n    LeaseContainerName = "leases")]IReadOnlyList<Document> input,\n    ILogger log)\n{\n    if (input != null && input.Count > 0)\n    {\n        log.LogInformation("Documents modified: " + input.Count);\n        foreach (var doc in input)\n        {\n            log.LogInformation($"Modified document ID: {doc.Id}");\n        }\n    }\n}` },
+                        ]
+                    },
+                    {
+                        id: 'blob_storage',
+                        name: 'Azure Blob Storage',
+                        tagline: 'Armazenamento de objetos em massa',
+                        domain: 'storage',
+                        icon: '💾',
+                        comparison_metrics: { 'Custo': 5, 'Escalabilidade': 5, 'Controle': 3, 'Estado': 5, 'Simplicidade': 5 },
+                        details: {
+                            overview: `<ul><li>Solução de armazenamento de objetos altamente escalável e durável para dados não estruturados.</li><li>Permite definir e recuperar propriedades e metadados.</li><li>Implementa políticas de armazenamento e gerenciamento do ciclo de vida de dados.</li></ul>`,
+                            useCases: `<p>Ideal para:</p><ul><li>Armazenamento de arquivos de mídia (imagens, vídeos), documentos, logs, backups.</li><li>Dados para análise de Big Data.</li></ul>`,
+                            limitations: `<p>Pontos a considerar:</p><ul><li>Não é um sistema de arquivos tradicional; não suporta operações de arquivo em nível de byte (apenas objetos completos).</li></ul>`,
+                        },
+                        cli: [
+                            { command: 'az storage account create --name <account_name> --resource-group <rg_name> --location <region> --sku Standard_LRS', description: 'Cria uma conta de armazenamento.' },
+                            { command: 'az storage container create --name <container_name> --account-name <account_name> --public-access blob', description: 'Cria um contêiner de blobs.' },
+                            { command: 'az storage blob upload --container-name <container_name> --file "local_file.txt" --name "remote_blob.txt" --account-name <account_name>', description: 'Carrega um arquivo para o Blob Storage.' },
+                            { command: 'az storage blob download --container-name <container_name> --file "downloaded_file.txt" --name "remote_blob.txt" --account-name <account_name>', description: 'Baixa um blob.' },
+                            { command: 'az storage container generate-sas --name <container_name> --account-name <account_name> --permissions rwl --expiry 2025-12-31T00:00Z --output tsv', description: 'Gera uma SAS para um contêiner.' },
+                            { command: 'az storage blob show --container-name <container_name> --name <blob_name> --account-name <account_name> --query "properties.contentSettings.contentType"', description: 'Define e recupera propriedades de blob (ex: Content-Type).' },
+                            { command: 'az storage blob metadata show --container-name <container_name> --name <blob_name> --account-name <account_name>', description: 'Define e recupera metadados de blob.' },
+                            { command: 'az storage blob set-tier --container-name <container_name> --name <blob_name> --account-name <account_name> --tier Cool', description: 'Define a camada de acesso de um blob.' },
+                        ],
+                        sdk: [
+                            { description: 'Upload de Blob (C#)', snippet: `using Azure.Storage.Blobs;\nusing System.IO;\n//...\nBlobServiceClient blobServiceClient = new BlobServiceClient("YourConnectionString");\nBlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient("mycontainer");\nawait containerClient.CreateIfNotExistsAsync();\nBlobClient blobClient = containerClient.GetBlobClient("myblob.txt");\nusing (FileStream uploadFileStream = File.OpenRead("path/to/local/file.txt"))\n{\n    await blobClient.UploadAsync(uploadFileStream, true);\n    Console.WriteLine("Blob uploaded.");\n}` },
+                            { description: 'Download de Blob (C#)', snippet: `using Azure.Storage.Blobs;\nusing System.IO;\n//...\nBlobClient blobClient = containerClient.GetBlobClient("myblob.txt");\nusing (MemoryStream downloadStream = new MemoryStream())\n{\n    await blobClient.DownloadToAsync(downloadStream);\n    downloadStream.Position = 0;\n    using (StreamReader reader = new StreamReader(downloadStream))\n    {\n        string content = await reader.ReadToEndAsync();\n        Console.WriteLine($"Blob content: {content}");\n    }\n}` },
+                            { description: 'Definir Propriedades/Metadados (C#)', snippet: `using Azure.Storage.Blobs.Models;\n//...\nBlobClient blobClient = containerClient.GetBlobClient("myblob.txt");\nBlobHttpHeaders headers = new BlobHttpHeaders { ContentType = "text/plain" };\nawait blobClient.SetHttpHeadersAsync(headers);\n\nIDictionary<string, string> metadata = new Dictionary<string, string>\n{\n    { "Author", "Me" },\n    { "Version", "1.0" }\n};\nawait blobClient.SetMetadataAsync(metadata);\nConsole.WriteLine("Properties and metadata set.");` },
+                        ]
+                    },
+                    {
+                        id: 'identity_platform',
+                        name: 'Microsoft Identity Platform & Entra ID',
+                        tagline: 'Autenticação e Autorização de Usuários e Apps',
+                        domain: 'security',
+                        icon: '👤',
+                        comparison_metrics: { 'Custo': 4, 'Escalabilidade': 5, 'Controle': 5, 'Estado': 5, 'Simplicidade': 2 },
+                        details: {
+                            overview: `<ul><li>Conjunto de serviços de identidade baseados em nuvem para autenticação e autorização de usuários e aplicativos.</li><li>Microsoft Entra ID (antigo Azure AD) é o serviço de diretório principal.</li><li>Permite autenticar e autorizar usuários e aplicativos usando a plataforma Microsoft Identity.</li></ul>`,
+                            useCases: `<p>Ideal para:</p><ul><li>Autenticação de usuários em aplicativos web e móveis.</li><li>Proteção de APIs.</li><li>Gerenciamento de acesso a recursos do Azure.</li></ul>`,
+                            limitations: `<p>Pontos a considerar:</p><ul><li>Requer compreensão dos fluxos de autenticação (OAuth 2.0, OpenID Connect).</li><li>Complexidade na configuração de permissões granulares.</li></ul>`,
+                        },
+                        cli: [
+                            { command: 'az ad app create --display-name <app_name> --homepage "https://<app_url>" --identifier-uris "api://<app_id>"', description: 'Cria um registro de aplicativo no Microsoft Entra ID.' },
+                            { command: 'az ad sp create --id <app_id>', description: 'Cria um Service Principal para o aplicativo.' },
+                            { command: 'az role assignment create --assignee <app_id> --role "Contributor" --scope /subscriptions/<sub_id>/resourceGroups/<rg_name>', description: 'Concede permissões a um Service Principal.' },
+                        ],
+                        sdk: [
+                            { description: 'Autenticar usuário com MSAL.NET (Exemplo Básico)', snippet: `using Microsoft.Identity.Client;\n//...\nvar app = PublicClientApplicationBuilder.Create("<YourClientID>")\n    .WithRedirectUri("http://localhost")\n    .Build();\n\nvar result = await app.AcquireTokenInteractive(new[] { "user.read" }).ExecuteAsync();\nConsole.WriteLine($"Token: {result.AccessToken}");` },
+                            { description: 'Obter token para acessar o Microsoft Graph (Exemplo Básico)', snippet: `using Microsoft.Identity.Client;\n//...\nvar app = ConfidentialClientApplicationBuilder.Create("<YourClientID>")\n    .WithClientSecret("<YourClientSecret>")\n    .WithAuthority(new Uri("https://login.microsoftonline.com/<YourTenantID>"))\n    .Build();\n\nvar result = await app.AcquireTokenForClient(new[] { "https://graph.microsoft.com/.default" }).ExecuteAsync();\nConsole.WriteLine($"Graph Token: {result.AccessToken}");` },
+                        ]
+                    },
+                    {
+                        id: 'sas',
+                        name: 'Shared Access Signatures (SAS)',
+                        tagline: 'Acesso delegado seguro ao Armazenamento',
+                        domain: 'security',
+                        icon: '🔒',
+                        comparison_metrics: { 'Custo': 5, 'Escalabilidade': 4, 'Controle': 3, 'Estado': 4, 'Simplicidade': 4 },
+                        details: {
+                            overview: `<ul><li>Uma cadeia de caracteres com um URI que concede acesso delegado a recursos do Armazenamento do Azure (Blobs, Filas, Tabelas, Arquivos) com permissões e tempo limitados.</li><li>Permite conceder acesso temporário e seguro a clientes sem compartilhar chaves de conta de armazenamento.</li></ul>`,
+                            useCases: `<p>Ideal para:</p><ul><li>Permitir que aplicativos móveis ou web façam upload/download diretamente para o armazenamento, sem passar por um back-end.</li><li>Conceder acesso limitado a terceiros a recursos específicos.</li></ul>`,
+                            limitations: `<p>Pontos a considerar:</p><ul><li>Gerenciamento de expiração e revogação pode ser complexo.</li><li>Risco de uso indevido se as permissões forem muito amplas ou o tempo de expiração muito longo.</li></ul>`,
+                        },
+                        cli: [
+                            { command: 'az storage container generate-sas --name <container_name> --account-name <account_name> --permissions rwl --expiry 2025-12-31T00:00Z --output tsv', description: 'Gera uma SAS para um contêiner.' },
+                            { command: 'az storage blob generate-sas --name <blob_name> --container-name <container_name> --account-name <account_name> --permissions r --expiry 2025-12-31T00:00Z --output tsv', description: 'Gera uma SAS para um blob específico.' },
+                        ],
+                        sdk: [
+                            { description: 'Gerar SAS de Blob (C#)', snippet: `using Azure.Storage.Blobs;\nusing Azure.Storage.Sas;\n//...\nBlobClient blobClient = containerClient.GetBlobClient("myblob.txt");\nBlobSasBuilder sasBuilder = new BlobSasBuilder()\n{\n    BlobContainerName = blobClient.BlobContainerName,\n    BlobName = blobClient.Name,\n    ExpiresOn = DateTimeOffset.UtcNow.AddHours(1),\n    Resource = "b", // 'b' for blob, 'c' for container\n};\nsasBuilder.SetPermissions(BlobSasPermissions.Read | BlobSasPermissions.Write);\nUri sasUri = blobClient.GenerateSasUri(sasBuilder);\nConsole.WriteLine($"SAS URI: {sasUri}");` },
+                        ]
+                    },
+                    {
+                        id: 'microsoft_graph',
+                        name: 'Microsoft Graph',
+                        tagline: 'API unificada para dados da Microsoft 365',
+                        domain: 'security',
+                        icon: '📈',
+                        comparison_metrics: { 'Custo': 4, 'Escalabilidade': 5, 'Controle': 3, 'Estado': 5, 'Simplicidade': 3 },
+                        details: {
+                            overview: `<ul><li>Uma API unificada que permite acessar dados e inteligência de serviços da Microsoft 365, Windows 10 e Enterprise Mobility + Security.</li><li>Permite interagir com dados de usuários, grupos, arquivos, emails, calendários, etc.</li></ul>`,
+                            useCases: `<p>Ideal para:</p><ul><li>Construir aplicativos que se integram com o ecossistema Microsoft (produtividade, colaboração, gerenciamento de identidade).</li><li>Obter perfil de usuário, gerenciar arquivos no OneDrive, acessar calendários.</li></ul>`,
+                            limitations: `<p>Pontos a considerar:</p><ul><li>Requer permissões adequadas no Microsoft Entra ID.</li><li>Complexidade na navegação da API para dados específicos.</li></ul>`,
+                        },
+                        sdk: [
+                            { description: 'Obter perfil de usuário com Microsoft Graph SDK (C#)', snippet: `using Microsoft.Graph;\nusing Azure.Identity;\n//...\nvar scopes = new[] { "User.Read" };\nvar tenantId = "<YourTenantID>";\nvar clientId = "<YourClientID>";\nvar clientSecret = "<YourClientSecret>";\n\nvar options = new TokenCredentialOptions { AuthorityHost = AzureAuthorityHosts.AzurePublicCloud };\nvar clientSecretCredential = new ClientSecretCredential(tenantId, clientId, clientSecret, options);\nvar graphClient = new GraphServiceClient(clientSecretCredential, scopes);\n\nvar user = await graphClient.Me.GetAsync();\nConsole.WriteLine($"User Display Name: {user.DisplayName}");` },
+                        ]
+                    },
+                    {
+                        id: 'app_configuration',
+                        name: 'Azure App Configuration',
+                        tagline: 'Gerenciamento centralizado de configurações',
+                        domain: 'security',
+                        icon: '⚙️',
+                        comparison_metrics: { 'Custo': 4, 'Escalabilidade': 4, 'Controle': 4, 'Estado': 5, 'Simplicidade': 5 },
+                        details: {
+                            overview: `<ul><li>Serviço gerenciado para armazenar configurações de aplicativos de forma centralizada e segura.</li><li>Permite gerenciar configurações de forma dinâmica, incluindo sinalizadores de recursos (feature flags).</li></ul>`,
+                            useCases: `<p>Ideal para:</p><ul><li>Centralizar configurações para microsserviços.</li><li>Gerenciar configurações de ambiente (desenvolvimento, teste, produção).</li><li>Habilitar/desabilitar recursos sem reimplantar o código.</li></ul>`,
+                            limitations: `<p>Pontos a considerar:</p><ul><li>Não é um substituto para o Key Vault para segredos de alta sensibilidade.</li></ul>`,
+                        },
+                        cli: [
+                            { command: 'az appconfig create --name <appconfig_name> --resource-group <rg_name> --location <region> --sku Standard', description: 'Cria um novo recurso do App Configuration.' },
+                            { command: 'az appconfig kv set --name <appconfig_name> --key "MySetting" --value "HelloFromAppConfig"', description: 'Define uma chave-valor no App Configuration.' },
+                            { command: 'az appconfig kv show --name <appconfig_name> --key "MySetting" --query value --output tsv', description: 'Obtém o valor de uma chave.' },
+                        ],
+                        sdk: [
+                            { description: 'Ler configuração (C#)', snippet: `using Microsoft.Extensions.Configuration;\nusing Azure.Data.AppConfiguration;\n//...\nvar builder = new ConfigurationBuilder();\nbuilder.AddAzureAppConfiguration(options =>\n{\n    options.Connect(Environment.GetEnvironmentVariable("AppConfigConnectionString"))\n           .UseFeatureFlags();\n});\nvar config = builder.Build();\nConsole.WriteLine($"MySetting: {config["MySetting"]}");` },
+                        ]
+                    },
+                    {
+                        id: 'key_vault',
+                        name: 'Azure Key Vault',
+                        tagline: 'Gerenciamento seguro de segredos',
+                        domain: 'security',
+                        icon: '�',
+                        comparison_metrics: { 'Custo': 3, 'Escalabilidade': 4, 'Controle': 5, 'Estado': 5, 'Simplicidade': 3 },
+                        details: {
+                            overview: `<ul><li>Serviço baseado em nuvem para armazenar e gerenciar com segurança chaves criptográficas, segredos (senhas, cadeias de conexão) e certificados.</li><li>Protege chaves e segredos usados por aplicativos e serviços em nuvem.</li><li>Integra com aplicativos para recuperar segredos em tempo de execução.</li></ul>`,
+                            useCases: `<p>Ideal para:</p><ul><li>Armazenar cadeias de conexão de banco de dados, chaves de API, segredos de aplicativos.</li><li>Gerenciar certificados TLS/SSL.</li></ul>`,
+                            limitations: `<p>Pontos a considerar:</p><ul><li>Custos associados ao uso; requer configuração cuidadosa de políticas de acesso.</li><li>Possui limites de throughput; não é para acesso contínuo de alto volume.</li><li>Não é um banco de dados de propósito geral.</li></ul>`,
+                        },
+                        cli: [
+                            { command: 'az keyvault create --resource-group <rg_name> --name <vault_name> --location <region> --sku standard', description: 'Cria um novo Key Vault.' },
+                            { command: 'az keyvault secret set --vault-name <vault_name> --name <secret_name> --value "mySuperSecretValue"', description: 'Define um segredo no Key Vault.' },
+                            { command: 'az keyvault secret show --vault-name <vault_name> --name <secret_name> --query value --output tsv', description: 'Obtém o valor de um segredo.' },
+                            { command: 'az keyvault set-policy --name <vault_name> --resource-group <rg_name> --object-id <object_id> --secret-permissions get list', description: 'Define uma política de acesso para um objeto (ex: Managed Identity).' },
+                        ],
+                        sdk: [
+                            { description: 'Obter Segredo (C#)', snippet: `using Azure.Security.KeyVault.Secrets;\nusing Azure.Identity;\n//...\nSecretClient client = new SecretClient(new Uri("https://<your_vault_name>.vault.azure.net/"), new DefaultAzureCredential());\nKeyVaultSecret secret = await client.GetSecretAsync("mySecretName");\nConsole.WriteLine($"Secret value: {secret.Value}");` },
+                        ]
+                    },
+                    {
+                        id: 'managed_identities',
+                        name: 'Managed Identities',
+                        tagline: 'Identidades para recursos Azure',
+                        domain: 'security',
+                        icon: '🆔',
+                        comparison_metrics: { 'Custo': 5, 'Escalabilidade': 5, 'Controle': 4, 'Estado': 5, 'Simplicidade': 5 },
+                        details: {
+                            overview: `<ul><li>Recurso do Microsoft Entra ID que fornece uma identidade para serviços do Azure (VMs, App Services, Functions).</li><li>Permite que serviços se autentiquem em outros serviços Azure que suportam autenticação do Microsoft Entra ID, sem a necessidade de gerenciar credenciais.</li></ul>`,
+                            useCases: `<p>Ideal para:</p><ul><li>Simplificar o gerenciamento de credenciais, eliminando a necessidade de armazenar segredos em código ou arquivos de configuração.</li><li>Permitir que um aplicativo web acesse um Key Vault, um Azure SQL Database ou um Armazenamento de Blobs de forma segura.</li></ul>`,
+                            limitations: `<p>Pontos a considerar:</p><ul><li>Só pode ser usada para autenticar em serviços que suportam autenticação do Microsoft Entra ID.</li></ul>`,
+                        },
+                        cli: [
+                            { command: 'az webapp identity assign --resource-group <rg_name> --name <app_name>', description: 'Atribui uma identidade gerenciada atribuída pelo sistema a um App Service.' },
+                            { command: 'az keyvault set-policy --name <keyvault_name> --resource-group <rg_name> --object-id <managed_identity_principal_id> --secret-permissions get list', description: 'Concede permissão de Key Vault a uma identidade gerenciada.' },
+                        ]
+                    },
+                    {
+                        id: 'app_insights',
+                        name: 'Application Insights',
+                        tagline: 'Monitoramento de desempenho de apps',
+                        domain: 'monitoring',
+                        icon: '📊',
+                        comparison_metrics: { 'Custo': 3, 'Escalabilidade': 4, 'Controle': 4, 'Estado': 5, 'Simplicidade': 3 },
+                        details: {
+                            overview: `<ul><li>Serviço de Gerenciamento de Desempenho de Aplicações (APM) para monitorar aplicativos web, APIs e serviços.</li><li>Fornece insights sobre desempenho, disponibilidade e uso.</li><li>Coleta telemetria: solicitações, exceções, dependências, eventos personalizados, logs e rastreamentos.</li></ul>`,
+                            useCases: `<p>Ideal para:</p><ul><li>Monitoramento de desempenho de aplicativos web, APIs, microsserviços, funções sem servidor.</li><li>Identificação de gargalos, erros e problemas de desempenho.</li><li>Configurar alertas e testes web de disponibilidade.</li></ul>`,
+                            limitations: `<p>Pontos a considerar:</p><ul><li>Custos podem aumentar com o volume de telemetria; instrumentação manual pode ser necessária para alguns cenários.</li></ul>`,
+                        },
+                        cli: [
+                            { command: 'az monitor app-insights component create --app <app_insights_name> --location <region> --resource-group <rg_name> --kind web --application-type web', description: 'Cria um novo recurso do Application Insights.' },
+                            { command: 'az monitor app-insights metric show --app <app_insights_name> --metric "requests/count" --interval 1h --output table', description: 'Monitora e analisa métricas.' },
+                            { command: 'az monitor app-insights query --app <app_insights_name> --analytics-query "traces | limit 10"', description: 'Monitora e analisa logs e rastreamentos (KQL).' },
+                            { command: 'az monitor scheduled-query create --resource-group <rg_name> --name <alert_name> --scopes <app_insights_resource_id> --condition "countof(exceptions) > 5" --actions <action_group_id>', description: 'Implementa alertas (exemplo de consulta agendada).' },
+                            { command: 'az webapp appinsights set --name <app_name> --resource-group <rg_name> --app-insights <app_insights_name> --enable-instrumentation true', description: 'Instrumenta um aplicativo web para usar o Application Insights.' },
+                        ],
+                        sdk: [
+                            { description: 'Instrumentar uma aplicação ASP.NET Core (C#)', snippet: `// No Startup.cs ou Program.cs\nbuilder.Services.AddApplicationInsightsTelemetry();` },
+                            { description: 'Registrar evento personalizado (C#)', snippet: `using Microsoft.ApplicationInsights;\n//...\nTelemetryClient telemetry = new TelemetryClient();\ntelemetry.TrackEvent("MyCustomEvent", new Dictionary<string,string> { {"Property1", "Value1"} });` },
+                            { description: 'Registrar exceção (C#)', snippet: `using Microsoft.ApplicationInsights;\n//...\nTelemetryClient telemetry = new TelemetryClient();\ntry { /* Your code */ } catch (Exception ex) { telemetry.TrackException(ex); }` },
+                        ]
+                    },
+                    {
+                        id: 'api_management',
+                        name: 'Azure API Management (APIM)',
+                        tagline: 'Gerenciamento completo de APIs',
+                        domain: 'connectivity',
+                        icon: '🔗',
+                        comparison_metrics: { 'Custo': 2, 'Escalabilidade': 4, 'Controle': 5, 'Estado': 5, 'Simplicidade': 2 },
+                        details: {
+                            overview: `<ul><li>Serviço PaaS para publicar, gerenciar, proteger e analisar APIs. Atua como um gateway de API.</li><li>Permite criar instâncias, documentar APIs, configurar acesso e implementar políticas.</li></ul>`,
+                            useCases: `<p>Ideal para:</p><ul><li>Expor APIs de forma segura para parceiros e desenvolvedores externos.</li><li>Monetização de APIs.</li><li>Centralização do gerenciamento de APIs.</li></ul>`,
+                            limitations: `<p>Pontos a considerar:</p><ul><li>Custo elevado para instâncias de produção.</li><li>Complexidade na configuração de políticas avançadas.</li></ul>`,
+                        },
+                        cli: [
+                            { command: 'az apim create --name <apim_name> --resource-group <rg_name> --location <region> --publisher-email "admin@example.com" --publisher-name "My Publisher"', description: 'Cria uma instância do Gerenciamento de API do Azure.' },
+                            { command: 'az apim api import --path <api_path> --service-url <backend_url> --api-id <api_id> --service-name <apim_name> --resource-group <rg_name> --display-name "My API" --specification-format OpenApiJson --specification-path "path/to/openapi.json"', description: 'Cria e documenta uma API importando uma especificação OpenAPI.' },
+                            { command: 'az apim product create --product-id <product_id> --service-name <apim_name> --resource-group <rg_name> --display-name "Starter Product" --subscription-required true --state published', description: 'Cria um produto para agrupar APIs e gerenciar o acesso.' },
+                            { command: 'az apim policy create --service-name <apim_name> --resource-group <rg_name> --api-id <api_id> --policy-id "policy" --xml-content "<policies><inbound><rate-limit-by-key calls="10" renewal-period="60" counter-key="@(context.Subscription.Id)"/></inbound></policies>"', description: 'Implementa políticas para APIs (ex: rate limiting).' },
+                        ]
+                    },
+                    {
+                        id: 'event_grid',
+                        name: 'Azure Event Grid',
+                        tagline: 'Roteamento de eventos em tempo real',
+                        domain: 'connectivity',
+                        icon: '⚡️',
+                        comparison_metrics: { 'Custo': 5, 'Escalabilidade': 5, 'Controle': 2, 'Estado': 2, 'Simplicidade': 5 },
+                        details: {
+                            overview: `<ul><li>Serviço de roteamento de eventos totalmente gerenciado que permite reagir a eventos de serviços Azure e de terceiros em tempo real.</li><li>Permite publicar eventos de fontes (publishers) e inscrever-se em eventos para reagir a eles (subscribers).</li></ul>`,
+                            useCases: `<p>Ideal para:</p><ul><li>Arquiteturas orientadas a eventos (serverless).</li><li>Automação de processos e integração de sistemas.</li><li>Processamento de dados em tempo real.</li></ul>`,
+                            limitations: `<p>Pontos a considerar:</p><ul><li>Não é uma fila de mensagens; não garante a ordem de entrega para todos os tipos de eventos.</li></ul>`,
+                        },
+                        cli: [
+                            { command: 'az eventgrid topic create --resource-group <rg_name> --name <topic_name> --location <region>', description: 'Cria um tópico personalizado do Event Grid.' },
+                            { command: 'az eventgrid event-subscription create --resource-group <rg_name> --name <subscription_name> --source-resource-id "/subscriptions/<sub_id>/resourceGroups/<rg_name>/providers/Microsoft.EventGrid/topics/<topic_name>" --endpoint <webhook_url> --endpoint-type webhook', description: 'Cria uma assinatura de evento para um webhook.' },
+                            { command: 'az eventgrid event-subscription create --resource-group <rg_name> --name <subscription_name> --source-resource-id "/subscriptions/<sub_id>/resourceGroups/<rg_name>/providers/Microsoft.Storage/storageAccounts/<storage_account_name>" --endpoint <function_app_endpoint> --endpoint-type azurefunction --included-event-types Microsoft.Storage.BlobCreated', description: 'Cria uma assinatura de evento para uma Azure Function (ex: para Blob Created).' },
+                        ]
+                    },
+                    {
+                        id: 'event_hubs',
+                        name: 'Azure Event Hubs',
+                        tagline: 'Plataforma de streaming de dados em larga escala',
+                        domain: 'connectivity',
+                        icon: '📡',
+                        comparison_metrics: { 'Custo': 3, 'Escalabilidade': 5, 'Controle': 3, 'Estado': 5, 'Simplicidade': 3 },
+                        details: {
+                            overview: `<ul><li>Plataforma de streaming de dados altamente escalável e de alto throughput.</li><li>Pode ingerir milhões de eventos por segundo.</li><li>Permite ingerir grandes volumes de dados de telemetria e eventos de diversas fontes.</li></ul>`,
+                            useCases: `<p>Ideal para:</p><ul><li>Ingestão de dados de IoT e telemetria de aplicativos.</li><li>Captura de logs distribuídos.</li><li>Processamento de streaming de Big Data.</li></ul>`,
+                            limitations: `<p>Pontos a considerar:</p><ul><li>Não é uma fila de mensagens tradicional para comunicação ponto a ponto.</li><li>Focado em streaming de eventos para múltiplos consumidores.</li></ul>`,
+                        },
+                        cli: [
+                            { command: 'az eventhubs namespace create --resource-group <rg_name> --name <eh_namespace> --location <region> --sku Standard', description: 'Cria um namespace do Event Hubs.' },
+                            { command: 'az eventhubs eventhub create --resource-group <rg_name> --namespace-name <eh_namespace> --name <eventhub_name> --partition-count 4', description: 'Cria um Event Hub dentro do namespace.' },
+                        ],
+                        sdk: [
+                            { description: 'Enviar evento (C#)', snippet: `using Azure.Messaging.EventHubs;\nusing Azure.Messaging.EventHubs.Producer;\n//...\nawait using (var producerClient = new EventHubProducerClient("YourConnectionString", "myeventhub"))\n{\n    using EventDataBatch eventBatch = await producerClient.CreateBatchAsync();\n    eventBatch.TryAdd(new EventData("First event"));\n    eventBatch.TryAdd(new EventData("Second event"));\n    await producerClient.SendAsync(eventBatch);\n    Console.WriteLine("Events sent.");\n}` },
+                            { description: 'Processar eventos (C#)', snippet: `using Azure.Messaging.EventHubs.Consumer;\nusing Azure.Messaging.EventHubs.Processor;\n//...\nvar consumerGroup = "$Default";\nvar storageConnectionString = "YourStorageConnectionString";\nvar blobContainerName = "eventhub-checkpoint";\n\nEventProcessorClient processor = new EventProcessorClient(\n    new BlobContainerClient(storageConnectionString, blobContainerName),\n    consumerGroup,\n    "YourEventHubConnectionString",\n    "myeventhub");\n\nprocessor.ProcessEventAsync += async (args) =>\n{\n    Console.WriteLine($"Event received from partition {args.Partition.PartitionId}: {args.Data.EventBody.ToString()}");\n    await args.UpdateCheckpointAsync(args.Data);\n};\nprocessor.ProcessErrorAsync += (args) =>\n{\n    Console.WriteLine($"Error in EventProcessorClient: {args.Exception.Message}");\n    return Task.CompletedTask;\n};\n\nawait processor.StartProcessingAsync();\nConsole.WriteLine("Processor started. Press any key to stop.");\nConsole.ReadKey();\nawait processor.StopProcessingAsync();` },
+                        ]
+                    },
+                    {
+                        id: 'service_bus',
+                        name: 'Azure Service Bus',
+                        tagline: 'Mensageria empresarial confiável',
+                        domain: 'connectivity',
+                        icon: '📨',
+                        comparison_metrics: { 'Custo': 3, 'Escalabilidade': 4, 'Controle': 4, 'Estado': 5, 'Simplicidade': 3 },
+                        details: {
+                            overview: `<ul><li>Agente de mensagens corporativo totalmente gerenciado que permite a comunicação assínrona entre aplicativos e serviços.</li><li>Suporta filas (comunicação ponto a ponto) e tópicos (comunicação publish/subscribe).</li></ul>`,
+                            useCases: `<p>Ideal para:</p><ul><li>Desacoplamento de componentes de aplicativos.</li><li>Gerenciamento de transações distribuídas.</li><li>Comunicação entre microsserviços e processamento de mensagens de longa duração.</li></ul>`,
+                            limitations: `<p>Pontos a considerar:</p><ul><li>Mais complexo que as filas de armazenamento para casos de uso simples.</li><li>Custos associados ao volume de mensagens.</li></ul>`,
+                        },
+                        cli: [
+                            { command: 'az servicebus namespace create --resource-group <rg_name> --name <namespace_name> --location <region> --sku Standard', description: 'Cria um namespace do Service Bus.' },
+                            { command: 'az servicebus queue create --resource-group <rg_name> --namespace-name <namespace_name> --name <queue_name>', description: 'Cria uma fila do Service Bus.' },
+                            { command: 'az servicebus topic create --resource-group <rg_name> --namespace-name <namespace_name> --name <topic_name>', description: 'Cria um tópico do Service Bus.' },
+                        ],
+                        sdk: [
+                            { description: 'Enviar Mensagem para Fila (C#)', snippet: `using Azure.Messaging.ServiceBus;\n//...\nServiceBusClient client = new ServiceBusClient("YourConnectionString");\nServiceBusSender sender = client.CreateSender("myqueue");\nServiceBusMessage message = new ServiceBusMessage("Hello, Service Bus!");\nawait sender.SendMessageAsync(message);\nConsole.WriteLine("Message sent.");` },
+                            { description: 'Receber Mensagem de Fila (C#)', snippet: `using Azure.Messaging.ServiceBus;\nusing System.Threading.Tasks;\n//...\nServiceBusClient client = new ServiceBusClient("YourConnectionString");\nServiceBusProcessor processor = client.CreateProcessor("myqueue", new ServiceBusProcessorOptions());\nprocessor.ProcessMessageAsync += async (args) =>\n{\n    string body = args.Message.Body.ToString();\n    Console.WriteLine($"Received: {body}");\n    await args.CompleteMessageAsync(args.Message);\n};\nprocessor.ProcessErrorAsync += (args) =>\n{\n    Console.WriteLine(args.Exception.ToString());\n    return Task.CompletedTask;\n};\nawait processor.StartProcessingAsync();` },
+                        ]
+                    },
+                    {
+                        id: 'queue_storage',
+                        name: 'Azure Queue Storage',
+                        tagline: 'Filas de mensagens simples e escaláveis',
+                        domain: 'connectivity',
+                        icon: '📤',
+                        comparison_metrics: { 'Custo': 5, 'Escalabilidade': 5, 'Controle': 3, 'Estado': 5, 'Simplicidade': 5 },
+                        details: {
+                            overview: `<ul><li>Serviço de enfileiramento de mensagens simples e escalável, parte do Armazenamento do Azure.</li><li>Permite armazenar grandes números de mensagens que podem ser lidas por qualquer cliente autenticado.</li></ul>`,
+                            useCases: `<p>Ideal para:</p><ul><li>Criação de filas de trabalho assíncronas.</li><li>Desacoplamento de componentes.</li><li>Processamento de tarefas em segundo plano.</li></ul>`,
+                            limitations: `<p>Pontos a considerar:</p><ul><li>Mensagens com tamanho limitado (64 KB).</li><li>Não oferece recursos avançados como tópicos ou sessões.</li><li>Ideal para cenários de enfileiramento mais básicos.</li></ul>`,
+                        },
+                        cli: [
+                            { command: 'az storage queue create --name <queue_name> --account-name <account_name>', description: 'Cria uma fila de armazenamento.' },
+                            { command: 'az storage message put --queue-name <queue_name> --content "Hello Queue" --account-name <account_name>', description: 'Adiciona uma mensagem à fila.' },
+                            { command: 'az storage message get --queue-name <queue_name> --account-name <account_name> --output table', description: 'Obtém mensagens da fila.' },
+                        ],
+                        sdk: [
+                            { description: 'Adicionar Mensagem (C#)', snippet: `using Azure.Storage.Queues;\n//...\nQueueClient queueClient = new QueueClient("YourConnectionString", "myqueue");\nawait queueClient.CreateIfNotExistsAsync();\nawait queueClient.SendMessageAsync("Hello, Azure Queue!");\nConsole.WriteLine("Message sent to queue.");` },
+                            { description: 'Receber e Excluir Mensagem (C#)', snippet: `using Azure.Storage.Queues;\nusing System.Threading.Tasks;\n//...\nQueueClient queueClient = new QueueClient("YourConnectionString", "myqueue");\nQueueMessage[] retrievedMessage = await queueClient.ReceiveMessagesAsync(1);\nif (retrievedMessage.Length > 0)\n{\n    Console.WriteLine($"Received: {retrievedMessage[0].MessageText}");\n    await queueClient.DeleteMessageAsync(retrievedMessage[0].MessageId, retrievedMessage[0].PopReceipt);\n    Console.WriteLine("Message deleted.");\n}` },
+                        ]
+                    }
+                ];
+            };
+
+            const setActiveView = (viewId) => {
+                activeView = viewId;
+
+                // Esconde todas as views
+                Object.values(views).forEach(view => view.classList.add('hidden-view'));
+                // Mostra a view ativa
+                views[viewId].classList.remove('hidden-view');
+
+                // Atualiza o estado dos botões de navegação
+                Object.values(navButtons).forEach(button => button.classList.remove('active'));
+                if (navButtons[viewId]) {
+                    navButtons[viewId].classList.add('active');
+                }
+                // Atualiza o select de navegação mobile
+                mobileNavSelect.value = viewId;
+
+                // Re-renderiza gráficos e conteúdos específicos da view
+                if (viewId === 'dashboard') {
+                    renderExamWeightsChart();
+                    renderServicesGrid(); // Garante que a grid de serviços seja renderizada
+                } else if (viewId === 'compare') {
+                    renderComparisonSelects();
+                    updateComparison(); // Re-renderiza a comparação se já houver seleção
+                } else if (viewId === 'cli') {
+                    renderCliSdkContent();
+                }
+            };
+
+            const renderExamWeightsChart = () => {
+                const ctx = document.getElementById('examWeightsChart');
+                if (!ctx) {
+                    console.error('Canvas element for examWeightsChart not found.');
+                    return;
+                }
+                if (charts.examWeights) charts.examWeights.destroy();
+
+                const labels = Object.values(domains).map(d => d.name);
+                const data = Object.values(domains).map(d => d.weight);
+                const colors = Object.values(domains).map(d => d.color);
+
+                charts.examWeights = new Chart(ctx.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Peso no Exame (%)',
+                            data: data,
+                            backgroundColor: colors,
+                            borderColor: '#F8F7F4',
+                            borderWidth: 4,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '60%',
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 15,
+                                    boxWidth: 12,
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed !== null) {
+                                            label += context.parsed + '%';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        onClick: (event, elements) => {
+                            if (elements.length > 0) {
+                                const chartElement = elements[0]; // Correção: Acessar o primeiro elemento do array
+                                const domainKey = Object.keys(domains)[chartElement.index];
+                                setFilter(domainKey);
+                            }
+                        }
+                    }
+                });
+            };
+
+            const renderDomainFilterButtons = () => {
+                domainFilterButtonsContainer.innerHTML = ''; // Clear existing buttons
+                const allButton = document.createElement('button');
+                allButton.dataset.filter = 'all';
+                allButton.classList.add('filter-button', 'p-3', 'rounded-lg', 'text-sm', 'font-semibold', 'transition-colors', 'duration-200');
+                allButton.textContent = 'Todos';
+                domainFilterButtonsContainer.appendChild(allButton);
+
+                Object.keys(domains).forEach(domainKey => {
+                    const button = document.createElement('button');
+                    button.dataset.filter = domainKey;
+                    button.classList.add('filter-button', 'p-3', 'rounded-lg', 'text-sm', 'font-semibold', 'transition-colors', 'duration-200');
+                    button.textContent = domains[domainKey].name;
+                    domainFilterButtonsContainer.appendChild(button);
+                });
+
+                // Add event listeners to filter buttons
+                domainFilterButtonsContainer.addEventListener('click', (event) => {
+                    if (event.target.classList.contains('filter-button')) {
+                        setFilter(event.target.dataset.filter);
+                    }
+                });
+                updateFilterButtonStyles();
+            };
+
+            const updateFilterButtonStyles = () => {
+                document.querySelectorAll('.filter-button').forEach(button => {
+                    if (button.dataset.filter === activeFilter) {
+                        button.classList.add('bg-[#81B29A]', 'text-white'); // Correção: Cor de fundo dinâmica
+                        button.classList.remove('bg-gray-100', 'hover:bg-gray-200');
+                    } else {
+                        button.classList.remove('bg-[#81B29A]', 'text-white'); // Correção: Cor de fundo dinâmica
+                        button.classList.add('bg-gray-100', 'hover:bg-gray-200');
+                    }
+                });
+            };
+
+            const setFilter = (domain) => {
+                activeFilter = domain;
+                updateFilterButtonStyles();
+                renderServicesGrid();
+                document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+            };
+
+            const renderServicesGrid = () => {
+                servicesGrid.innerHTML = ''; // Clear existing cards
+                const filtered = activeFilter === 'all' ? servicesData : servicesData.filter(service => service.domain === activeFilter);
+
+                if (filtered.length === 0) {
+                    noServicesMessage.classList.remove('hidden');
+                } else {
+                    noServicesMessage.classList.add('hidden');
+                    filtered.forEach(service => {
+                        const serviceCard = document.createElement('div');
+                        serviceCard.classList.add('service-card', 'bg-white', 'p-6', 'rounded-2xl', 'shadow-md', 'cursor-pointer', 'flex', 'flex-col', 'items-center', 'text-center');
+                        serviceCard.innerHTML = `
+                            <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4" style="background-color: ${domains[service.domain].color}">
+                                <span class="text-3xl text-white">${service.icon}</span>
+                            </div>
+                            <h3 class="font-bold text-lg">${service.name}</h3>
+                            <p class="text-sm text-gray-500 mt-2">${service.tagline}</p>
+                        `;
+                        serviceCard.addEventListener('click', () => openModal(service));
+                        servicesGrid.appendChild(serviceCard);
+                    });
+                }
+            };
+
+            const openModal = (service) => {
+                selectedService = service;
+                modalIconContainer.style.backgroundColor = domains[selectedService.domain].color; // Correção: Acessar a cor do domínio do serviço selecionado
+                modalIcon.innerHTML = selectedService.icon;
+                modalName.textContent = selectedService.name;
+                modalTagline.textContent = selectedService.tagline;
+                renderModalBody();
+                serviceModal.style.display = 'flex'; // Show modal
+                isModalOpen = true;
+            };
+
+            const closeModal = () => {
+                serviceModal.style.display = 'none'; // Hide modal
+                isModalOpen = false;
+                selectedService = null;
+            };
+
+            const renderModalBody = () => {
+                modalBodyContent.innerHTML = `
+                    <div class="space-y-8">
+                        <div class="modal-section">
+                            <h3 class="text-xl font-bold cursor-pointer flex justify-between items-center">
+                                Visão Geral e Características
+                                <span class="toggle-icon text-2xl">−</span>
+                            </h3>
+                            <div class="mt-4 prose max-w-none text-gray-700">${selectedService.details.overview}</div>
+                        </div>
+                        <div class="modal-section">
+                            <h3 class="text-xl font-bold cursor-pointer flex justify-between items-center">
+                                Aplicações e Casos de Uso
+                                <span class="toggle-icon text-2xl">+</span>
+                            </h3>
+                            <div class="mt-4 prose max-w-none text-gray-700 hidden">${selectedService.details.useCases}</div>
+                        </div>
+                        <div class="modal-section">
+                            <h3 class="text-xl font-bold cursor-pointer flex justify-between items-center">
+                                Limitações e Considerações
+                                <span class="toggle-icon text-2xl">+</span>
+                            </h3>
+                            <div class="mt-4 prose max-w-none text-gray-700 hidden">${selectedService.details.limitations}</div>
+                        </div>
+                        ${(selectedService.cli || selectedService.sdk) ? `
+                        <div class="modal-section">
+                            <h3 class="text-xl font-bold cursor-pointer flex justify-between items-center">
+                                Implementação Prática (CLI & SDK)
+                                <span class="toggle-icon text-2xl">+</span>
+                            </h3>
+                            <div class="mt-4 space-y-6 hidden">
+                                ${selectedService.cli ? `
+                                    <div>
+                                        <h4 class="text-lg font-semibold mb-2">Azure CLI</h4>
+                                        ${selectedService.cli.map(cmd => `
+                                            <div class="mb-4">
+                                                <div class="code-block bg-gray-800 text-white p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                                                    <button class="copy-button" data-clipboard-text="${cmd.command.replace(/"/g, '&quot;')}">Copiar</button>
+                                                    <p class="text-gray-400"># ${cmd.description}</p>
+                                                    <p>${cmd.command}</p>
+                                                </div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                ` : ''}
+                                ${selectedService.sdk ? `
+                                    <div>
+                                        <h4 class="text-lg font-semibold mb-2">SDK (.NET/C#)</h4>
+                                        ${selectedService.sdk.map(code => `
+                                            <div class="mb-4">
+                                                <p class="text-md font-medium mb-1">${code.description}</p>
+                                                <div class="code-block bg-gray-800 text-white p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                                                    <button class="copy-button" data-clipboard-text="${code.snippet.replace(/"/g, '&quot;')}">Copiar</button>
+                                                    <pre><code>${code.snippet}</code></pre>
+                                                </div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+                addModalToggleListeners();
+                addCopyButtonListeners();
+            };
+
+            const addModalToggleListeners = () => {
+                document.querySelectorAll('.modal-section h3').forEach(header => {
+                    header.addEventListener('click', (event) => {
+                        const sectionContent = header.nextElementSibling;
+                        const toggleIcon = header.querySelector('.toggle-icon');
+                        if (sectionContent.classList.contains('hidden')) {
+                            sectionContent.classList.remove('hidden');
+                            if (toggleIcon) toggleIcon.textContent = '−';
+                        } else {
+                            sectionContent.classList.add('hidden');
+                            if (toggleIcon) toggleIcon.textContent = '+';
+                        }
+                    });
+                });
+            };
+
+            const addCopyButtonListeners = () => {
+                document.querySelectorAll('.copy-button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const textToCopy = button.dataset.clipboardText;
+                        copyToClipboard(textToCopy);
+                    });
+                });
+            };
+
+            const copyToClipboard = (text) => {
+                const el = document.createElement('textarea');
+                el.value = text;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                alert('Copiado para a área de transferência!');
+            };
+
+            const renderComparisonSelects = () => {
+                const optionsHtml = servicesData.map(service => `<option value="${service.id}">${service.name}</option>`).join('');
+                compareSelect1.innerHTML = '<option value="">Selecione...</option>' + optionsHtml;
+                compareSelect2.innerHTML = '<option value="">Selecione...</option>' + optionsHtml;
+
+                // Set selected values if they exist
+                if (comparison.service1) compareSelect1.value = comparison.service1;
+                if (comparison.service2) compareSelect2.value = comparison.service2;
+            };
+
+            const updateComparison = () => {
+                comparison.service1 = compareSelect1.value;
+                comparison.service2 = compareSelect2.value;
+
+                comparison.data1 = servicesData.find(s => s.id === comparison.service1);
+                comparison.data2 = servicesData.find(s => s.id === comparison.service2);
+
+                if (comparison.data1 && comparison.data2) {
+                    noComparisonSelectedDiv.style.display = 'none';
+                    comparisonResultsDiv.style.display = 'block';
+                    renderComparisonColumns();
+                    renderComparisonChart();
+                } else {
+                    noComparisonSelectedDiv.style.display = 'block';
+                    comparisonResultsDiv.style.display = 'none';
+                    if (charts.comparison) charts.comparison.destroy(); // Destroy chart if no comparison
+                }
+            };
+
+            const renderComparisonColumns = () => {
+                comparisonColumnsDiv.innerHTML = '';
+                if (comparison.data1) {
+                    comparisonColumnsDiv.innerHTML += renderComparisonColumnHtml(comparison.data1);
+                }
+                if (comparison.data2) {
+                    comparisonColumnsDiv.innerHTML += renderComparisonColumnHtml(comparison.data2);
+                }
+            };
+
+            const renderComparisonColumnHtml = (data) => {
+                if (!data) return '';
+                return `
+                    <div class="bg-gray-50 p-6 rounded-2xl h-full">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center" style="background-color: ${domains[data.domain].color}">
+                                <span class="text-2xl text-white">${data.icon}</span>
+                            </div>
+                            <h3 class="text-2xl font-bold">${data.name}</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <div><h4 class="font-semibold">Visão Geral</h4><div class="prose prose-sm max-w-none text-gray-600">${data.details.overview}</div></div>
+                            <div><h4 class="font-semibold">Casos de Uso</h4><div class="prose prose-sm max-w-none text-gray-600">${data.details.useCases}</div></div>
+                            <div><h4 class="font-semibold">Limitações</h4><div class="prose prose-sm max-w-none text-gray-600">${data.details.limitations}</div></div>
+                        </div>
+                    </div>
+                `;
+            };
+
+            const renderComparisonChart = () => {
+                const ctx = document.getElementById('comparisonChart');
+                if (!ctx) {
+                    console.error('Canvas element for comparisonChart not found.');
+                    return;
+                }
+                if (charts.comparison) charts.comparison.destroy();
+                if (!comparison.data1 || !comparison.data2) return;
+                
+                const labels = Object.keys(comparison.data1.comparison_metrics);
+                const data1 = Object.values(comparison.data1.comparison_metrics);
+                const data2 = Object.values(comparison.data2.comparison_metrics);
+                
+                charts.comparison = new Chart(ctx.getContext('2d'), {
+                    type: 'radar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: comparison.data1.name,
+                                data: data1,
+                                backgroundColor: 'rgba(129, 178, 154, 0.2)',
+                                borderColor: 'rgba(129, 178, 154, 1)',
+                                borderWidth: 2,
+                                pointBackgroundColor: 'rgba(129, 178, 154, 1)',
+                            },
+                            {
+                                label: comparison.data2.name,
+                                data: data2,
+                                backgroundColor: 'rgba(224, 122, 95, 0.2)',
+                                borderColor: 'rgba(224, 122, 95, 1)',
+                                borderWidth: 2,
+                                pointBackgroundColor: 'rgba(224, 122, 95, 1)',
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: {
+                                angleLines: { color: '#ddd' },
+                                grid: { color: '#eee' },
+                                pointLabels: { font: { size: 12 } },
+                                ticks: {
+                                    beginAtZero: true,
+                                    min: 0,
+                                    max: 5,
+                                    stepSize: 1,
+                                    backdropColor: 'rgba(255, 255, 255, 0.75)'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            }
+                        }
+                    }
+                });
+            };
+
+            const renderCliSdkContent = () => {
+                cliSdkContentDiv.innerHTML = '';
+                servicesData.filter(s => s.cli || s.sdk).forEach(service => { // Correção: Usar || para OR lógico
+                    let serviceHtml = `
+                        <div class="bg-white p-6 rounded-2xl shadow-lg">
+                            <h3 class="text-2xl font-bold mb-4">${service.name}</h3>
+                            <div class="space-y-6">
+                    `;
+                    if (service.cli) {
+                        serviceHtml += `
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">Azure CLI</h4>
+                                    ${service.cli.map(cmd => `
+                                        <div class="mb-4">
+                                            <div class="code-block bg-gray-800 text-white p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                                                <button class="copy-button" data-clipboard-text="${cmd.command.replace(/"/g, '&quot;')}">Copiar</button>
+                                                <p class="text-gray-400"># ${cmd.description}</p>
+                                                <p>${cmd.command}</p>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                        `;
+                    }
+                    if (service.sdk) {
+                        serviceHtml += `
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-2">SDK (.NET/C#)</h4>
+                                    ${service.sdk.map(code => `
+                                        <div class="mb-4">
+                                            <p class="text-md font-medium mb-1">${code.description}</p>
+                                            <div class="code-block bg-gray-800 text-white p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                                                <button class="copy-button" data-clipboard-text="${code.snippet.replace(/"/g, '&quot;')}">Copiar</button>
+                                                <pre><code>${code.snippet}</code></pre>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                        `;
+                    }
+                    serviceHtml += `
+                            </div>
+                        </div>
+                    `;
+                    cliSdkContentDiv.innerHTML += serviceHtml;
+                });
+                addCopyButtonListeners(); // Add listeners to new copy buttons
+            };
+
+            const init = () => {
+                loadData();
+                renderDomainFilterButtons();
+                renderServicesGrid(); // Render initial services
+                setActiveView('dashboard'); // Set initial view
+
+                // Event Listeners for navigation buttons
+                navButtons.dashboard.addEventListener('click', () => setActiveView('dashboard'));
+                navButtons.compare.addEventListener('click', () => setActiveView('compare'));
+                navButtons.cli.addEventListener('click', () => setActiveView('cli'));
+                mobileNavSelect.addEventListener('change', (event) => setActiveView(event.target.value));
+
+                // Event Listeners for comparison selects
+                compareSelect1.addEventListener('change', updateComparison);
+                compareSelect2.addEventListener('change', updateComparison);
+
+                // Modal close listener
+                modalCloseButton.addEventListener('click', closeModal);
+                serviceModal.addEventListener('click', (event) => {
+                    if (event.target === serviceModal) { // Clicked outside modal content
+                        closeModal();
+                    }
+                });
+            };
+
+            return {
+                init,
+                setActiveView,
+                setFilter,
+                openModal,
+                closeModal,
+                copyToClipboard,
+                domains, // Expose domains for initial rendering of filter buttons
+                servicesData, // Expose servicesData for initial rendering of comparison selects
+                comparison, // Expose comparison state for initial rendering
+            };
+        })();
+
+        // Initialize the app when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', app.init);
+    </script>
+</body>
+</html>
+�
