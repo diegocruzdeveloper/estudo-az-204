@@ -68,22 +68,21 @@
        .hidden-view {
             display: none;
         }
-        /* CORREÇÃO: Modal inicialmente oculto */
        .modal {
-            display: none; /* Alterado de 'display: flex;' para 'display: none;' */
+            display: none;
             position: fixed;
             inset: 0;
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 40;
-            align-items: center; /* Mantido para centralização quando visível */
-            justify-content: center; /* Mantido para centralização quando visível */
+            align-items: center;
+            justify-content: center;
             padding: 1rem;
         }
        .modal-content {
             background-color: white;
             border-radius: 1rem;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-            max-width: 48rem; /* Equivalent to max-w-4xl */
+            max-width: 48rem;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
@@ -92,16 +91,16 @@
             position: sticky;
             top: 0;
             background-color: white;
-            padding: 1.5rem; /* Equivalent to p-6 */
-            border-bottom: 1px solid #e5e7eb; /* Equivalent to border-b border-gray-200 */
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             z-index: 10;
         }
        .modal-body {
-            padding: 2rem; /* Equivalent to p-8 */
-            padding-top: 0; /* Override default padding-top from p-8 for modal body */
+            padding: 2rem;
+            padding-top: 0;
         }
        .prose ul {
             list-style-type: disc;
@@ -109,6 +108,43 @@
         }
        .prose ul li {
             margin-bottom: 0.5em;
+        }
+       .question-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            margin-bottom: 1.5rem;
+        }
+       .question-card .question-text {
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+       .question-card .answer-section {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+       .question-card .answer-correct {
+            color: #10B981; /* Tailwind green-500 */
+            font-weight: 600;
+        }
+       .question-card .answer-explanation {
+            font-size: 0.875rem;
+            color: #4B5563; /* Tailwind gray-600 */
+            margin-top: 0.5rem;
+        }
+       .question-card .show-answer-button {
+            background-color: #E07A5F;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+       .question-card .show-answer-button:hover {
+            background-color: #c7644a;
         }
     </style>
 </head>
@@ -124,12 +160,14 @@
                     <button id="dashboard-nav-button" class="nav-button px-4 py-2 rounded-full text-sm font-semibold active">Painel</button>
                     <button id="compare-nav-button" class="nav-button px-4 py-2 rounded-full text-sm font-semibold">Comparar Serviços</button>
                     <button id="cli-nav-button" class="nav-button px-4 py-2 rounded-full text-sm font-semibold">CLI & SDK</button>
+                    <button id="quiz-nav-button" class="nav-button px-4 py-2 rounded-full text-sm font-semibold">Simulado</button>
                 </div>
                  <div class="md:hidden">
                     <select id="mobile-nav-select" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                         <option value="dashboard">Painel</option>
                         <option value="compare">Comparar</option>
                         <option value="cli">CLI & SDK</option>
+                        <option value="quiz">Simulado</option>
                     </select>
                 </div>
             </div>
@@ -222,6 +260,18 @@
                 </div>
         </div>
 
+        <!-- Nova seção de Simulado do Exame -->
+        <div id="quiz-view" class="hidden-view">
+            <section id="quiz" class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-2">Simulado do Exame AZ-204</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Teste seus conhecimentos com perguntas reais do exame. Clique em "Mostrar Resposta" para ver a solução e a explicação.</p>
+            </section>
+
+            <div id="quiz-questions-container" class="space-y-6">
+                <!-- Perguntas serão renderizadas aqui pelo JS -->
+            </div>
+        </div>
+
     </main>
     
     <div id="service-modal" class="modal">
@@ -266,18 +316,22 @@
                 monitoring: { name: 'Monitoramento', weight: 7.5, color: '#3D405B' },
                 connectivity: { name: 'Conectividade', weight: 22.5, color: '#8E8D8A' },
             };
-            let servicesData = []; // Inicializado como array vazio
+            let servicesData = [];
+            // Variável quizQuestions declarada uma única vez aqui
+            let quizQuestions = []; 
 
             const views = {
                 dashboard: document.getElementById('dashboard-view'),
                 compare: document.getElementById('compare-view'),
                 cli: document.getElementById('cli-view'),
+                quiz: document.getElementById('quiz-view'),
             };
 
             const navButtons = {
                 dashboard: document.getElementById('dashboard-nav-button'),
                 compare: document.getElementById('compare-nav-button'),
                 cli: document.getElementById('cli-nav-button'),
+                quiz: document.getElementById('quiz-nav-button'),
             };
 
             const mobileNavSelect = document.getElementById('mobile-nav-select');
@@ -298,6 +352,7 @@
             const noComparisonSelectedDiv = document.getElementById('no-comparison-selected');
             const comparisonColumnsDiv = document.getElementById('comparison-columns');
             const cliSdkContentDiv = document.getElementById('cli-sdk-content');
+            const quizQuestionsContainer = document.getElementById('quiz-questions-container');
 
 
             const loadData = () => {
@@ -407,7 +462,7 @@
                         name: 'Azure Cosmos DB',
                         tagline: 'BD NoSQL globalmente distribuído',
                         domain: 'storage',
-                        icon: '🌍',
+                        icon: '�',
                         comparison_metrics: { 'Custo': 2, 'Escalabilidade': 5, 'Controle': 4, 'Estado': 5, 'Simplicidade': 3 },
                         details: {
                             overview: `<ul><li>Banco de dados NoSQL multi-modelo e distribuído globalmente.</li><li>Oferece latência de milissegundos de dígito único em qualquer escala, garantia de alta disponibilidade e consistência.</li><li>APIs para SQL, MongoDB, Cassandra, Gremlin e Table.</li></ul>`,
@@ -539,7 +594,7 @@
                         name: 'Azure Key Vault',
                         tagline: 'Gerenciamento seguro de segredos',
                         domain: 'security',
-                        icon: '�',
+                        icon: '🔑',
                         comparison_metrics: { 'Custo': 3, 'Escalabilidade': 4, 'Controle': 5, 'Estado': 5, 'Simplicidade': 3 },
                         details: {
                             overview: `<ul><li>Serviço baseado em nuvem para armazenar e gerenciar com segurança chaves criptográficas, segredos (senhas, cadeias de conexão) e certificados.</li><li>Protege chaves e segredos usados por aplicativos e serviços em nuvem.</li><li>Integra com aplicativos para recuperar segredos em tempo de execução.</li></ul>`,
@@ -701,33 +756,333 @@
                         ]
                     }
                 ];
+                // Atribuição de quizQuestions aqui, sem 'let'
+                quizQuestions = [
+                    {
+                        question: "Uma empresa usa Instâncias de Contêiner do Azure para um aplicativo. Você precisa garantir que os contêineres sejam reiniciados quando o processo terminar com um código de saída diferente de zero. O que você deve fazer?",
+                        correctAnswer: "Defina uma política de reinicialização de contêiner de Always.",
+                        explanation: "Este item testa o conhecimento do candidato sobre as políticas de reinicialização nas Instâncias de Contêiner do Azure. Os contêineres no grupo de contêineres são sempre reiniciados com uma política Always em vigor, independentemente do código de saída. A execução de contêineres usando uma identidade gerenciada simplificaria o acesso aos recursos externos do Azure, mas isso não tem efeito sobre quando um contêiner é reiniciado. Quando os processos no contêiner falharem (encerrando com um código de saída diferente de zero), eles não serão reiniciados e serão executados apenas uma vez no máximo. Os contêineres de inicialização destinam-se a executar a lógica de inicialização para contêineres de aplicativo, em execução até a conclusão antes do início dos contêineres do aplicativo.",
+                        yourAnswer: "Defina uma política de reinicialização de contêiner de Always."
+                    },
+                    {
+                        question: "Você está desenvolvendo um aplicativo .NET que inclui várias imagens de contêiner. O aplicativo será implantado nas Instâncias de Contêiner do Azure (ACI). Você precisa garantir que um compartilhamento de arquivos do Azure possa ser mapeado para cada contêiner do aplicativo. Qual configuração você deve usar?",
+                        correctAnswer: "grupo de contêineres",
+                        explanation: "Este item testa o conhecimento do candidato sobre a execução de contêineres usando as Instâncias de Contêiner do Azure (ACI). O recurso de nível superior na ACI é o grupo de contêineres. Um grupo de contêineres é uma coleção de contêineres que são agendados no mesmo computador host. Você pode especificar volumes externos para montar dentro de um grupo de contêineres. Você pode mapear esses volumes para caminhos específicos dentro dos contêineres individuais em um grupo. Um pod é um grupo de um ou mais contêineres com recursos de rede e armazenamento compartilhados e especificação de como executar os contêineres. Os pods podem ser usados no Serviço de Kubernetes do Azure, mas não na ACI. Contêineres confidenciais na ACI são usados para garantir a confidencialidade baseada em hardware. A ACI permite a implantação de instâncias de contêiner em uma rede virtual do Azure. Uma implantação de rede virtual não pode ser usada para mapear um compartilhamento de arquivos do Azure para cada contêiner em um cenário de vários contêineres.",
+                        yourAnswer: "grupo de contêineres"
+                    },
+                    {
+                        question: "Um grupo de contêineres nas Instâncias de Contêiner do Azure tem vários contêineres. Os contêineres devem ser reiniciados quando o processo executado no grupo de contêineres for encerrado devido a um erro. Você precisa definir a política de reinicialização para o grupo de contêineres. Qual comando da CLI do Azure você deve usar?",
+                        correctAnswer: "az container create --resource-group myResourceGroup --name mycontainer --image mycontainerimage --restart-policy OnFailure",
+                        explanation: "Este item testa o conhecimento do candidato sobre a execução de contêineres usando as Instâncias de Contêiner do Azure (ACI). As políticas de reinicialização configuráveis podem ser especificadas para um grupo de contêineres na ACI. Uma política de reinicialização configurável permite que você especifique que os contêineres são interrompidos quando seus processos são concluídos. Ao criar um grupo de contêineres na ACI, você pode especificar uma das três configurações de política de reinicialização: Always, Never e OnFailure. Se –restart-policy for mencionado como OnFailure, os contêineres no grupo de contêineres serão reiniciados somente quando o processo executado no contêiner falhar (quando ele terminar com um código de saída diferente de zero). Se –restart-policy for mencionado como Always, os contêineres no grupo de contêineres serão sempre reiniciados, independentemente do êxito ou falha da execução do processo em um contêiner. Se –restart-policy for mencionado como Nunca, os contêineres no grupo de contêineres só serão executados no máximo uma vez. O comando az container restart é usado para reiniciar todos os contêineres em um grupo de contêineres, não para definir uma política de reinicialização para um grupo de contêineres.",
+                        yourAnswer: "az container create --resource-group myResourceGroup --name mycontainer --image mycontainerimage --restart-policy OnFailure"
+                    },
+                    {
+                        question: "Sua empresa está desenvolvendo um aplicativo que inclui um serviço de API Web de back-end. A equipe de desenvolvimento decidiu usar os Aplicativos de Contêiner do Azure para hospedar a API. Eles têm um Dockerfile na raiz do repositório deles que define o aplicativo em contêineres. Você precisa implantar o aplicativo de contêiner usando o Dockerfile. O que você deve fazer?",
+                        correctAnswer: "Use o comando az containerapp up com o parâmetro --source.",
+                        explanation: "O comando az containerapp up com o parâmetro --source. cria e implanta o aplicativo de contêiner usando o Dockerfile na raiz do repositório.",
+                        yourAnswer: "Use o comando az containerapp up com o parâmetro --source."
+                    },
+                    {
+                        question: "Você desenvolve um aplicativo Web hospedado no recurso Aplicativos Web do Serviço de Aplicativo do Microsoft Azure. Você precisa habilitar e configurar o Cache Local do Serviço Web do Azure com 1,5 GB. Quais dois segmentos de código você deve usar? Cada resposta correta apresenta uma parte da solução.",
+                        correctAnswer: "“WEBSITE_LOCAL_CACHE_OPTION”: “Always” e “WEBSITE_LOCAL_CACHE_SIZEINMB”: “1500”",
+                        explanation: "Este item testa o conhecimento do candidato sobre a definição das configurações do recurso Aplicativos Web do Serviço de Aplicativo do Azure. Ao usar WEBSITE_LOCAL_CACHE_OPTION = Always, o cache local será habilitado. WEBSITE_LOCAL_CACHE_SIZEINMB configurará corretamente o cache local com 1,5 GB de tamanho. WEBSITE_LOCAL_CACHE_OPTION = Enable não é um valor válido. 1.5 não configurará 1,5 GB para o cache local.",
+                        yourAnswer: "“WEBSITE_LOCAL_CACHE_OPTION”: “Always” e “WEBSITE_LOCAL_CACHE_SIZEINMB”: “1500”"
+                    },
+                    {
+                        question: "Você cria um aplicativo Web do Azure localmente. O aplicativo Web consiste em um pacote ZIP. Você precisa implantar o aplicativo Web usando a CLI do Azure. A implantação deve reduzir a probabilidade de arquivos bloqueados. O que você deve fazer?",
+                        correctAnswer: "Execute az webapp deploy em um slot de preparo com a troca automática habilitada.",
+                        explanation: "Este item testa o conhecimento do candidato sobre a implantação de Aplicativos Web do Azure usando a CLI do Azure. O uso de um slot de produção e preparo com a troca automática habilitada reduz a probabilidade de arquivos bloqueados. Se –clean true for usada, a pasta de destino será limpa, mas isso não terá efeito sobre a probabilidade de arquivos bloqueados. É bom reiniciar o aplicativo após a implantação. Isso, no entanto, é o comportamento padrão de uma implantação ZIP e não tem nenhum efeito sobre a probabilidade reduzida de arquivos bloqueados durante a implantação. O parâmetro --timeout não tem efeito sobre a probabilidade de arquivos bloqueados.",
+                        yourAnswer: "Execute az webapp deploy em um slot de preparo com a troca automática habilitada."
+                    },
+                    {
+                        question: "Você gerencia os slots de implantação de preparo e produção de um aplicativo Web do Serviço de Aplicativo do Azure chamado app1. Você precisa garantir que uma cadeia de conexão não seja trocada quando a troca for executada. Qual configuração você deve usar?",
+                        correctAnswer: "Configuração do slot de implantação",
+                        explanation: "Este item testa o conhecimento do candidato sobre a implantação de código no Serviço de Aplicativo do Azure, que faz parte da criação de Aplicativos Web do Serviço de Aplicativo do Azure. Marcar uma configuração como uma configuração de slot de implantação a mantém aderida a esse slot de implantação. Por exemplo, uma configuração de aplicativo marcada como uma configuração de slot de implantação no app1 sempre ficará com o app1 e nunca será movida para app1/preparo durante uma troca. A configuração do Centro de Implantação é usada para configurar a implantação contínua e a implantação manual. A identidade gerenciada fornece uma identidade para os aplicativos usarem ao conectarem-se a recursos que suportam a autenticação do Microsoft Entra ID. A escala vertical garantirá que o aplicativo Web tenha o direito de obter CPU, memória, espaço em disco e recursos extras, como máquinas virtuais dedicadas, domínios e certificados personalizados, slots de preparo e colocação em escala automática. O Centro de Implantação, a Identidade Gerenciada e a Escala Vertical não podem ser usados para garantir que uma cadeia de conexão não seja trocada quando a troca é executada.",
+                        yourAnswer: "Configuração do slot de implantação"
+                    },
+                    {
+                        question: "Você está desenvolvendo um aplicativo Web do Linux no Serviço de Aplicativo do Azure. Você precisa implantar o aplicativo Web no ambiente de produção com base nos seguintes requisitos: As alterações de aplicativo devem ser validadas em um ambiente idêntico ao ambiente de produção antes de mover o aplicativo para o ambiente de produção. O tempo de inatividade deve ser eliminado quando o aplicativo é implantado no ambiente de produção. O que você deve usar?",
+                        correctAnswer: "Slots de implantação",
+                        explanation: "Este item testa o conhecimento do candidato sobre quando usar slots de implantação. Os slots de implantação são aplicativos dinâmicos com nomes de host exclusivos, que permitem a troca de configuração e conteúdo entre eles. O dimensionamento automático é um recurso que permite adicionar mais capacidade a um ambiente de hospedagem de aplicativo do Azure Functions. Essa capacidade pode ser adicionada a um ambiente de hospedagem individual (por exemplo, escalar verticalmente ou adicionar memória ou CPU) ou adicionar mais hosts (colocação em escala horizontal). O colocação em escala pode ser disparado com base em um agendamento ou ao violar limites definidos para determinadas métricas. As conexões híbridas estão disponíveis para consumir aplicativos locais sem a necessidade de expô-las à Internet. A clonagem de aplicativo é um processo para obter um aplicativo existente e copiá-lo para outro destino, que pode ser um novo aplicativo ou um slot de implantação, por exemplo. No entanto, isso não tem suporte em aplicativos Linux.",
+                        yourAnswer: "Slots de implantação"
+                    },
+                    {
+                        question: "Você desenvolve um aplicativo do Serviço de Aplicativo hospedado na Plataforma Windows. Os usuários relatam que o aplicativo está falhando. Você precisa começar a solucionar problemas do aplicativo inspecionando uma cópia da página retornada quando o código de retorno HTTP for maior que 400. Qual tipo de log você deve examinar?",
+                        correctAnswer: "erro detalhado",
+                        explanation: "Este item testa o conhecimento do candidato sobre como usar logs para solucionar problemas de aplicativos Web. O log de erros detalhado contém cópias das páginas de erro, produzidas em resposta a códigos HTTP maiores que 400, que teriam sido enviadas aos clientes. Essas páginas não são enviadas por motivos de segurança. O log do servidor Web mostra informações sobre a solicitação HTTP bruta, como método, bytes e agente de usuário cliente. O log do aplicativo é específico do aplicativo, registrando informações que o código do aplicativo ou os componentes usados pelo aplicativo gravam. O log de implantação armazena informações para diagnosticar os motivos de uma implantação com falha.",
+                        yourAnswer: "erro detalhado"
+                    },
+                    {
+                        question: "Você planeja criar um aplicativo do Azure Functions chamado app1. Você precisa garantir que o app1 atenda aos seguintes requisitos: Dar suporte à colocação em escala automática. Ter um comportamento de colocação em escala baseada em evento. Fornecer um modelo de preço sem servidor. Qual plano de hospedagem você deve usar?",
+                        correctAnswer: "Consumo",
+                        explanation: "Este item testa o conhecimento do candidato de selecionar o plano de hospedagem apropriado, que faz parte da implementação do Azure Functions. O plano de hospedagem de Consumo atende a todos os requisitos. Ele dá suporte à colocação em escala automática, tem comportamento de colocação em escala baseado em eventos e fornece um modelo de preços sem servidor. O Serviço de Aplicativo, o Ambiente do Serviço de Aplicativo e os planos de hospedagem do Functions Premium dão suporte à colocação em escala automática, mas não fornecem o modelo de preços sem servidor. Seu comportamento de colocação em escala não é baseado em evento, mas em desempenho.",
+                        yourAnswer: "Consumo"
+                    },
+                    {
+                        question: "Você tem um Azure Key Vault chamado MyVault. Você precisa alterar as configurações do Serviço de Aplicativo do Azure usando uma referência de cofre de chaves para acessar um segredo chamado MyConnection do MyVault. Qual segmento de código você deve usar?",
+                        correctAnswer: "@Microsoft.KeyVault(SecretName=MyConnection;VaultName=MyVault)",
+                        explanation: "Este item testa o conhecimento do candidato sobre a recuperação de segredos do Key Vault no Azure Functions. O segmento @Microsoft.KeyVault(SecretName=MyConnection;VaultName=MyVault) de código lê o segredo do Key Vault. O segmento de código que inclui Secret us um parâmetro inválido. O segmento de código que inclui Secret e Vault usa parâmetros inválidos. O segmento de código que inclui SecretName e Vault usa parâmetros inválidos.",
+                        yourAnswer: "@Microsoft.KeyVault(SecretName=MyConnection;VaultName=MyVault)"
+                    },
+                    {
+                        question: "Você planeja criar um aplicativo do Azure Functions baseado em script em C#. Você precisa configurar o gatilho e as associações para as funções do aplicativo do Azure Functions. O que você deve fazer?",
+                        correctAnswer: "Crie um arquivo function.json para cada função.",
+                        explanation: "Este item testa o conhecimento do candidato sobre a configuração de gatilhos e associações. Ao usar linguagens de script, como script C#, o arquivo function.json para cada função contém seus gatilhos e associações e precisa ser criado explicitamente. O host.json de arquivo tem configurações específicas de runtime, não definições de gatilhos e associações. Métodos de decoração e parâmetros de decoração são usados para definir gatilhos e associações ao usar idiomas compilados, não scripts.",
+                        yourAnswer: "Crie um arquivo function.json para cada função."
+                    },
+                    {
+                        question: "Uma empresa planeja criar um aplicativo do Azure Functions. Você precisa recomendar uma solução para atender aos seguintes requisitos: Executa várias funções simultaneamente. Executa a agregação nos resultados das funções. Evita inícios frios. Minimiza os custos. Quais dois componentes você deve recomendar? Cada resposta correta apresenta parte da solução",
+                        correctAnswer: "O plano Premium e Padrão fan-out/fan-in",
+                        explanation: "Este item testa o conhecimento do candidato sobre o Azure Durable Functions e planos de hospedagem. O plano Premium evita inícios frios e oferece duração de execução ilimitada. O padrão fan-out/fan-in permite que várias funções sejam executadas em paralelo, aguardando a conclusão de todas as funções. Frequentemente, algum trabalho de agregação é feito nos resultados retornados pelas funções. O plano de Consumo evita pagar pelo tempo ocioso, mas pode enfrentar inícios frios. Além disso, cada execução de função é limitada a 10 minutos. O padrão de encadeamento de funções é uma sequência de funções que são executadas em uma ordem específica. Nesse padrão, a saída de uma função é aplicada à entrada de outra função.",
+                        yourAnswer: "O plano Premium e Padrão fan-out/fan-in"
+                    },
+                    {
+                        question: "Você cria uma rotina de lote usando um gatilho de temporizador no Azure Functions. Você precisa configurar a rotina do lote para ser executada a cada 15 minutos, de segunda a sexta. Qual segmento de código você deve usar?",
+                        correctAnswer: "[Function(nameof(TimerTriggerCSharp)] [FixedDelayRetry(5, \"00:00:10\")] public static void Run([TimerTrigger(\"0 */15 * * * 1-5\")] TimerInfo myTimer, FunctionContext contexto) { var log = contexto.GetLogger(nameof(TimerFunction)); se (myTimer.IsPastDue) { log.LogInformation(\"O temporizador está atrasado!\"); } Log.LogInformation($\"Função de gatilho do Temporizador em C# executada em: {DateTime.Now}\"); }",
+                        explanation: "Este item testa o conhecimento do candidato sobre trabalhar com gatilhos de temporizador no Azure Functions. O segmento de código que inclui Run([TimerTrigger(\"0 */15 * * * 1-5\") executa a função a cada 15 minutos de segunda a sexta-feira. O segmento de código que inclui Run([TimerTrigger(\"*/15 * * * 0-4\") está com a segunda parte ausente e não está utilizando o intervalo correto para os dias da semana. O segmento de código que inclui Run([TimerTrigger(\"0 15 * * * \") executa somente uma vez às 15:00. O segmento de código que inclui Run([TimerTrigger(\"* 15 * * 1-5\") está faltando o atributo de segundos e a parte de etapa ('/') para os minutos.",
+                        yourAnswer: "[Function(nameof(TimerTriggerCSharp)] [FixedDelayRetry(5, \"00:00:10\")] public static void Run([TimerTrigger(\"0 */15 * * * 1-5\")] TimerInfo myTimer, FunctionContext contexto) { var log = contexto.GetLogger(nameof(TimerFunction)); se (myTimer.IsPastDue) { log.LogInformation(\"O temporizador está atrasado!\"); } Log.LogInformation($\"Função de gatilho do Temporizador em C# executada em: {DateTime.Now}\"); }"
+                    },
+                    {
+                        question: "Você está desenvolvendo uma API sem servidor usando o Azure Functions. Espera-se que a API lide com um grande número de solicitações HTTP e faça solicitações de saída para um serviço de terceiros. O serviço de terceiros tem um limite de taxa no número de solicitações que pode manipular por minuto. Você precisa garantir que a Função do Azure não exceda o limite de taxa do serviço de terceiros e gerencie a utilização de recursos de maneira eficaz. Cada resposta correta apresenta uma parte da solução. Quais são as duas ações que você deve executar?",
+                        correctAnswer: "Defina a propriedade 'maxConcurrentRequests' no arquivo host.json para limitar o número de execuções paralelas. e Defina a propriedade 'maxOutstandingRequests' no arquivo host.json para limitar o número de solicitações pendentes a qualquer momento.",
+                        explanation: "Definir a propriedade 'maxConcurrentRequests' no arquivo host.json limitará o número de funções HTTP executadas em paralelo, o que pode ajudar a gerenciar a utilização de recursos e evitar exceder o limite de taxa do serviço de terceiros. A propriedade 'maxOutstandingRequests' limita o número de solicitações pendentes que são mantidas a qualquer momento, incluindo solicitações enfileiradas e execuções em andamento, que também podem ajudar a gerenciar a utilização de recursos. Habilitar a propriedade 'dynamicThrottlesEnabled' não ajudaria nesse cenário, pois rejeita solicitações com base em contadores de desempenho do sistema, não com base no limite de taxa de um serviço de terceiros. A propriedade 'hsts' é usada para impor o comportamento HSTS (Segurança de Transporte Estrito HTTP) e não está relacionada ao gerenciamento de utilização de recursos ou limitação de taxa. A propriedade 'routePrefix' é usada para definir o prefixo de rota para todas as rotas e não afeta a utilização de recursos ou a limitação de taxa.",
+                        yourAnswer: "Defina a propriedade 'maxConcurrentRequests' no arquivo host.json para limitar o número de execuções paralelas. e Defina a propriedade 'maxOutstandingRequests' no arquivo host.json para limitar o número de solicitações pendentes a qualquer momento."
+                    },
+                    {
+                        question: "Você gerencia uma implantação de várias regiões de uma conta do Azure Cosmos DB chamada account1. Você precisa configurar o nível de consistência padrão para account1. O nível de consistência deve maximizar a taxa de transferência e minimizar a latência para operações de gravação. Qual nível de consistência você deve usar?",
+                        correctAnswer: "possível",
+                        explanation: "Este item testa o conhecimento do candidato de selecionar o nível de consistência, que faz parte do desenvolvimento de soluções do Azure Cosmos DB. O nível de consistência eventual maximiza a taxa de transferência e minimiza a latência. O nível de consistência de desatualização limitada fornece menor taxa de transferência e maior latência em comparação com as opções de resposta restantes. O nível de consistência de prefixo consistente fornece maior taxa de transferência e menor latência para operações de gravação do que o nível de consistência da sessão, mas taxa de transferência mais baixa e latência maior do que os níveis de consistência eventual. O nível de consistência da sessão fornece maior taxa de transferência e menor latência para operações de gravação do que o nível de consistência de desatualização limitada, mas taxa de transferência mais baixa e latência maior do que os níveis de consistência de prefixo eventuais e consistentes.",
+                        yourAnswer: "possível"
+                    },
+                    {
+                        question: "Você gerencia um banco de dados do Azure Cosmos DB chamado database1. Você precisa ler itens do banco de dados sem nenhuma garantia de ordenação e garantir a maior disponibilidade. Qual nível de consistência você deve usar?",
+                        correctAnswer: "possível",
+                        explanation: "Este item testa o conhecimento do candidato sobre os níveis de consistência no Azure Cosmos DB, que faz parte do desenvolvimento de soluções que usam o Armazenamento do Microsoft Azure Cosmos DB. A consistência eventual tem a consistência mais flexível e confirma qualquer operação de gravação no primário imediatamente. Isso fornecerá a maior disponibilidade e a menor consistência. A coerência forte oferece uma garantia de transação atômica. Transação atômica se refere ao fornecimento de solicitações simultaneamente. Os usuários sempre terão a garantia de ler a última gravação confirmada. A consistência forte sofre com a redução da disponibilidade. A consistência de desatualização limitada não fornecerá a maior disponibilidade. Quando um cliente executa operações de leitura em uma região que aceita gravações, as garantias fornecidas pela consistência de desatualização limitada e consistência forte são idênticas. A consistência da sessão garante que todas as operações de leitura e gravação sejam consistentes em uma sessão de usuário. Como o aplicativo não requer garantia de consistência, esse nível de consistência não é apropriado.",
+                        yourAnswer: "possível"
+                    },
+                    {
+                        question: "Você tem um aplicativo que grava dados no Azure Cosmos DB. O aplicativo deve oferecer leituras monotônicas, sem garantia de que o valor lido seja o último valor gravado. Você precisa configurar o nível de consistência. Qual nível de consistência você deve usar?",
+                        correctAnswer: "sessão",
+                        explanation: "Este item testa o conhecimento do candidato sobre os níveis de consistência do Azure Cosmos DB. A consistência da sessão oferece todas as garantias listadas. Ela fornece latências de gravação, disponibilidade e taxa de transferência de leitura comparáveis à coerência eventual. Ele também fornece as garantias de consistência que atendem às necessidades de aplicativos gravados para operar no contexto de um usuário. A consistência forte tem leituras garantidas para retornar a versão confirmada mais recente de um item. Um cliente nunca vê uma gravação não comprometida ou parcial. Os usuários têm a garantia de ler a gravação confirmada mais recente. Ele tem a maior latência de gravação e a menor taxa de transferência de leitura de todos os níveis de consistência. Na coerência desatualização limitada, as leituras têm a garantia de honrar a garantia de prefixo consistente. Ele deve ser usado quando há a necessidade de latências de gravação baixas, mas exige uma garantia de ordem global total. Em consistência eventual, não há garantia de ordenação para leituras. Na ausência de qualquer gravação adicional, as réplicas eventualmente convergem. É a forma mais fraca de consistência porque um cliente pode ler valores mais antigos do que os que ele havia lido antes. A consistência eventual é ideal quando o aplicativo não exige garantias de ordenação.",
+                        yourAnswer: "sessão"
+                    },
+                    {
+                        question: "Você tem blobs no Armazenamento de Blobs do Azure. Os blobs armazenam imagens. Você precisa registrar as informações de localização e condição climática de quando as fotos foram tiradas. Você deve garantir que possa usar até 2.000 caracteres ao gravar as informações. O que você deve fazer?",
+                        correctAnswer: "Use cabeçalhos de metadados definidos com uma solicitação PUT.",
+                        explanation: "Este item testa o conhecimento do candidato sobre a estruturação de dados para o armazenamento de blobs. Os metadados são a maneira adequada de definir esse tipo de dados, permitindo modificações independentes e dando suporte a até 8 KB no tamanho total. O verbo HTTP para definir metadados é um PUT e esse é o formato correto para definir valores de metadados. O tamanho máximo de um nome de blob é de 1.024 caracteres. Além disso, essa não é uma abordagem ideal porque os metadados podem ser obtidos e definidos de forma independente, mantendo o mesmo nome de arquivo. Os metadados são a maneira adequada de definir esse tipo de dados, permitindo modificações independentes e dando suporte a até 8 KB no tamanho total. Mas o verbo HTTP para definir metadados é PUT, não POST. A combinação de locais e tipos de clima pode ser potencialmente ilimitada, e os nomes de contêiner são limitados a 63 caracteres.",
+                        yourAnswer: "Use cabeçalhos de metadados definidos com uma solicitação PUT."
+                    },
+                    {
+                        question: "Você tem uma política de ciclo de vida de Armazenamento do Microsoft Azure para blobs de blocos. Você precisa criar uma regra de filtro prefixMatch que conterá uma matriz de cadeias de caracteres para que os prefixos sejam correspondidos. Qual deve ser o primeiro elemento da cadeia de caracteres de prefixo?",
+                        correctAnswer: "um nome de contêiner",
+                        explanation: "Este item testa o conhecimento do candidato sobre a configuração do filtro prefixMatch, que é uma parte essencial da configuração da política de armazenamento e faz parte do desenvolvimento da solução para o armazenamento de blobs. Ao criar uma regra de filtro prefixMatch para uma política de ciclo de vida de Armazenamento do Microsoft Azure para blobs de blocos, o primeiro elemento da cadeia de caracteres de prefixo deve ser um nome de contêiner, não uma marca de índice de blob de blocos, um nome de blob de blocos ou um nome de conta de armazenamento.",
+                        yourAnswer: "um nome de contêiner"
+                    },
+                    {
+                        question: "Você cria a política de retenção a seguir. (Os números de linha são incluídos somente para referência.) Você precisará fazer a transição de blobs na camada de acesso frequente para uma camada online se os blobs não tiverem sido modificados em mais de 90 dias. Qual segmento de código você deve adicionar à linha 14?",
+                        correctAnswer: "\"tierToCool\": { \"daysAfterModificationGreaterThan\": 90 }",
+                        explanation: "Este item testa o conhecimento do candidato sobre as camadas de blob. O segmento de código \"tierToCool\": { \"daysAfterModificationGreaterThan\": 90 } move os blobs não modificados após 90 dias para a camada Cool, conforme definido pelo requisito. Os segmentos de código que incluem \"tierToArchive\": mover os blobs para a camada arquivo morto, que não é uma camada de acesso online; é uma camada offline. O segmento de código \"tierToCool\": { \"daysAfterCreationGreaterThan\": 90 } move os blobs para a camada de acesso esporádico 90 dias após a criação, o que não atende ao requisito de mover blobs após 90 dias sem modificação.",
+                        yourAnswer: "\"tierToCool\": { \"daysAfterModificationGreaterThan\": 90 }"
+                    },
+                    {
+                        question: "Você precisa reidratar um blob armazenado na camada de Arquivos alterando a camada de acesso. Qual blob de destino você deve usar?",
+                        correctAnswer: "Um blob na camada de acesso esporádico na mesma região.",
+                        explanation: "Este item testa o conhecimento do candidato sobre reidratação de blobs. Os blobs na camada arquivo morto podem ser reidratados apenas para camadas online (ou seja, Cool ou Hot). O destino pode ser qualquer conta de armazenamento na mesma região.",
+                        yourAnswer: "Um blob na camada de acesso esporádico na mesma região."
+                    },
+                    {
+                        question: "Você está desenvolvendo um aplicativo. Você precisa definir as propriedades HTTP padrão de contêineres no Armazenamento de Blobs do Azure. Quais são as duas propriedades HTTP que você pode definir? Cada resposta correta apresenta uma parte da solução.",
+                        correctAnswer: "Etag e Last-Modified",
+                        explanation: "Este item testa o conhecimento do candidato sobre como definir e recuperar propriedades e metadados. Os metadados nos objetos do Armazenamento do Microsoft Azure são definidos por meio de cabeçalhos que começam com x-ms-meta-. Algumas propriedades HTTP padrão também estão disponíveis para objetos e contêineres. As duas únicas propriedades HTTP disponíveis para contêineres são ETag e Last-Modified. Última modificação, controle de cache, origem e intervalo são propriedades disponíveis apenas para blobs.",
+                        yourAnswer: "Etag e Last-Modified"
+                    },
+                    {
+                        question: "Você deve planejar usar o Microsoft Graph para recuperar uma lista de usuários em um locatário do Microsoft Entra ID. Você precisa otimizar os resultados da consulta. Quais duas opções de consulta você deve usar? Cada resposta correta apresenta uma parte da solução.",
+                        correctAnswer: "$filter e $select",
+                        explanation: "Este item testa o conhecimento do candidato sobre as opções de consulta do Microsoft Graph. A opção de consulta $filter deve ser usada para limitar os resultados retornados. A opção de consulta $select limita os atributos projetados do conjunto de resultados, tornando a consulta mais eficiente. A opção de consulta $count destina-se a recuperar a contagem total de recursos correspondentes.A opção de consulta $expand é usada para recuperar recursos relacionados.",
+                        yourAnswer: "$filter e $select"
+                    },
+                    {
+                        question: "Você tem uma conta de Armazenamento do Microsoft Azure. Você precisa fornecer aos usuários externos a capacidade de criar e atualizar blobs. Qual valor de enumeração de BlobSasPermissions você deve usar?",
+                        correctAnswer: "Gravar",
+                        explanation: "Este item testa o conhecimento do candidato sobre como criar e implementar blobs. A permissão de gravação permitirá que os usuários criem e atualizem blobs. A permissão Adicionar só é aplicável para blobs de acréscimo. A permissão Criar só permite que os usuários criem blobs. Ela não permite que os usuários atualizem blobs. A permissão de leitura não permite que os usuários criem e atualizem blobs.",
+                        yourAnswer: "Gravar"
+                    },
+                    {
+                        question: "Você desenvolve um aplicativo. O aplicativo será acessado por um fornecedor. O fornecedor requer uma Assinatura de Acesso Compartilhado (SAS) para acessar os serviços do Azure na assinatura da sua empresa. Você precisa proteger a SAS. Quais são as três ações que você deve executar? Cada resposta correta apresenta uma solução completa.",
+                        correctAnswer: "Sempre usar HTTPS. Use os logs do Azure Monitor e do Armazenamento do Microsoft Azure para monitorar o aplicativo. Defina uma política de acesso armazenada para uma SAS de serviço.",
+                        explanation: "Este item testa o conhecimento do candidato sobre como criar e implementar assinaturas de acesso compartilhado (SAS). A recomendação de sempre usar HTTPS é válida e deve ser seguida. O log do Azure Monitor e da análise de armazenamento deve ser usado para observar qualquer pico nesses tipos de falhas de autorização. As políticas de acesso armazenadas darão a opção de revogar permissões para uma SAS de serviço sem precisar regenerar as chaves da conta de armazenamento. Uma prática recomendada de segurança consiste em fornecer os privilégios mínimos necessários a um usuário. É melhor usar tempos de expiração de curto prazo em um serviço SAS ad hoc ou SAS de conta para que, mesmo que uma SAS esteja comprometida, ela seja válida apenas por um curto período de tempo.",
+                        yourAnswer: "Sempre usar HTTPS. Use os logs do Azure Monitor e do Armazenamento do Microsoft Azure para monitorar o aplicativo. Defina uma política de acesso armazenada para uma SAS de serviço."
+                    },
+                    {
+                        question: "Você planeja permitir que um usuário crie uma identidade gerenciada para uma máquina virtual (VM) do Azure. Você precisa garantir que os seguintes requisitos sejam atendidos: A conta de usuário deve ter permissões suficientes para criar a identidade gerenciada. O princípio de privilégio mínimo deve ser usado. Qual função de permissão você deve atribuir?",
+                        correctAnswer: "Colaborador de Máquina Virtual",
+                        explanation: "Este item testa o conhecimento do candidato sobre o princípio do privilégio mínimo, que é uma parte essencial da implementação de soluções de nuvem seguras. Colaborador de Máquina Virtual é a função interna menos privilegiada necessária para criar uma identidade gerenciada para uma VM do Azure. O Logon do Administrador de Máquina Virtual não é suficiente para criar uma identidade gerenciada para uma VM do Azure. O Administrador Global e o Administrador de Segurança têm permissões excessivas no Microsoft Entra ID, o que não segue o princípio de privilégios mínimos. O Administrador Global e o Administrador de Segurança não fornecem permissões suficientes para os recursos do Azure.",
+                        yourAnswer: "Colaborador de Máquina Virtual"
+                    },
+                    {
+                        question: "Você precisa agrupar chaves na Configuração de Aplicativos do Azure. Quais são as duas maneiras possíveis de atingir essa meta? Cada resposta correta apresenta uma solução completa.",
+                        correctAnswer: "Organize as chaves usando prefixos de chave. e Organize as chaves usando rótulos.",
+                        explanation: "Este item testa o conhecimento do candidato sobre as práticas recomendadas ao trabalhar com chaves na Configuração de Aplicativos do Azure. Os prefixos de chave são as partes iniciais das chaves. Um conjunto de chaves pode ser agrupado usando o mesmo prefixo em nomes. Os Rótulos são um atributo nas chaves. Os rótulos são usados para criar variantes de uma chave. Por exemplo, os rótulos podem ser atribuídos a várias versões de uma chave. Autorizar o controle de acesso baseado em função para ler a Configuração de Aplicativos do Azure não é uma maneira válida de agrupar chaves. Autorizar uma identidade gerenciada para ler a Configuração de Aplicativos do Azure não é uma maneira válida de agrupar chaves.",
+                        yourAnswer: "Organize as chaves usando prefixos de chave. e Organize as chaves usando rótulos."
+                    },
+                    {
+                        question: "Você gerencia um aplicativo Web do Serviço de Aplicativo do Azure chamado app1 e um Azure Key Vault chamado vault1. Você precisa garantir que o app1 possa autenticar e conduzir operações com o vault1 sem gerenciar a rotação de um segredo. O recurso necessário para implementar a solução deve ser excluído automaticamente quando o aplicativo for excluído Qual método de autenticação você deve usar para o app1?",
+                        correctAnswer: "identidade gerenciada atribuída ao sistema",
+                        explanation: "Este item testa o conhecimento do candidato sobre a implementação do Azure Key Vault, que faz parte da implementação de soluções de Nuvem Segura. Uma identidade gerenciada atribuída pelo sistema pode ser usada para garantir que o app1 possa autenticar e executar operações com o vault1 sem gerenciar a rotação de um segredo. Uma identidade gerenciada atribuída pelo usuário pode ser usada para garantir que o app1 possa autenticar e executar operações com o vault1, mas a rotação de segredo precisa ser gerenciada. Uma entidade de serviço e um segredo podem ser usados para autenticar no cofre de chaves, mas é difícil girar automaticamente o segredo usado para autenticar no cofre de chaves. Uma entidade de serviço e um certificado associado com acesso ao cofre de chaves podem ser usados para autenticação, mas exigiriam o gerenciamento da rotação de um segredo.",
+                        yourAnswer: "identidade gerenciada atribuída ao sistema"
+                    },
+                    {
+                        question: "Você planeja criar uma hierarquia de namespace de chave na Configuração de Aplicativos do Azure. Você precisa separar nomes de chave individuais. Qual caractere você deve usar?",
+                        correctAnswer: ":",
+                        explanation: "Este item testa o conhecimento do candidato de configurar a hierarquia de namespace de chave da Configuração de Aplicativos, que faz parte da implementação de soluções de nuvem seguras. O caractere de dois-pontos (:) é usado para separar nomes de chaves individuais ao criar uma hierarquia de namespace na Configuração de Aplicativos do Azure. O caractere asterisco (*) é um dos caracteres reservados na Configuração de Aplicativos do Azure, portanto, ele não pode ser usado para separar nomes de chaves individuais ao criar uma hierarquia de namespace na Configuração de Aplicativos do Azure. O caractere de vírgula (,) é um dos caracteres reservados na Configuração de Aplicativos do Azure, portanto, ele não pode ser usado para separar nomes de chaves individuais ao criar uma hierarquia de namespace na Configuração de Aplicativos do Azure. O caractere de barra invertida () é um dos caracteres reservados na Configuração de Aplicativos do Azure, portanto, ele não pode ser usado para separar nomes de chaves individuais ao criar uma hierarquia de namespace na Configuração de Aplicativos do Azure.",
+                        yourAnswer: ":"
+                    },
+                    {
+                        question: "Uma empresa planeja usar a Configuração de Aplicativos do Azure para sinalizadores de recursos em um aplicativo. A empresa tem os seguintes requisitos de criptografia: Chaves gerenciadas pelo cliente. Chaves protegidas por HSM (módulo de segurança de hardware). Você precisa recomendar camadas de serviço. Quais duas camadas você deve recomendar? Cada resposta correta apresenta uma parte da solução.",
+                        correctAnswer: "Camada Standard da Configuração de Aplicativos do Azure e Camada Premium do Azure Key Vault",
+                        explanation: "Este item testa o conhecimento do candidato sobre as camadas de serviço para a Configuração de Aplicativos do Azure e o Azure Key Vault. A camada Standard de Configuração de Aplicativo deve ser usada para que as chaves gerenciadas pelo cliente sejam usadas na Configuração de Aplicativos. A camada Premium do Key Vault é necessária para dar suporte a chaves protegidas por HSM. A camada Gratuita de Configuração de Aplicativos não permite o uso de chaves gerenciadas pelo cliente. A camada Standard do Key Vault não dá suporte a chaves protegidas por HSM.",
+                        yourAnswer: "Camada Standard da Configuração de Aplicativos do Azure e Camada Premium do Azure Key Vault"
+                    },
+                    {
+                        question: "Você está desenvolvendo uma solução que armazena segredos em um Azure Key Vault chamado myvault. Você precisa recuperar o valor de um segredo chamado mysecret armazenado em myvault. Qual comando da CLI você deve usar?",
+                        correctAnswer: "az keyvault secret show --name mysecret --vault-name myvault",
+                        explanation: "Este item testa o conhecimento do candidato sobre o desenvolvimento de código que usa chaves, segredos e certificados armazenados no Azure Key Vault. O comando az keyvault da CLI oferece vários comandos para trabalhar com segredos. Os comandos mais usados são set para armazenar um segredo e show para obter o valor do segredo. Ao usar esses comandos, deve-se especificar uma ID que contenha a identificação completa do segredo (no formato https://keyvaultname.vault.azure.net/secrets/secret-name/secret-version)) ou o nome do segredo e o nome do cofre.",
+                        yourAnswer: "az keyvault secret show --name mysecret --vault-name myvault"
+                    },
+                    {
+                        question: "Você tem a tarefa de aprimorar a segurança de um aplicativo Web do Azure existente. Atualmente, o aplicativo armazena dados de configuração confidenciais, como cadeias de conexão e chaves de API em seu código, o que gerou preocupações de segurança. Você precisa proteger os dados de configuração do aplicativo para evitar acesso não autorizado e possíveis violações de dados, garantindo acesso contínuo ao próprio aplicativo. Quais são as duas opções que podem atingir esse objetivo? (Escolha duas.)",
+                        correctAnswer: "Migre os dados de configuração confidenciais para o Azure Key Vault e utilize identidades gerenciadas para acessar os segredos com segurança. e Armazene os dados de configuração confidenciais na Configuração de Aplicativos do Azure e restrinja o acesso usando o RBAC (controle de acesso baseado em função) do Azure.",
+                        explanation: "Armazenar dados de configuração confidenciais na Configuração de Aplicativos do Azure e restringir o acesso com o RBAC do Azure é um método seguro para gerenciar as configurações do aplicativo, mantendo o controle sobre quem pode acessar os dados. A migração de dados confidenciais para o Azure Key Vault e o uso de identidades gerenciadas permitem que o aplicativo se autentique em serviços que dão suporte à autenticação do Azure AD sem precisar de credenciais no código, o que aumenta a segurança. Criptografar os dados e armazená-los no código do aplicativo não segue as práticas recomendadas de segurança, pois eles ainda residem na base de código e podem ser expostos. O armazenamento de dados confidenciais em um repositório privado do GitHub não é seguro, pois depende de credenciais do GitHub, que, se comprometidas, podem levar a acesso não autorizado.",
+                        yourAnswer: "Migre os dados de configuração confidenciais para o Azure Key Vault e utilize identidades gerenciadas para acessar os segredos com segurança. e Armazene os dados de configuração confidenciais na Configuração de Aplicativos do Azure e restrinja o acesso usando o RBAC (controle de acesso baseado em função) do Azure."
+                    },
+                    {
+                        question: "Você tem um aplicativo Web do Azure que ocasionalmente experimenta tempos de resposta altos. Você precisa ser notificado quando o tempo de resposta exceder um determinado limite. O que você deve fazer?",
+                        correctAnswer: "Implementar alertas e testes Web do Application Insights.",
+                        explanation: "O Application Insights permite que você crie testes da Web que simulam interações do usuário com seu aplicativo e, em seguida, configure alertas com base nos resultados desses testes. Os alertas do Azure Monitor Resource Health são usados para monitoramento de infraestrutura, não para desempenho de aplicativos. A Integridade do Serviço do Azure fornece informações sobre problemas de serviço do Azure e manutenção planejada, não o desempenho do aplicativo. O Assistente do Azure fornece recomendações de práticas recomendadas, não alertas de desempenho do aplicativo.",
+                        yourAnswer: "Implementar alertas e testes Web do Application Insights."
+                    },
+                    {
+                        question: "Sua equipe está desenvolvendo um novo recurso para um aplicativo existente baseado no Azure que depende muito do processamento de dados em tempo real. O recurso envolve a integração de vários serviços do Azure e APIs de terceiros. Você precisa criar uma estratégia para garantir que a integração desses serviços não introduza problemas ou falhas de desempenho. Você precisa projetar a solução de monitoramento para detectar e resolver possíveis problemas. O que você deve fazer?",
+                        correctAnswer: "Use Métricas Dinâmicas no Application Insights para observar a atividade do aplicativo implantado em tempo real.",
+                        explanation: "A opção D está correta porque o Live Metrics fornece observação em tempo real da atividade do aplicativo, permitindo detecção e resposta imediatas a problemas de desempenho. A opção C está incorreta, pois as verificações noturnas podem não ser suficientes para as necessidades de processamento de dados em tempo real. A opção A está incorreta porque um único teste de disponibilidade não fornece monitoramento abrangente de todos os serviços integrados. A opção B está incorreta, pois a revisão manual dos logs não é eficiente para monitoramento em tempo real e pode atrasar a resposta aos problemas.",
+                        yourAnswer: "Use Métricas Dinâmicas no Application Insights para observar a atividade do aplicativo implantado em tempo real."
+                    },
+                    {
+                        question: "Uma plataforma de comércio eletrônico está planejando expandir seus serviços globalmente. A plataforma está hospedada no Azure e utiliza vários serviços do Azure e integrações de terceiros. Você precisa projetar e criar uma solução de monitoramento robusta que possa ser dimensionada com a expansão e fornecer insights sobre o desempenho da plataforma em diferentes regiões. O que você deve fazer?",
+                        correctAnswer: "Implante várias instâncias do Application Insights para cada região e use o Azure Monitor para agregar os dados.",
+                        explanation: "A opção A está correta porque a implantação de várias instâncias do Application Insights para cada região permite o monitoramento localizado, e o uso do Azure Monitor para agregar os dados fornece uma exibição centralizada do desempenho global. A opção B está incorreta, pois uma única instância pode não ser dimensionada de forma eficaz para monitoramento global. A opção D está incorreta porque a instrumentação manual e o armazenamento no Armazenamento de Blobs do Azure não fornecem recursos de monitoramento e análise em tempo real. A opção C está incorreta, os testes e alertas da Web são apenas parte de uma solução de monitoramento robusta.",
+                        yourAnswer: "Implante várias instâncias do Application Insights para cada região e use o Azure Monitor para agregar os dados."
+                    },
+                    {
+                        question: "Uma equipe de desenvolvimento está usando o Application Insights para monitorar seu aplicativo Web implantado no Azure. Eles notaram discrepâncias nas métricas relatadas devido ao alto volume de telemetria. Você precisa garantir que as métricas relatadas reflitam com precisão o desempenho do aplicativo sem serem afetadas pela amostragem de telemetria. O que você deve implementar para atingir esse objetivo?",
+                        correctAnswer: "Configure o Application Insights para usar métricas padrão pré-agregadas para painéis e alertas em tempo real.",
+                        explanation: "As métricas padrão pré-agregadas não são afetadas pela amostragem de telemetria e fornecem dados precisos em tempo real, o que as torna adequadas para painéis e alertas. Aumentar a taxa de amostragem ou desabilitar completamente a amostragem aumentaria os custos e ainda pode não fornecer métricas precisas devido ao volume de dados. A criação de uma consulta personalizada do Kusto exigiria esforço manual e não aborda o problema da amostragem que afeta as métricas.",
+                        yourAnswer: "Configure o Application Insights para usar métricas padrão pré-agregadas para painéis e alertas em tempo real."
+                    },
+                    {
+                        question: "Uma empresa usa o Gerenciamento de API do Azure para expor alguns de seus serviços. Cada desenvolvedor que consome APIs deve usar uma única chave para obter acesso a várias APIs sem a necessidade de aprovação do editor de API. Você precisa recomendar uma solução. Qual solução você deve recomendar?",
+                        correctAnswer: "Defina uma assinatura com o escopo do produto.",
+                        explanation: "Este item testa o conhecimento do candidato sobre assinaturas do Gerenciamento de API do Azure. Ao criar um produto, várias APIs podem ser adicionadas ao produto e uma assinatura pode ser associada a ele. O acesso não deve ser concedido a todas as APIs. O acesso do desenvolvedor deve ser concedido independentemente do IP do chamador. Um certificado de cliente exigiria uma política para validar o certificado e a lógica específica para mapear o cliente para APIs específicas.",
+                        yourAnswer: "Defina uma assinatura com o escopo do produto."
+                    },
+                    {
+                        question: "Você gerencia APIs em produção usando o Gerenciamento de API do Azure. Você precisa remover cabeçalhos X-Powered-By e X-AspNet-Version de uma resposta. Qual segmento de código você deve usar?",
+                        correctAnswer: "<policies><inbound><base /></inbound><backend><base /></backend><outbound><set-header name=\"X-Powered-By\" exists-action=\"delete\" /><set-header name=\"X-AspNet-Version\" exists-action=\"delete\" /><base /></outbound><on-error><base /></on-error></policies>",
+                        explanation: "Este item testa o conhecimento do candidato de definir políticas para APIs usando o Gerenciamento de API do Azure. O segmento de código que inclui o set-header policy elemento na seção de saída e exists-action=\"delete\" removerá um cabeçalho da resposta HTTP. O segmento de código que inclui o exists-action com valor de anexação não remove os cabeçalhos especificados. Os segmentos de código que não incluem o set-header policy elemento na seção de saída não removerão um cabeçalho da resposta HTTP.",
+                        yourAnswer: "<policies><inbound><base /></inbound><backend><base /></backend><outbound><set-header name=\"X-Powered-By\" exists-action=\"delete\" /><set-header name=\"X-AspNet-Version\" exists-action=\"delete\" /><base /></outbound><on-error><base /></on-error></policies>"
+                    },
+                    {
+                        question: "Uma empresa está usando o Gerenciamento de API do Azure para expor suas APIs a parceiros externos. A empresa deseja garantir que as APIs sejam acessíveis somente aos usuários autenticados com o OAuth 2.0 e que as cotas de uso sejam impostas para evitar abusos. Você precisa configurar a instância de Gerenciamento de API para atender aos requisitos de segurança e uso. Quais são as duas ações que você deve executar?",
+                        correctAnswer: "Configure uma política validate-jwt para autenticar solicitações de entrada. e Configure um limite de taxa por política de chave para impor cotas de chamadas.",
+                        explanation: "A configuração de uma política validate-jwt é necessária para autenticar usuários com o OAuth 2.0. Configurar um limite de taxa por política de chave ajuda a impor cotas de uso. A filtragem de IP não atende aos requisitos de autenticação e cota. A implantação de um Gateway de Aplicativo do Azure não é necessária para essas necessidades específicas.",
+                        yourAnswer: "Configure uma política validate-jwt para autenticar solicitações de entrada. e Configure um limite de taxa por política de chave para impor cotas de chamadas."
+                    },
+                    {
+                        question: "Você é um arquiteto de soluções de nuvem que trabalha em uma empresa que recentemente adotou os serviços de Gerenciamento de API do Microsoft Azure para centralizar o gerenciamento de suas APIs. A faculdade tem vários serviços de back-end que fornecem informações sobre cursos, docentes e serviços estudantis. Esses serviços são consumidos por vários aplicativos de front-end, incluindo o site público da faculdade, o portal do aluno e aplicativos móveis. Você precisa garantir que a instância de Gerenciamento de API esteja configurada para expor apenas as operações necessárias, manter a segurança e fornecer a capacidade de simular respostas para fins de teste sem invocar os serviços de back-end. O que você deve fazer?",
+                        correctAnswer: "Crie uma API em branco e defina manualmente as operações necessárias e implemente políticas para validar tokens JWT e limitar as taxas de chamada.",
+                        explanation: "A opção C está correta porque a criação de uma API em branco e a definição das operações necessárias manualmente permitem um controle preciso sobre o que é exposto, e a implementação de políticas para validação JWT e limitação de taxa aprimora a segurança. A opção D está incorreta porque a importação de todos os serviços de back-end sem filtragem expõe operações desnecessárias. A opção A está incorreta porque expor automaticamente todas as operações pode levar a riscos de segurança e pode não atender ao requisito de respostas simuladas. A opção B está incorreta, pois usar uma operação curinga pode tornar a API vulnerável a ameaças de segurança e não fornece a capacidade de simular respostas.",
+                        yourAnswer: "Crie uma API em branco e defina manualmente as operações necessárias e implemente políticas para validar tokens JWT e limitar as taxas de chamada."
+                    },
+                    {
+                        question: "Você é um arquiteto de soluções de nuvem que trabalha para uma empresa que planeja expor o serviço de processamento de dados interno deles, que atualmente está hospedado no Azure, aos parceiros deles por meio de APIs. O serviço processa grandes conjuntos de dados e fornece recursos de análise e relatório. A empresa deseja garantir que a API esteja bem documentada, que o acesso seja controlado com segurança e que as políticas de uso sejam impostas. Você precisa criar uma instância de Gerenciamento de API do Azure que permita acesso seguro e controlado às APIs com a capacidade de impor políticas de uso e documentar as APIs para seus parceiros. Quais são as três etapas que você deve executar?",
+                        correctAnswer: "Configure o acesso às APIs configurando a autorização de usuário do OAuth 2.0 na instância de Gerenciamento de API do Azure. Crie uma instância de Gerenciamento de API do Azure e importe a API existente usando a funcionalidade de importação de API do portal do Azure. Implemente políticas para as APIs na instância de Gerenciamento de API do Azure para impor limites de taxa e cotas.",
+                        explanation: "A opção B está correta porque criar uma instância do Gerenciamento de API do Azure e importar a API existente é uma maneira direta de expor o serviço interno aos parceiros. A opção C está incorreta, pois configurar uma API simulada não atende à necessidade imediata de expor o serviço real. A opção E está correta porque a implementação de políticas é essencial para controlar o uso das APIs. A opção D está incorreta porque a documentação deve ser gerenciada na instância de Gerenciamento de API do Azure, não no código de serviço. A opção A está correta, pois configurar o OAuth 2.0 na instância de Gerenciamento de API do Azure fornecerá controle de acesso seguro para as APIs.",
+                        yourAnswer: "Configure o acesso às APIs configurando a autorização de usuário do OAuth 2.0 na instância de Gerenciamento de API do Azure. Crie uma instância de Gerenciamento de API do Azure e importe a API existente usando a funcionalidade de importação de API do portal do Azure. Implemente políticas para as APIs na instância de Gerenciamento de API do Azure para impor limites de taxa e cotas."
+                    },
+                    {
+                        question: "Você gerencia um hub de eventos do Azure. Você precisa garantir que várias instâncias com balanceamento de carga de um aplicativo .NET (versão 5.0) possam ser usadas para dimensionar o processamento de eventos. Qual cliente do processador de eventos você deve usar?",
+                        correctAnswer: "EventProcessorClient",
+                        explanation: "Este item testa o conhecimento do candidato sobre a colocação em escala de aplicativos de processamento de eventos, que faz parte do desenvolvimento de soluções baseadas em eventos. EventProcessorClient equilibra a carga entre várias instâncias de um programa em versões mais recentes do .NET (versão 5.0). EventHubConsumerClient equilibra a carga entre várias instâncias de um programa em Python e JavaScript. EventProcessorHost equilibra a carga entre várias instâncias de um programa em versões anteriores do .NET. A classe EventHubProducerClient é usada para enviar eventos para um hub de eventos.",
+                        yourAnswer: "EventProcessorClient"
+                    },
+                    {
+                        question: "Você desenvolve o código a seguir para ler todos os eventos publicados para a primeira partição nos Hubs de Eventos do Azure. Você precisa concluir o código. Quais são as duas ações que você deve executar? Cada resposta correta apresenta uma parte da solução.",
+                        correctAnswer: "Insira o seguinte segmento de código na linha 6: EventPosition startingPosition = EventPosition.Earliest; e Insira o seguinte segmento de código na linha 7: string partitionId = (await consumer.GetPartitionIdsAsync()).First();",
+                        explanation: "Este item testa o conhecimento do candidato sobre a leitura de eventos dos Hubs de Eventos do Azure. Inserir o segmento de código que inclui startingPosition = EventPosition.Earliest na linha 6 usa a posição inicial mais antiga, que é necessária para ler todos os eventos publicados. Inserir o segmento de código que inclui string partitionId = (await consumer.GetPartitionIdsAsync()).First(); na linha 7 é necessário. O método GetPartitionIdsAsync() retorna uma cadeia de caracteres[]. O método First() retornará, portanto, uma cadeia de caracteres. O segmento de código na linha 6 que usa startingPosition = EventPosition.Latest não usa a posição inicial mais antiga. O segmento de código na linha 7 que inclui int partitionId está incorreto porque o método GetPartitionIdsAsync() retorna uma cadeia de caracteres[]. O método First() retornará, portanto, uma cadeia de caracteres e não um int, como a variável de retorno espera.",
+                        yourAnswer: "Insira o seguinte segmento de código na linha 6: EventPosition startingPosition = EventPosition.Earliest; e Insira o seguinte segmento de código na linha 7: string partitionId = (await consumer.GetPartitionIdsAsync()).First();"
+                    },
+                    {
+                        question: "Você precisa capturar eventos de streaming dos Hubs de Eventos do Azure. Para quais três locais você pode capturar dados? Cada resposta correta apresenta uma solução completa.",
+                        correctAnswer: "Armazenamento de Blobs do Azure, Azure Data Lake Storage Gen1 e Azure Data Lake Storage Gen2",
+                        explanation: "Este item testa o conhecimento do candidato sobre a implementação de soluções que usam os Hubs de Eventos do Azure. A Captura de Hubs de Eventos do Azure pode fornecer automaticamente os dados de streaming nos Hubs de Eventos para o Armazenamento de Blobs do Azure. A Captura de Hubs de Eventos do Azure pode fornecer automaticamente os dados de streaming nos Hubs de Eventos para o Azure Data Lake Storage Gen1. A Captura de Hubs de Eventos do Azure pode fornecer automaticamente os dados de streaming nos Hubs de Eventos para o Azure Data Lake Storage Gen2. O Azure Functions e o Azure Stream Analytics não podem ser usados para capturar eventos dos Hubs de Eventos do Azure.",
+                        yourAnswer: "Armazenamento de Blobs do Azure, Azure Data Lake Storage Gen1 e Azure Data Lake Storage Gen2"
+                    },
+                    {
+                        question: "Uma empresa está usando a Grade de Eventos do Azure para processar eventos de pedidos de comércio eletrônico. O sistema inclui várias fontes de eventos, como o Armazenamento de Blobs do Azure, o Azure Functions e serviços de terceiros. A empresa deseja garantir que o mecanismo de entrega de eventos seja robusto e possa lidar com diferentes cenários de falha, com perda mínima. Você precisa criar uma estratégia de entrega de eventos que garanta alta confiabilidade, mesmo quando os eventos resultam de códigos de resposta 400 ou 413. O que você deve fazer?",
+                        correctAnswer: "Habilite a colocação em fila de mensagens mortas para capturar eventos que não são entregues dentro do agendamento de repetição especificado.",
+                        explanation: "Habilitar mensagens mortas ajuda a capturar eventos que não podem ser entregues dentro do agendamento de repetição especificado, garantindo que nenhum dado seja perdido durante interrupções temporárias. Aumentar o número máximo de tentativas de entrega não garante a entrega se o sistema está inativo e pode levar a atrasos desnecessários. A validação síncrona do handshake está relacionada à validação da assinatura, não à confiabilidade da entrega de eventos. A diminuição do TTL do evento poderá resultar em eventos válidos sendo descartados se o sistema estiver temporariamente indisponível.",
+                        yourAnswer: "Habilite a colocação em fila de mensagens mortas para capturar eventos que não são entregues dentro do agendamento de repetição especificado."
+                    },
+                    {
+                        question: "Uma empresa está desenvolvendo um aplicativo multilocatário que lidará com grandes volumes de eventos de várias fontes. O aplicativo precisa ser capaz de processar e analisar esses eventos em tempo real. Você precisa criar um serviço de ingestão de eventos que forneça isolamento de dados e isolamento de desempenho para evitar problemas barulhentos de vizinhos, considerando também a complexidade operacional e o custo. Qual modelo de isolamento dos Hubs de Eventos você deve implementar?",
+                        correctAnswer: "Namespace dedicado para cada locatário",
+                        explanation: "A resposta correta é \"Namespace dedicado para cada locatário\" porque fornece o nível mais alto de isolamento de dados e desempenho, o que é essencial para evitar problemas de vizinhos barulhentos em um aplicativo multilocatário. \"Namespace compartilhado com hubs de eventos dedicados para cada locatário\" oferece isolamento médio e ainda pode levar a problemas de vizinhos barulhentos. \"Namespace compartilhado e hubs de eventos para todos os locatários\" fornece o nível mais baixo de isolamento e não é adequado para os requisitos fornecidos. \"Multilocação confiável com assinaturas de acesso compartilhado\" não é um modelo de isolamento, mas uma maneira de gerenciar o acesso em um ambiente compartilhado.",
+                        yourAnswer: "Namespace dedicado para cada locatário"
+                    },
+                    {
+                        question: "Você cria um tópico do Barramento de Serviço do Azure com um tempo de vida útil padrão de 10 minutos. Você precisa enviar mensagens para este tópico com um tempo de vida útil de 15 minutos. A solução não deve afetar outros aplicativos que estão usando o tópico. O que você deve recomendar?",
+                        correctAnswer: "Crie um novo tópico com uma vida útil padrão de 15 minutos. Envie as mensagens para este tópico.",
+                        explanation: "Essa pergunta testa o conhecimento do candidato sobre a expiração da mensagem do Barramento de Serviço do Azure. Para evitar afetar aplicativos existentes, o tempo de vida do tópico existente não deve ser alterado. Um novo tópico precisa ser criado. Alterar o tempo de vida padrão do tópico afetará outros aplicativos. Um tempo de vida em nível de mensagem não pode ser maior do que o tempo de vida do tópico. Para evitar afetar aplicativos existentes, o tempo de vida do tópico ou da fila existente não deve ser alterado.",
+                        yourAnswer: "Crie um novo tópico com uma vida útil padrão de 15 minutos. Envie as mensagens para este tópico."
+                    },
+                    {
+                        question: "Você tem uma fila do Barramento de Serviço do Azure. Você precisa garantir que um editor possa enviar mensagens para um tópico e que vários assinantes possam se tornar elegíveis para consumir as mensagens. Qual padrão de roteamento de mensagens você deve usar?",
+                        correctAnswer: "solicitação/resposta multicast",
+                        explanation: "Este item testa o conhecimento do candidato sobre o roteamento de mensagens no Barramento de Serviço do Azure, que faz parte do desenvolvimento de soluções baseadas em mensagens. Um editor pode enviar uma mensagem para um tópico e vários assinantes podem se tornar elegíveis para consumir a mensagem. Um editor pode enviar uma mensagem para uma fila e esperar uma resposta do consumidor da mensagem, mas vários assinantes não podem consumir a mensagem. Esse recurso de sessão permite a multiplexação de fluxos de mensagens relacionadas por meio de uma única fila, mas não pode ser consumido por vários assinantes. Esse recurso de sessão permite a multiplexação de respostas, permitindo que vários editores compartilhem uma fila de resposta, mas uma mensagem não pode ser consumida por vários assinantes.",
+                        yourAnswer: "solicitação/resposta multicast"
+                    },
+                    {
+                        question: "Uma empresa de serviços financeiros está implementando um sistema para processar transações recebidas como mensagens. O sistema precisa garantir que as transações sejam processadas apenas uma vez e, na ordem exata, sejam recebidas para manter a integridade dos dados. Você precisa criar uma solução de mensagens que garanta a entrega e o processamento de mensagens PEPS (primeiro a entrar, primeiro a sair). Quais dois serviços você deve usar?",
+                        correctAnswer: "Barramento de Serviço do Azure com detecção duplicada e Fila do Barramento de Serviço com a opção Sessões habilitada",
+                        explanation: "O Barramento de Serviço do Azure com sessões habilitadas permite o processamento PEPS usando sessões para garantir que as mensagens relacionadas sejam tratadas na ordem em que são recebidas. A detecção duplicada ajuda a garantir que o sistema não processe a mesma transação mais de uma vez. O Armazenamento de Filas do Azure não garante o processamento PEPS, pois ele não dá suporte a sessões e o tempo limite de visibilidade apenas oculta a mensagem temporariamente de outros consumidores. A Grade de Eventos do Azure é um serviço de roteamento de eventos e não fornece garantias de PEPS ou sessões de mensagem.",
+                        yourAnswer: "Barramento de Serviço do Azure com detecção duplicada e Fila do Barramento de Serviço com a opção Sessões habilitada"
+                    }
+                ];
             };
 
             const setActiveView = (viewId) => {
                 activeView = viewId;
 
-                // Esconde todas as views
                 Object.values(views).forEach(view => view.classList.add('hidden-view'));
-                // Mostra a view ativa
                 views[viewId].classList.remove('hidden-view');
 
-                // Atualiza o estado dos botões de navegação
                 Object.values(navButtons).forEach(button => button.classList.remove('active'));
                 if (navButtons[viewId]) {
                     navButtons[viewId].classList.add('active');
                 }
-                // Atualiza o select de navegação mobile
                 mobileNavSelect.value = viewId;
 
-                // Re-renderiza gráficos e conteúdos específicos da view
                 if (viewId === 'dashboard') {
                     renderExamWeightsChart();
-                    renderServicesGrid(); // Garante que a grid de serviços seja renderizada
+                    renderServicesGrid();
                 } else if (viewId === 'compare') {
                     renderComparisonSelects();
-                    updateComparison(); // Re-renderiza a comparação se já houver seleção
+                    updateComparison();
                 } else if (viewId === 'cli') {
                     renderCliSdkContent();
+                } else if (viewId === 'quiz') {
+                    renderQuizQuestions();
                 }
             };
 
@@ -785,7 +1140,7 @@
                         },
                         onClick: (event, elements) => {
                             if (elements.length > 0) {
-                                const chartElement = elements[0]; // Correção: Acessar o primeiro elemento do array
+                                const chartElement = elements[0];
                                 const domainKey = Object.keys(domains)[chartElement.index];
                                 setFilter(domainKey);
                             }
@@ -795,7 +1150,7 @@
             };
 
             const renderDomainFilterButtons = () => {
-                domainFilterButtonsContainer.innerHTML = ''; // Clear existing buttons
+                domainFilterButtonsContainer.innerHTML = '';
                 const allButton = document.createElement('button');
                 allButton.dataset.filter = 'all';
                 allButton.classList.add('filter-button', 'p-3', 'rounded-lg', 'text-sm', 'font-semibold', 'transition-colors', 'duration-200');
@@ -810,7 +1165,6 @@
                     domainFilterButtonsContainer.appendChild(button);
                 });
 
-                // Add event listeners to filter buttons
                 domainFilterButtonsContainer.addEventListener('click', (event) => {
                     if (event.target.classList.contains('filter-button')) {
                         setFilter(event.target.dataset.filter);
@@ -822,10 +1176,10 @@
             const updateFilterButtonStyles = () => {
                 document.querySelectorAll('.filter-button').forEach(button => {
                     if (button.dataset.filter === activeFilter) {
-                        button.classList.add('bg-[#81B29A]', 'text-white'); // Correção: Cor de fundo dinâmica
+                        button.classList.add('bg-[#81B29A]', 'text-white');
                         button.classList.remove('bg-gray-100', 'hover:bg-gray-200');
                     } else {
-                        button.classList.remove('bg-[#81B29A]', 'text-white'); // Correção: Cor de fundo dinâmica
+                        button.classList.remove('bg-[#81B29A]', 'text-white');
                         button.classList.add('bg-gray-100', 'hover:bg-gray-200');
                     }
                 });
@@ -839,7 +1193,7 @@
             };
 
             const renderServicesGrid = () => {
-                servicesGrid.innerHTML = ''; // Clear existing cards
+                servicesGrid.innerHTML = '';
                 const filtered = activeFilter === 'all' ? servicesData : servicesData.filter(service => service.domain === activeFilter);
 
                 if (filtered.length === 0) {
@@ -864,17 +1218,17 @@
 
             const openModal = (service) => {
                 selectedService = service;
-                modalIconContainer.style.backgroundColor = domains[selectedService.domain].color; // Correção: Acessar a cor do domínio do serviço selecionado
+                modalIconContainer.style.backgroundColor = domains[selectedService.domain].color;
                 modalIcon.innerHTML = selectedService.icon;
                 modalName.textContent = selectedService.name;
                 modalTagline.textContent = selectedService.tagline;
                 renderModalBody();
-                serviceModal.style.display = 'flex'; // Show modal
+                serviceModal.style.display = 'flex';
                 isModalOpen = true;
             };
 
             const closeModal = () => {
-                serviceModal.style.display = 'none'; // Hide modal
+                serviceModal.style.display = 'none';
                 isModalOpen = false;
                 selectedService = null;
             };
@@ -987,7 +1341,6 @@
                 compareSelect1.innerHTML = '<option value="">Selecione...</option>' + optionsHtml;
                 compareSelect2.innerHTML = '<option value="">Selecione...</option>' + optionsHtml;
 
-                // Set selected values if they exist
                 if (comparison.service1) compareSelect1.value = comparison.service1;
                 if (comparison.service2) compareSelect2.value = comparison.service2;
             };
@@ -1007,7 +1360,7 @@
                 } else {
                     noComparisonSelectedDiv.style.display = 'block';
                     comparisonResultsDiv.style.display = 'none';
-                    if (charts.comparison) charts.comparison.destroy(); // Destroy chart if no comparison
+                    if (charts.comparison) charts.comparison.destroy();
                 }
             };
 
@@ -1104,7 +1457,7 @@
 
             const renderCliSdkContent = () => {
                 cliSdkContentDiv.innerHTML = '';
-                servicesData.filter(s => s.cli || s.sdk).forEach(service => { // Correção: Usar || para OR lógico
+                servicesData.filter(s => s.cli || s.sdk).forEach(service => {
                     let serviceHtml = `
                         <div class="bg-white p-6 rounded-2xl shadow-lg">
                             <h3 class="text-2xl font-bold mb-4">${service.name}</h3>
@@ -1148,29 +1501,58 @@
                     `;
                     cliSdkContentDiv.innerHTML += serviceHtml;
                 });
-                addCopyButtonListeners(); // Add listeners to new copy buttons
+                addCopyButtonListeners();
+            };
+
+            const renderQuizQuestions = () => {
+                quizQuestionsContainer.innerHTML = '';
+                quizQuestions.forEach((q, index) => {
+                    const questionCard = document.createElement('div');
+                    questionCard.classList.add('question-card');
+                    questionCard.innerHTML = `
+                        <p class="question-text"><strong>Pergunta ${index + 1}:</strong> ${q.question}</p>
+                        <button class="show-answer-button" data-question-index="${index}">Mostrar Resposta</button>
+                        <div class="answer-section hidden" id="answer-section-${index}">
+                            <p class="answer-correct"><strong>Resposta Correta:</strong> ${q.correctAnswer}</p>
+                            <p class="answer-explanation"><strong>Sua Resposta:</strong> ${q.yourAnswer}</p>
+                            <p class="answer-explanation"><strong>Explicação:</strong> ${q.explanation}</p>
+                        </div>
+                    `;
+                    quizQuestionsContainer.appendChild(questionCard);
+                });
+
+                document.querySelectorAll('.show-answer-button').forEach(button => {
+                    button.addEventListener('click', (event) => {
+                        const index = event.target.dataset.questionIndex;
+                        const answerSection = document.getElementById(`answer-section-${index}`);
+                        answerSection.classList.toggle('hidden');
+                        if (answerSection.classList.contains('hidden')) {
+                            event.target.textContent = 'Mostrar Resposta';
+                        } else {
+                            event.target.textContent = 'Esconder Resposta';
+                        }
+                    });
+                });
             };
 
             const init = () => {
                 loadData();
                 renderDomainFilterButtons();
-                renderServicesGrid(); // Render initial services
-                setActiveView('dashboard'); // Set initial view
+                renderServicesGrid();
+                setActiveView('dashboard');
 
-                // Event Listeners for navigation buttons
                 navButtons.dashboard.addEventListener('click', () => setActiveView('dashboard'));
                 navButtons.compare.addEventListener('click', () => setActiveView('compare'));
                 navButtons.cli.addEventListener('click', () => setActiveView('cli'));
+                navButtons.quiz.addEventListener('click', () => setActiveView('quiz'));
                 mobileNavSelect.addEventListener('change', (event) => setActiveView(event.target.value));
 
-                // Event Listeners for comparison selects
                 compareSelect1.addEventListener('change', updateComparison);
                 compareSelect2.addEventListener('change', updateComparison);
 
-                // Modal close listener
                 modalCloseButton.addEventListener('click', closeModal);
                 serviceModal.addEventListener('click', (event) => {
-                    if (event.target === serviceModal) { // Clicked outside modal content
+                    if (event.target === serviceModal) {
                         closeModal();
                     }
                 });
@@ -1183,13 +1565,12 @@
                 openModal,
                 closeModal,
                 copyToClipboard,
-                domains, // Expose domains for initial rendering of filter buttons
-                servicesData, // Expose servicesData for initial rendering of comparison selects
-                comparison, // Expose comparison state for initial rendering
+                domains,
+                servicesData,
+                comparison,
             };
         })();
 
-        // Initialize the app when the DOM is fully loaded
         document.addEventListener('DOMContentLoaded', app.init);
     </script>
 </body>
