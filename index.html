@@ -1054,11 +1054,30 @@
                 <h3 class="font-bold text-xl mb-4 text-[#007EA7]">2. Desenvolver Soluções de Computação do Azure</h3>
                 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">2.1 Implementar Soluções Conteinerizadas</h4>
+                <div class="mb-4">
+                    <p class="font-semibold">Pergunta 1:</p>
+                    <p>Você precisa criar um contêiner em um grupo de contêineres e montar um compartilhamento de arquivos do Azure como volume. Qual segmento de código você deve usar?</p>
+                    <div class="mt-2 p-3 bg-green-50 rounded-md border border-green-200">
+                        <p class="font-bold">Resposta Correta:</p>
+                        <pre class="bg-gray-100 p-2 rounded text-xs overflow-x-auto"><code>az container create -g MyResourceGroup --name myapp --image myimage:latest --command-line "cat /mnt/azfile/myfile" --azure-file-volume-share-name myshare --azure-file-volume-account-name mystorageaccount --azure-file-volume-account-key mystoragekey --azure-file-volume-mount-path /mnt/azfile</code></pre>
+                        <p class="mt-2 text-sm">Este item testa o conhecimento do candidato sobre a execução de contêineres usando Instâncias de Contêiner do Azure. O segmento de código que inclui o parâmetro –azure-file-volume-mount-path e o parâmetro --azure-file-volume-share-name cria um contêiner em um grupo de contêineres e monta um compartilhamento de arquivos do Azure como volume. Os segmentos de código que incluem o parâmetro --secrets-mount-path não montarão o volume de forma apropriada para este cenário.</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <p class="font-semibold">Pergunta 2:</p>
+                    <p>Uma empresa usa Instâncias de Contêiner do Azure para um aplicativo. Você precisa garantir que os contêineres sejam reiniciados quando o processo terminar com um código de saída diferente de zero. O que você deve fazer?</p>
+                    <div class="mt-2 p-3 bg-green-50 rounded-md border border-green-200">
+                        <p class="font-bold">Resposta Correta:</p>
+                        <p>Defina uma política de reinicialização de contêiner de Always.</p>
+                        <p class="mt-2 text-sm">Este item testa o conhecimento do candidato sobre as políticas de reinicialização nas Instâncias de Contêiner do Azure. Os contêineres no grupo de contêineres são sempre reiniciados com uma política Always em vigor, independentemente do código de saída. A execução de contêineres usando uma identidade gerenciada simplificaria o acesso aos recursos externos do Azure, mas isso não tem efeito sobre quando um contêiner é reiniciado. Quando os processos no contêiner falharem (encerrando com um código de saída diferente de zero), eles não serão reiniciados e serão executados apenas uma vez no máximo. Os contêineres de inicialização destinam-se a executar a lógica de inicialização para contêineres de aplicativo, em execução até a conclusão antes do início dos contêineres do aplicativo.</p>
+                    </div>
+                </div>
+                
+                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Outras perguntas relevantes desta seção:</h4>
                 <ul class="list-disc list-inside mb-4 space-y-2 text-sm">
                     <li>Uma questão de simulado testa o comando `az acr repository delete --name devregistry --image dev/nginx:latest` para excluir uma imagem do ACR, o que sublinha a importância de conhecer os comandos da CLI para o gerenciamento de imagens.</li>
                     <li>Outra questão valida a utilização de "espaço para nome" (namespace) para compartilhar o registro entre múltiplos grupos, mantendo o isolamento. Isso reforça a relevância do conceito de namespace para a organização e o controle de acesso dentro do ACR.</li>
                     <li>Uma solução para cargas de trabalho flutuantes e alta disponibilidade envolve "Publicar uma imagem de contêiner para o Registro de Contêiner do Azure" e "Implantar aplicativos conteinerizados em Aplicativos de Contêiner do Azure". Isso ilustra a interconexão entre o ACR como repositório de imagens e os serviços de computação como plataformas de execução.</li>
-                    <li>Uma questão valida o comando da CLI para montar um compartilhamento de arquivos do Azure como volume, destacando a importância da persistência de dados em contêineres de curta duração.</li>
                     <li>Ambas as questões testam a política de reinicialização `Always` para garantir que os contêineres sejam reiniciados mesmo quando o processo termina com um código de saída diferente de zero.</li>
                     <li>Ambas as questões testam o comando `az container create` com `--restart-policy OnFailure` para reiniciar contêineres em caso de erro, diferenciando-o do comando `az container restart`.</li>
                     <li>Uma questão confirma que o "grupo de contêineres" é a configuração correta para mapear um compartilhamento de arquivos do Azure para cada contêiner em um aplicativo multi-contêiner na ACI.</li>
@@ -1173,6 +1192,32 @@
                 </ul>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">6.3 Desenvolver Soluções Baseadas em Mensagem</h4>
+                <div class="mb-4">
+                    <p class="font-semibold">Pergunta 1:</p>
+                    <p>Você precisa escrever uma condição de filtro para um tópico do Barramento de Serviço do Azure. Quais três filtros você pode usar? Cada resposta correta apresenta uma solução completa.</p>
+                    <div class="mt-2 p-3 bg-green-50 rounded-md border border-green-200">
+                        <p class="font-bold">Respostas Corretas:</p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>SQL</li>
+                            <li>booleano</li>
+                            <li>Correlação</li>
+                        </ul>
+                        <p class="mt-2 text-sm">Um SqlFilter contém uma expressão condicional semelhante a SQL que é avaliada no agente em relação às propriedades e propriedades do sistema definidas pelo usuário da mensagem de chegada. O TrueFilter e o FalseFilter fazem com que todas as mensagens que chegam (true) ou nenhuma das mensagens que chegam (false) sejam selecionadas para a assinatura. Um CorrelationFilter contém um conjunto de condições que são comparadas com uma ou mais propriedades do sistema e do usuário de uma mensagem recebida. Filtro de Tamanho e Conteúdo não são opções válidas para filtragem de tópicos do Barramento de Serviço.</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <p class="font-semibold">Pergunta 2:</p>
+                    <p>Você precisa criar uma solução de mensagens que garanta a entrega e o processamento de mensagens PEPS (primeiro a entrar, primeiro a sair). Quais dois serviços você deve usar? Cada resposta correta apresenta uma solução completa.</p>
+                    <div class="mt-2 p-3 bg-green-50 rounded-md border border-green-200">
+                        <p class="font-bold">Respostas Corretas:</p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>Barramento de Serviço do Azure com detecção duplicada</li>
+                            <li>Fila do Barramento de Serviço com a opção Sessões habilitada</li>
+                        </ul>
+                        <p class="mt-2 text-sm">O Barramento de Serviço do Azure com sessões habilitadas permite o processamento PEPS usando sessões para garantir que as mensagens relacionadas sejam tratadas na ordem em que são recebidas. A detecção duplicada ajuda a garantir que o sistema não processe a mesma transação mais de uma vez. O Armazenamento de Filas do Azure não garante o processamento PEPS, pois ele não dá suporte a sessões e o tempo limite de visibilidade apenas oculta a mensagem temporariamente de outros consumidores. A Grade de Eventos do Azure é um serviço de roteamento de eventos e não fornece garantias de PEPS ou sessões de mensagem.</p>
+                    </div>
+                </div>
+                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Outras perguntas relevantes desta seção:</h4>
                 <ul class="list-disc list-inside mb-4 space-y-2 text-sm">
                     <li>Uma questão testa os tipos de filtro que podem ser usados para um tópico do Barramento de Serviço do Azure: SQL, booleano e correlação.</li>
                     <li>Uma questão testa a recomendação de criar um novo tópico com um tempo de vida padrão de 15 minutos para enviar mensagens com um TTL maior que o padrão, sem afetar outros aplicativos.</li>
