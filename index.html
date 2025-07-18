@@ -387,19 +387,19 @@
                         question: "A infraestrutura subjacente para o Aplicativo Web do Azure precisa ser dimensionada com base na carga induzida no aplicativo Web subjacente. Qual das opções a seguir precisa ser implementada para esse requisito? Escolha 2 respostas das opções abaixo?",
                         options: [
                             { text: "Escalar verticalmente o Plano do Serviço de Aplicativo", isCorrect: true, rationale: "É necessário escalar verticalmente o Plano do Serviço de Aplicativo para uma camada que suporte auto scale (Standard ou superior)." },
-                            { text: "Scale out based on Rule-based conditions.", isCorrect: true, rationale: "Após escalar verticalmente o plano, regras de autoescalamento baseadas em condições como CPU ou memória podem ser criadas." },
-                            { text: "Create a deployment slot.", isCorrect: false, rationale: "Criar um slot de implantação é para testes e implantação sem tempo de inatividade, não para dimensionamento de infraestrutura baseado em carga." },
-                            { text: "Change the operating system for the App Service Plan.", isCorrect: false, rationale: "Alterar o sistema operacional não está relacionado ao dimensionamento automático baseado na carga do aplicativo." }
+                            { text: "Dimensionar com base em condições baseadas em regras.", isCorrect: true, rationale: "Após escalar verticalmente o plano, regras de autoescalamento baseadas em condições como CPU ou memória podem ser criadas." },
+                            { text: "Criar um slot de implantação.", isCorrect: false, rationale: "Criar um slot de implantação é para testes e implantação sem tempo de inatividade, não para dimensionamento de infraestrutura baseado em carga." },
+                            { text: "Alterar o sistema operacional para o Plano do Serviço de Aplicativo.", isCorrect: false, rationale: "Alterar o sistema operacional não está relacionado ao dimensionamento automático baseado na carga do aplicativo." }
                         ],
                         explanation: "Para habilitar o dimensionamento automático (scale out), primeiro é necessário escalar verticalmente o App Service Plan para uma camada que suporte isso (como Standard). Em seguida, podem-se criar regras de autoescalamento baseadas em condições como CPU ou memória."
                     },
                     {
                         question: "Sua equipe precisa criar um contêiner em uma conta existente do Azure Cosmos DB. Atualmente, não há nenhuma propriedade candidata no conjunto de dados que se encaixe nos critérios da chave de partição. Quais são as outras opções disponíveis para especificar a chave de partição? Escolha 2 respostas das opções abaixo.",
                         options: [
-                            { text: "Concatenate multiple properties of an item.", isCorrect: true, rationale: "A concatenação de múltiplas propriedades pode criar uma chave sintética para distribuição de dados." },
-                            { text: "Choose a property that does not have multiple values.", isCorrect: false, rationale: "Esta opção não resolve a ausência de uma propriedade candidata para a chave de partição." },
-                            { text: "Append a random number to the partition key value.", isCorrect: true, rationale: "Anexar um número aleatório ajuda a distribuir a carga uniformemente em partições, mesmo sem uma chave natural." },
-                            { text: "Use a static number as the partition key.", isCorrect: false, rationale: "Usar um número estático resultaria em uma única partição quente, prejudicando o desempenho." }
+                            { text: "Concatenar múltiplas propriedades de um item.", isCorrect: true, rationale: "A concatenação de múltiplas propriedades pode criar uma chave sintética para distribuição de dados." },
+                            { text: "Escolher uma propriedade que não tenha múltiplos valores.", isCorrect: false, rationale: "Esta opção não resolve a ausência de uma propriedade candidata para a chave de partição." },
+                            { text: "Anexar um número aleatório ao valor da chave de partição.", isCorrect: true, rationale: "Anexar um número aleatório ajuda a distribuir a carga uniformemente em partições, mesmo sem uma chave natural." },
+                            { text: "Usar um número estático como a chave de partição.", isCorrect: false, rationale: "Usar um número estático resultaria em uma única partição quente, prejudicando o desempenho." }
                         ],
                         explanation: "Para cenários onde não há uma chave de partição natural, a criação de chaves sintéticas (concatenando propriedades) ou a adição de um número aleatório (para espalhar a carga) são estratégias válidas."
                     },
@@ -416,15 +416,15 @@
                     {
                         question: "Sua equipe precisa publicar um aplicativo web em um Azure Web App. O aplicativo web precisa buscar segredos de um recurso Azure Key Vault. Você tem que garantir que o aplicativo web possa fazê-lo sem a necessidade de incorporar qualquer tipo de credenciais no aplicativo web. Qual das opções a seguir pode ser implementada para este requisito?",
                         options: [
-                            { text: "Enable SSL binding for the Azure Web App", isCorrect: false, rationale: "Habilitar SSL é para segurança de comunicação, não para autenticação em Key Vault sem credenciais." },
-                            { text: "Configure CORS for the Azure Web App", isCorrect: false, rationale: "CORS é para controle de acesso entre domínios, não para acesso seguro a segredos." },
-                            { text: "Configure a Managed Identity for the Azure Web App", isCorrect: true, rationale: "A Identidade Gerenciada permite que o App Service se autentique no Key Vault usando uma identidade do Azure AD, sem credenciais no código." },
-                            { text: "Assign a self-signed certificate for the web application", isCorrect: false, rationale: "Certificados autoassinados são para identificação, mas não eliminam a necessidade de gerenciar credenciais para acesso a segredos." }
+                            { text: "Habilitar ligação SSL para o Azure Web App", isCorrect: false, rationale: "Habilitar SSL é para segurança de comunicação, não para autenticação em Key Vault sem credenciais." },
+                            { text: "Configurar CORS para o Azure Web App", isCorrect: false, rationale: "CORS é para controle de acesso entre domínios, não para acesso seguro a segredos." },
+                            { text: "Configurar uma Identidade Gerenciada para o Azure Web App", isCorrect: true, rationale: "A Identidade Gerenciada permite que o App Service se autentique no Key Vault usando uma identidade do Azure AD, sem credenciais no código." },
+                            { text: "Atribuir um certificado autoassinado para o aplicativo web", isCorrect: false, rationale: "Certificados autoassinados são para identificação, mas não eliminam a necessidade de gerenciar credenciais para acesso a segredos." }
                         ],
                         explanation: "A configuração de uma Identidade Gerenciada permite que o Web App se autentique no Key Vault usando uma identidade gerenciada pelo Azure, eliminando a necessidade de credenciais no código."
                     },
                     {
-                        question: "Which of the following feature in Application Insights allows you to see performance and failure counts of your web application in near real time?",
+                        question: "Qual das seguintes funcionalidades no Application Insights permite que você veja o desempenho e as contagens de falhas do seu aplicativo web em tempo quase real?",
                         options: [
                             { text: "Profiler", isCorrect: false, rationale: "Profiler é para diagnosticar problemas de desempenho em nível de código, não para visão geral em tempo real." },
                             { text: "Live Metrics Stream", isCorrect: true, rationale: "Live Metrics Stream fornece uma visão em tempo real do desempenho e das contagens de falhas de sua aplicação web." },
@@ -434,7 +434,7 @@
                         explanation: "Live Metrics Stream oferece uma visão em tempo real do desempenho da aplicação, ideal para diagnósticos imediatos."
                     },
                     {
-                        question: "Your team currently has an Azure API Management service in place. They need to set a policy in which an Error message is passed in the header of the response if an unauthorized request is sent to the API service. You need to complete the below policy snippet for this requirement. Which of the following would go into Slot 1 for this requirement?",
+                        question: "Sua equipe atualmente tem um serviço de Gerenciamento de API do Azure em vigor. Eles precisam definir uma política na qual uma mensagem de erro é passada no cabeçalho da resposta se uma solicitação não autorizada for enviada ao serviço API. Você precisa completar o trecho de política abaixo para este requisito. Qual dos seguintes deve ir para o Slot 1 para este requisito?",
                         options: [
                             { text: "inbound", isCorrect: false, rationale: "A seção 'inbound' lida com políticas aplicadas antes da requisição ir para o backend." },
                             { text: "on-error", isCorrect: true, rationale: "A seção 'on-error' é usada para definir políticas que são aplicadas quando ocorre um erro durante o processamento da requisição." },
@@ -444,12 +444,12 @@
                         explanation: "A seção `on-error` em políticas APIM é onde se define o comportamento quando ocorre um erro, como uma solicitação não autorizada."
                     },
                     {
-                        question: "Here multiple devices would need to send their device data to an Azure service. The data would finally be stored in Azure Blob storage. Each device would produce around 1 MB of data per day. Currently there are around 1000 devices used by company employees. Which of the following would be ideally suited to be the Azure service to consume data from the devices?",
+                        question: "Vários dispositivos precisariam enviar seus dados de dispositivo para um serviço Azure. Os dados seriam finalmente armazenados no Azure Blob storage. Cada dispositivo produziria cerca de 1 MB de dados por dia. Atualmente, existem cerca de 1000 dispositivos usados pelos funcionários da empresa. Qual dos seguintes seria idealmente adequado para ser o serviço Azure para consumir dados dos dispositivos?",
                         options: [
-                            { text: "Azure Storage queues", isCorrect: false, rationale: "Azure Storage Queues são para filas de mensagens simples e não otimizadas para ingestão de alto volume de telemetria." },
-                            { text: "Azure Service Bus queues", isCorrect: false, rationale: "Azure Service Bus Queues são para mensageria empresarial e não para ingestão em massa de IoT." },
-                            { text: "Azure Event Grid", isCorrect: false, rationale: "Azure Event Grid é para roteamento de eventos reativos, não para ingestão de dados em massa de dispositivos." },
-                            { text: "Azure Event Hubs", isCorrect: true, rationale: "Azure Event Hubs é um serviço de ingestão de dados em tempo real e streaming de eventos, ideal para cenários de telemetria de IoT em larga escala." }
+                            { text: "Filas de Armazenamento do Azure", isCorrect: false, rationale: "Filas de Armazenamento do Azure são para filas de mensagens simples e não otimizadas para ingestão de alto volume de telemetria." },
+                            { text: "Filas do Barramento de Serviço do Azure", isCorrect: false, rationale: "Filas do Barramento de Serviço do Azure são para mensageria empresarial e não para ingestão em massa de IoT." },
+                            { text: "Grade de Eventos do Azure", isCorrect: false, rationale: "Grade de Eventos do Azure é para roteamento de eventos reativos, não para ingestão de dados em massa de dispositivos." },
+                            { text: "Hubs de Eventos do Azure", isCorrect: true, rationale: "Hubs de Eventos do Azure é um serviço de ingestão de dados em tempo real e streaming de eventos, ideal para cenários de telemetria de IoT em larga escala." }
                         ],
                         explanation: "Para ingestão de grandes volumes de dados de telemetria de dispositivos em tempo real, o Azure Event Hubs é a escolha mais apropriada."
                     },
@@ -524,7 +524,7 @@
                     {
                         question: "Sua equipe está desenvolvendo uma aplicação ASP.NET que será implantada no serviço Azure Web App. Há um requisito para usar um armazenamento de dados para a sessão da aplicação e também para armazenar respostas HTTP completas e frequentes. Qual dos seguintes pode ser usado para este requisito?",
                         options: [
-                            { text: "Azure Storage Account", isCorrect: false, rationale: "Uma Conta de Armazenamento do Azure pode armazenar dados, mas não é otimizada para cache de sessão e respostas HTTP de alta performance como o Redis Cache." },
+                            { text: "Conta de Armazenamento do Azure", isCorrect: false, rationale: "Uma Conta de Armazenamento do Azure pode armazenar dados, mas não é otimizada para cache de sessão e respostas HTTP de alta performance como o Redis Cache." },
                             { text: "Azure Cache for Redis", isCorrect: true, rationale: "O Azure Cache for Redis é um cache de dados na memória de alto desempenho, ideal para armazenar estado de sessão e respostas HTTP frequentemente acessadas para reduzir a latência e a carga no backend." },
                             { text: "Azure Functions", isCorrect: false, rationale: "Azure Functions é uma plataforma de computação serverless, não um serviço de armazenamento de cache." },
                             { text: "Azure Logic Apps", isCorrect: false, rationale: "Azure Logic Apps é para automação de fluxos de trabalho e integração, não para cache de dados." }
@@ -544,20 +544,20 @@
                     {
                         question: "Sua empresa tem a seguinte conta de Armazenamento do Azure. Você precisa fornecer a uma equipe de desenvolvimento acesso ao serviço Blob storage por um período de 2 semanas. Você deve garantir que a equipe não tenha acesso a nenhum serviço dentro da conta de armazenamento após as 2 semanas. Qual das seguintes opções pode ser implementada para este requisito?",
                         options: [
-                            { text: "Shared the Access keys for the storage account to the development team", isCorrect: false, rationale: "Compartilhar as chaves de acesso concede acesso total e permanente à conta de armazenamento, o que é inseguro e não limitado no tempo." },
-                            { text: "Create a Shared Access Signature and provide the Shared Access Signature to the development team.", isCorrect: true, rationale: "Uma SAS permite conceder acesso limitado no tempo e com permissões específicas a recursos de armazenamento, sem expor as chaves da conta." },
-                            { text: "Assign RBAC roles to the development for the Storage Account.", isCorrect: false, rationale: "Atribuir funções RBAC concede acesso baseado em identidade, mas não permite definir um período de expiração automático para o acesso." },
-                            { text: "Configure a firewall rule for the storage account.", isCorrect: false, rationale: "Uma regra de firewall restringe o acesso por IP, mas não controla o acesso do usuário ou a duração do acesso." }
+                            { text: "Compartilhar as chaves de acesso da conta de armazenamento com a equipe de desenvolvimento", isCorrect: false, rationale: "Compartilhar as chaves de acesso concede acesso total e permanente à conta de armazenamento, o que é inseguro e não limitado no tempo." },
+                            { text: "Criar uma Assinatura de Acesso Compartilhado e fornecê-la à equipe de desenvolvimento.", isCorrect: true, rationale: "Uma SAS permite conceder acesso limitado no tempo e com permissões específicas a recursos de armazenamento, sem expor as chaves da conta." },
+                            { text: "Atribuir funções RBAC à equipe de desenvolvimento para a Conta de Armazenamento.", isCorrect: false, rationale: "Atribuir funções RBAC concede acesso baseado em identidade, mas não permite definir um período de expiração automático para o acesso." },
+                            { text: "Configurar uma regra de firewall para a conta de armazenamento.", isCorrect: false, rationale: "Uma regra de firewall restringe o acesso por IP, mas não controla o acesso do usuário ou a duração do acesso." }
                         ],
                         explanation: "Uma Assinatura de Acesso Compartilhado (SAS) é a maneira mais segura e eficaz de fornecer acesso temporário e limitado a recursos específicos do Azure Storage."
                     },
                     {
                         question: "Sua equipe acabou de configurar um perfil e um endpoint do Azure CDN. O aplicativo web seria usado para armazenar e retornar imagens para o usuário. Uma URL de exemplo é dada abaixo: `http://www.cloudportalhub.com/images/image1.jpg?quality=high`. Você deve configurar o cache do Azure CDN para armazenar as imagens de acordo. As imagens precisam expirar do cache após uma hora. Qual das seguintes opções você configuraria como o comportamento de cache da string de consulta?",
                         options: [
-                            { text: "Ignore query strings", isCorrect: false, rationale: "Ignorar strings de consulta faria com que todas as variações da imagem (com diferentes parâmetros de qualidade) fossem tratadas como a mesma, resultando em cache incorreto." },
-                            { text: "Bypass caching for query strings", isCorrect: false, rationale: "Ignorar o cache para strings de consulta significa que as imagens não seriam cacheadas se tivessem parâmetros de consulta, o que não atende ao requisito de cache." },
-                            { text: "Cache every unique URL", isCorrect: true, rationale: "Para garantir que as diferentes versões da imagem (com base nos parâmetros de consulta como 'quality=high') sejam cacheadas separadamente, você deve configurar o CDN para cachear cada URL única, incluindo a string de consulta." },
-                            { text: "Cache only specified query strings", isCorrect: false, rationale: "Esta opção não é a mais abrangente para garantir que todas as variações de URL com strings de consulta sejam cacheadas conforme necessário." }
+                            { text: "Ignorar strings de consulta", isCorrect: false, rationale: "Ignorar strings de consulta faria com que todas as variações da imagem (com diferentes parâmetros de qualidade) fossem tratadas como a mesma, resultando em cache incorreto." },
+                            { text: "Ignorar o cache para strings de consulta", isCorrect: false, rationale: "Ignorar o cache para strings de consulta significa que as imagens não seriam cacheadas se tivessem parâmetros de consulta, o que não atende ao requisito de cache." },
+                            { text: "Armazenar em cache cada URL única", isCorrect: true, rationale: "Para garantir que as diferentes versões da imagem (com base nos parâmetros de consulta como 'quality=high') sejam cacheadas separadamente, você deve configurar o CDN para cachear cada URL única, incluindo a string de consulta." },
+                            { text: "Armazenar em cache apenas strings de consulta especificadas", isCorrect: false, rationale: "Esta opção não é a mais abrangente para garantir que todas as variações de URL com strings de consulta sejam cacheadas conforme necessário." }
                         ],
                         explanation: "Para garantir que o CDN armazene em cache diferentes versões da imagem com base nos parâmetros da string de consulta, é essencial cachear cada URL única."
                     },
@@ -570,6 +570,16 @@
                             { text: "Atualizar o nível de preço para o namespace do Service Bus para o nível Premium.", isCorrect: true, rationale: "A integração entre Azure Service Bus e Azure Event Grid requer que o namespace do Service Bus esteja no nível Premium." }
                         ],
                         explanation: "Para integrar o Azure Service Bus com o Azure Event Grid, o namespace do Service Bus deve estar no nível Premium, pois este é um recurso avançado de integração de eventos."
+                    },
+                    {
+                        question: "Qual das seguintes funcionalidades no Application Insights permite que você veja o desempenho e as contagens de falhas do seu aplicativo web em tempo quase real?",
+                        options: [
+                            { text: "Profiler", isCorrect: false, rationale: "Profiler é para diagnosticar problemas de desempenho em nível de código, não para visão geral em tempo real." },
+                            { text: "Live Metrics Stream", isCorrect: true, rationale: "Live Metrics Stream fornece uma visão em tempo real do desempenho e das contagens de falhas de sua aplicação web." },
+                            { text: "Smart Detection", isCorrect: false, rationale: "Smart Detection é um recurso de análise automática que alerta sobre anomalias, não uma ferramenta de monitoramento em tempo real." },
+                            { text: "Snapshot Debugger", isCorrect: false, rationale: "Snapshot Debugger captura snapshots de depuração em produção, mas não fornece métricas em tempo real." }
+                        ],
+                        explanation: "Live Metrics Stream oferece uma visão em tempo real do desempenho da aplicação, ideal para diagnósticos imediatos."
                     }
                 ]
             }
