@@ -1,8 +1,3 @@
-I understand you'd like to refine the layout of the Canvas to prevent text from being cut off and ensure content is only displayed when explicitly clicked. I will adjust the code to enhance the responsiveness and text handling within the expandable sections, ensuring a smoother viewing experience.
-
-Here is the updated Canvas:
-
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -477,6 +472,104 @@ Here is the updated Canvas:
                             { text: "Habilitar o Application Insights", isCorrect: false, rationale: "Application Insights é para monitoramento de desempenho, não para estratégias de implantação sem tempo de inatividade." }
                         ],
                         explanation: "Os slots de implantação são a solução ideal para validação em ambiente de preparo e implantação sem tempo de inatividade, permitindo a troca instantânea de uma versão testada para produção."
+                    },
+                    {
+                        question: "Você precisa implantar um contêiner baseado em Docker em um Azure Web App. A imagem Docker reside em um registro de contêiner do Azure, todos localizados em sua conta Azure. Você precisa completar os comandos da CLI do Azure abaixo para a implantação. Qual dos seguintes deve ir para o Slot 1?",
+                        options: [
+                            { text: "az webapp config", isCorrect: false, rationale: "Este comando é para configurar o web app, não para criar o plano de serviço." },
+                            { text: "az appservice plan create", isCorrect: true, rationale: "O Slot 1 é o primeiro comando, que é a criação do Plano do Serviço de Aplicativo para hospedar o web app." },
+                            { text: "az webapp create", isCorrect: false, rationale: "Este comando é para criar o web app, mas vem depois da criação do plano de serviço." },
+                            { text: "az appservice plan update", isCorrect: false, rationale: "Este comando é para atualizar um plano existente, não para criar um novo." }
+                        ],
+                        explanation: "O primeiro passo na implantação de um contêiner em um Azure Web App é criar o Plano do Serviço de Aplicativo usando `az appservice plan create`."
+                    },
+                    {
+                        question: "Você precisa implantar um contêiner baseado em Docker em um Azure Web App. A imagem Docker reside em um registro de contêiner do Azure, todos localizados em sua conta Azure. Você precisa completar os comandos da CLI do Azure abaixo para a implantação. Qual dos seguintes deve ir para o Slot 2?",
+                        options: [
+                            { text: "az webapp config", isCorrect: false, rationale: "Este comando é para configurar o web app, não para criá-lo." },
+                            { text: "az appservice plan create", isCorrect: false, rationale: "Este comando já foi usado no Slot 1 para criar o plano de serviço." },
+                            { text: "az webapp create", isCorrect: true, rationale: "Após criar o plano de serviço, o próximo passo é criar o Azure Web App e associá-lo ao plano e à imagem Docker." },
+                            { text: "az appservice plan update", isCorrect: false, rationale: "Este comando é para atualizar um plano existente, não para criar o web app." }
+                        ],
+                        explanation: "Após a criação do plano de serviço, o próximo passo lógico é criar o próprio Azure Web App usando `az webapp create`, especificando o plano e a imagem do contêiner."
+                    },
+                    {
+                        question: "Você precisa implantar um contêiner baseado em Docker em um Azure Web App. A imagem Docker reside em um registro de contêiner do Azure, todos localizados em sua conta Azure. Você precisa completar os comandos da CLI do Azure abaixo para a implantação. Qual dos seguintes deve ir para o Slot 3?",
+                        options: [
+                            { text: "az webapp config", isCorrect: true, rationale: "O Slot 3 é para configurar as definições da aplicação do Azure Web App, como a porta em que o contêiner está ouvindo." },
+                            { text: "az appservice plan create", isCorrect: false, rationale: "Este comando já foi usado no Slot 1." },
+                            { text: "az webapp create", isCorrect: false, rationale: "Este comando já foi usado no Slot 2." },
+                            { text: "az appservice plan update", isCorrect: false, rationale: "Este comando é para atualizar um plano existente, não para configurar as definições do web app." }
+                        ],
+                        explanation: "A configuração das definições da aplicação, como a porta HTTP que o contêiner expõe, é feita com `az webapp config appsettings set`."
+                    },
+                    {
+                        question: "Sua equipe tem uma conta do Azure Cosmos DB com um contêiner 'courses' e dados. Você executa a seguinte consulta: `SELECT * FROM c WHERE c.rating>4.6`. Esta é uma consulta In-partition?",
+                        options: [
+                            { text: "Sim", isCorrect: false, rationale: "Uma consulta In-partition filtra pela chave de partição. A consulta fornecida filtra por 'rating', que não é a chave de partição ('/category')." },
+                            { text: "Não", isCorrect: true, rationale: "Como a consulta filtra por uma propriedade que não é a chave de partição ('rating' em vez de '/category'), ela se torna uma consulta cross-partition (entre partições)." }
+                        ],
+                        explanation: "Uma consulta é 'In-partition' se o filtro da consulta inclui a chave de partição. Como esta consulta filtra por 'rating' e não pela chave de partição ('/category'), ela é uma consulta 'cross-partition'."
+                    },
+                    {
+                        question: "Seu membro da equipe executou o seguinte script PowerShell para criar uma conta do Azure Cosmos DB e um contêiner. O script não especifica explicitamente as Request Units (RUs) para o contêiner. Quantas Request Units seriam atribuídas ao contêiner por padrão?",
+                        options: [
+                            { text: "400", isCorrect: true, rationale: "Quando as Request Units não são explicitamente definidas durante a criação de um contêiner no Azure Cosmos DB, o valor padrão atribuído é 400 RUs/s." },
+                            { text: "4000", isCorrect: false, rationale: "4000 RUs/s é um valor comum para throughput provisionado, mas não é o padrão quando não especificado." },
+                            { text: "500", isCorrect: false, rationale: "500 RUs/s não é o padrão para um contêiner recém-criado sem especificação." },
+                            { text: "1000", isCorrect: false, rationale: "1000 RUs/s não é o padrão para um contêiner recém-criado sem especificação." }
+                        ],
+                        explanation: "Por padrão, se as Request Units não forem especificadas ao criar um contêiner do Azure Cosmos DB, ele será provisionado com 400 RUs/s."
+                    },
+                    {
+                        question: "Sua equipe está desenvolvendo uma aplicação ASP.NET que será implantada no serviço Azure Web App. Há um requisito para usar um armazenamento de dados para a sessão da aplicação e também para armazenar respostas HTTP completas e frequentes. Qual dos seguintes pode ser usado para este requisito?",
+                        options: [
+                            { text: "Azure Storage Account", isCorrect: false, rationale: "Uma Conta de Armazenamento do Azure pode armazenar dados, mas não é otimizada para cache de sessão e respostas HTTP de alta performance como o Redis Cache." },
+                            { text: "Azure Cache for Redis", isCorrect: true, rationale: "O Azure Cache for Redis é um cache de dados na memória de alto desempenho, ideal para armazenar estado de sessão e respostas HTTP frequentemente acessadas para reduzir a latência e a carga no backend." },
+                            { text: "Azure Functions", isCorrect: false, rationale: "Azure Functions é uma plataforma de computação serverless, não um serviço de armazenamento de cache." },
+                            { text: "Azure Logic Apps", isCorrect: false, rationale: "Azure Logic Apps é para automação de fluxos de trabalho e integração, não para cache de dados." }
+                        ],
+                        explanation: "O Azure Cache for Redis é a solução ideal para armazenar estado de sessão e respostas HTTP frequentes devido ao seu alto desempenho e baixa latência."
+                    },
+                    {
+                        question: "Sua equipe está planejando usar o Azure Cosmos DB. Os dados serão armazenados como pares chave-valor. Qual das seguintes APIs você escolheria no Cosmos DB para este requisito?",
+                        options: [
+                            { text: "NoSQL", isCorrect: false, rationale: "A API NoSQL é para documentos JSON e consultas SQL, não especificamente para pares chave-valor." },
+                            { text: "MongoDB", isCorrect: false, rationale: "A API MongoDB é para documentos JSON e compatibilidade com MongoDB, não para pares chave-valor puros." },
+                            { text: "Table", isCorrect: true, rationale: "A API de Tabela do Azure Cosmos DB é projetada para o armazenamento de dados chave-valor, oferecendo alta performance e escalabilidade para este modelo de dados." },
+                            { text: "Cassandra", isCorrect: false, rationale: "A API Cassandra é para bancos de dados de colunas largas e compatibilidade com Apache Cassandra, não especificamente para pares chave-valor puros." }
+                        ],
+                        explanation: "A API de Tabela do Azure Cosmos DB é otimizada para armazenar dados como pares chave-valor."
+                    },
+                    {
+                        question: "Sua empresa tem a seguinte conta de Armazenamento do Azure. Você precisa fornecer a uma equipe de desenvolvimento acesso ao serviço Blob storage por um período de 2 semanas. Você deve garantir que a equipe não tenha acesso a nenhum serviço dentro da conta de armazenamento após as 2 semanas. Qual das seguintes opções pode ser implementada para este requisito?",
+                        options: [
+                            { text: "Shared the Access keys for the storage account to the development team", isCorrect: false, rationale: "Compartilhar as chaves de acesso concede acesso total e permanente à conta de armazenamento, o que é inseguro e não limitado no tempo." },
+                            { text: "Create a Shared Access Signature and provide the Shared Access Signature to the development team.", isCorrect: true, rationale: "Uma SAS permite conceder acesso limitado no tempo e com permissões específicas a recursos de armazenamento, sem expor as chaves da conta." },
+                            { text: "Assign RBAC roles to the development for the Storage Account.", isCorrect: false, rationale: "Atribuir funções RBAC concede acesso baseado em identidade, mas não permite definir um período de expiração automático para o acesso." },
+                            { text: "Configure a firewall rule for the storage account.", isCorrect: false, rationale: "Uma regra de firewall restringe o acesso por IP, mas não controla o acesso do usuário ou a duração do acesso." }
+                        ],
+                        explanation: "Uma Assinatura de Acesso Compartilhado (SAS) é a maneira mais segura e eficaz de fornecer acesso temporário e limitado a recursos específicos do Azure Storage."
+                    },
+                    {
+                        question: "Sua equipe acabou de configurar um perfil e um endpoint do Azure CDN. O aplicativo web seria usado para armazenar e retornar imagens para o usuário. Uma URL de exemplo é dada abaixo: `http://www.cloudportalhub.com/images/image1.jpg?quality=high`. Você deve configurar o cache do Azure CDN para armazenar as imagens de acordo. As imagens precisam expirar do cache após uma hora. Qual das seguintes opções você configuraria como o comportamento de cache da string de consulta?",
+                        options: [
+                            { text: "Ignore query strings", isCorrect: false, rationale: "Ignorar strings de consulta faria com que todas as variações da imagem (com diferentes parâmetros de qualidade) fossem tratadas como a mesma, resultando em cache incorreto." },
+                            { text: "Bypass caching for query strings", isCorrect: false, rationale: "Ignorar o cache para strings de consulta significa que as imagens não seriam cacheadas se tivessem parâmetros de consulta, o que não atende ao requisito de cache." },
+                            { text: "Cache every unique URL", isCorrect: true, rationale: "Para garantir que as diferentes versões da imagem (com base nos parâmetros de consulta como 'quality=high') sejam cacheadas separadamente, você deve configurar o CDN para cachear cada URL única, incluindo a string de consulta." },
+                            { text: "Cache only specified query strings", isCorrect: false, rationale: "Esta opção não é a mais abrangente para garantir que todas as variações de URL com strings de consulta sejam cacheadas conforme necessário." }
+                        ],
+                        explanation: "Para garantir que o CDN armazene em cache diferentes versões da imagem com base nos parâmetros da string de consulta, é essencial cachear cada URL única."
+                    },
+                    {
+                        question: "Sua equipe tem atualmente o seguinte namespace do Service Bus. Eles precisam permitir que o Service Bus emita eventos para o Azure Event Grid. O que precisa ser feito para garantir que este requisito possa ser atendido, mantendo os custos mínimos?",
+                        options: [
+                            { text: "Criar uma fila do Service Bus.", isCorrect: false, rationale: "Criar uma fila não habilita a integração com o Event Grid." },
+                            { text: "Criar um tópico do Service Bus.", isCorrect: false, rationale: "Criar um tópico não habilita a integração com o Event Grid." },
+                            { text: "Atualizar o nível de preço para o namespace do Service Bus para o nível Standard.", isCorrect: false, rationale: "O nível Standard não suporta a integração com o Event Grid." },
+                            { text: "Atualizar o nível de preço para o namespace do Service Bus para o nível Premium.", isCorrect: true, rationale: "A integração entre Azure Service Bus e Azure Event Grid requer que o namespace do Service Bus esteja no nível Premium." }
+                        ],
+                        explanation: "Para integrar o Azure Service Bus com o Azure Event Grid, o namespace do Service Bus deve estar no nível Premium, pois este é um recurso avançado de integração de eventos."
                     }
                 ]
             }
