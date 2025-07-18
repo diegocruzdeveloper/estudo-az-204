@@ -81,25 +81,17 @@
     <nav class="sticky-nav">
         <div class="container mx-auto px-4 py-2">
             <ul class="flex flex-wrap justify-center text-sm md:text-base">
-                <li><a href="#introduction">Introdução</a></li>
                 <li><a href="#compute">Computação</a></li>
                 <li><a href="#storage">Armazenamento</a></li>
                 <li><a href="#security">Segurança</a></li>
                 <li><a href="#monitoring">Monitoramento</a></li>
                 <li><a href="#connect">Conexão de Serviços</a></li>
                 <li><a href="#simulated-questions">Perguntas</a></li>
-                <li><a href="#conclusion">Conclusões</a></li>
             </ul>
         </div>
     </nav>
 
     <main class="container mx-auto p-4 md:p-8">
-
-        <section id="introduction" class="mb-12 bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-3xl font-bold text-[#003459] mb-4 border-l-4 border-[#00A8E8] pl-4">1. Introdução</h2>
-            <p class="mb-4">O exame AZ-204, "Desenvolvimento de Soluções para o Microsoft Azure", é uma certificação fundamental que valida a proficiência de um candidato na implementação de soluções robustas e escaláveis na plataforma Azure. Este exame abrange uma vasta gama de serviços e conceitos essenciais para desenvolvedores de nuvem, incluindo computação, armazenamento de dados, segurança, monitoramento de aplicações e a integração de diversos serviços Azure e de terceiros. A estrutura do exame é cuidadosamente ponderada, com domínios de conhecimento que refletem a importância relativa de cada área, garantindo que os profissionais certificados possuam uma compreensão abrangente e prática das capacidades de desenvolvimento no Azure.</p>
-            <p class="mb-4">Este relatório foi meticulosamente elaborado para servir como um guia de estudo estratégico. A sua concepção integra resumos técnicos da documentação oficial do Microsoft Learn com uma análise aprofundada de perguntas de simulado. Cada seção do relatório corresponde a um domínio do exame AZ-204, detalhando as funcionalidades-chave e estabelecendo correlações diretas com os cenários práticos que são frequentemente avaliados nas provas. A leitura atenta deste documento é recomendada, com especial atenção às explicações das funcionalidades e às "Correlações com Perguntas do Simulado". Estas correlações são cruciais para compreender a aplicação prática dos conceitos teóricos. As tabelas incluídas consolidam informações vitais, facilitando a referência rápida e a comparação entre diferentes serviços e configurações.</p>
-        </section>
 
         <section id="compute" class="mb-12">
             <h2 class="text-3xl font-bold text-[#003459] mb-6 border-l-4 border-[#00A8E8] pl-4">2. Desenvolver Soluções de Computação do Azure (25-30%)</h2>
@@ -111,15 +103,10 @@
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Criação e Gerenciamento de Imagens de Contêiner para Soluções</h4>
                 <p class="mb-4">O Azure Container Registry (ACR) é um serviço de registro privado gerenciado que permite o armazenamento seguro de imagens Docker e outros artefatos relacionados, como gráficos Helm. Baseado no Docker Registry 2.0, o ACR é fundamental para criar, armazenar e gerenciar imagens utilizadas em diversas implantações de contêineres.</p>
-                <p class="mb-4">Uma das capacidades mais valiosas do ACR é o <strong>ACR Tasks</strong>, um conjunto de serviços que automatiza o ciclo de vida das imagens de contêiner. Isso inclui a automação de builds, a aplicação de patches de segurança e o push de imagens para o registro. Essa automação reflete uma tendência significativa na engenharia de software moderna em direção à Integração Contínua/Entrega Contínua (CI/CD) e DevSecOps, que visa reduzir o esforço manual e aprimorar a segurança das imagens em todas as etapas do desenvolvimento. A centralização das imagens em um registro privado como o ACR é um pré-requisito para garantir a consistência e a segurança das implantações de contêineres em qualquer serviço Azure, como Azure Container Instances (ACI) ou Azure Container Apps (ACA). Isso assegura que todas as instâncias de uma aplicação conteinerizada utilizem a mesma imagem validada, minimizando desvios de configuração e potenciais vulnerabilidades.</p>
+                <p class="mb-4">Uma das capacidades mais valiosas do ACR é o <strong>ACR Tasks</strong>, um conjunto de serviços que automatiza o ciclo de vida das imagens de contêiner. Isso inclui a automação de builds, a aplicação de patches de segurança e o push de imagens para o registro. A centralização das imagens em um registro privado como o ACR é um pré-requisito para garantir a consistência e a segurança das implantações de contêineres em qualquer serviço Azure, como Azure Container Instances (ACI) ou Azure Container Apps (ACA). Isso assegura que todas as instâncias de uma aplicação conteinerizada utilizem a mesma imagem validada, minimizando desvios de configuração e potenciais vulnerabilidades.</p>
                 <p class="mb-4">A publicação de imagens no ACR pode ser realizada por meio de ferramentas de desenvolvimento como o Visual Studio ou diretamente via Azure CLI, permitindo que o Serviço de Aplicativo do Azure utilize essas imagens hospedadas. Para criar um novo registro de contêiner, o processo envolve a navegação no portal do Azure, a seleção da opção "Contêineres" e, em seguida, "Registro de Contêiner", onde se define a assinatura, o grupo de recursos, um nome exclusivo e o SKU desejado. Além disso, o gerenciamento de imagens de contêiner pode ser estendido para ambientes Windows Server por meio do Windows Admin Center, que permite efetuar o pull (baixar) de imagens para criar novos contêineres, inclusive de repositórios privados, utilizando a autenticação nativa do Azure.</p>
                 <p class="mb-4">A capacidade de gerenciar <strong>namespaces</strong> dentro do ACR é um aspecto crucial para a governança e a segurança em ambientes corporativos. Os namespaces permitem o isolamento eficaz entre diferentes equipes ou projetos, mesmo quando compartilham o mesmo registro, facilitando a organização e o controle de acesso aos artefatos.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Uma questão de simulado testa o comando `az acr repository delete --name devregistry --image dev/nginx:latest` para excluir uma imagem do ACR, o que sublinha a importância de conhecer os comandos da CLI para o gerenciamento de imagens.</li>
-                    <li>Outra questão valida a utilização de "espaço para nome" (namespace) para compartilhar o registro entre múltiplos grupos, mantendo o isolamento. Isso reforça a relevância do conceito de namespace para a organização e o controle de acesso dentro do ACR.</li>
-                    <li>Uma solução para cargas de trabalho flutuantes e alta disponibilidade envolve "Publicar uma imagem de contêiner para o Registro de Contêiner do Azure" e "Implantar aplicativos conteinerizados em Aplicativos de Contêiner do Azure". Isso ilustra a interconexão entre o ACR como repositório de imagens e os serviços de computação como plataformas de execução.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-compute-containers" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Execução de Contêineres Usando a Instância de Contêiner do Azure (ACI)</h4>
                 <p class="mb-4">O Azure Container Instances (ACI) oferece uma solução ágil e simplificada para executar contêineres no Azure, eliminando a necessidade de gerenciar máquinas virtuais subjacentes ou orquestradores complexos. Este serviço é particularmente adequado para cenários que exigem a execução rápida de contêineres sem a sobrecarga de uma infraestrutura completa.</p>
@@ -131,23 +118,13 @@
                     <li>`Never`: Os contêineres são executados no máximo uma vez e não são reiniciados.</li>
                 </ul>
                 <p class="mb-4">A simplicidade da ACI, com seu foco em grupos de contêineres e políticas de reinicialização, a torna uma escolha ideal para cargas de trabalho de curta duração, tarefas em lote ou cenários de burst, onde a sobrecarga de um orquestrador completo seria desnecessária. A seleção da política de reinicialização é uma decisão crítica que afeta diretamente a resiliência e a automação da recuperação de falhas para contêineres individuais ou grupos. A ACI se posiciona como uma solução "serverless" para contêineres, abstraindo a infraestrutura subjacente e permitindo que os desenvolvedores se concentrem no código conteinerizado. No entanto, é importante notar que a ACI não oferece recursos de orquestração avançados, como balanceamento de carga complexo ou descoberta de serviço, que são encontrados em serviços como Azure Kubernetes Service (AKS) ou Azure Container Apps.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Uma questão valida o comando da CLI para montar um compartilhamento de arquivos do Azure como volume, destacando a importância da persistência de dados em contêineres de curta duração.</li>
-                    <li>Ambas as questões testam a política de reinicialização `Always` para garantir que os contêineres sejam reiniciados mesmo quando o processo termina com um código de saída diferente de zero.</li>
-                    <li>Ambas as questões testam o comando `az container create` com `--restart-policy OnFailure` para reiniciar contêineres em caso de erro, diferenciando-o do comando `az container restart`.</li>
-                    <li>Uma questão confirma que o "grupo de contêineres" é a configuração correta para mapear um compartilhamento de arquivos do Azure para cada contêiner em um aplicativo multi-contêiner na ACI.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-compute-containers" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Criação de Soluções Usando os Aplicativos de Contêiner do Azure (ACA)</h4>
                 <p class="mb-4">Os Aplicativos de Contêiner do Azure (ACA) representam um serviço de contêiner sem servidor que permite a execução de microsserviços e aplicações conteinerizadas em uma plataforma construída sobre o Azure Kubernetes Service (AKS), porém, abstraindo a complexidade inerente ao gerenciamento direto do Kubernetes. Este serviço é particularmente adequado para aplicações que apresentam cargas de trabalho flutuantes e que demandam alta disponibilidade, pois oferece <strong>dimensionamento automático</strong> e <strong>recuperação automática de falhas</strong>.</p>
                 <p class="mb-4">A implantação de um aplicativo de contêiner no ACA pode ser realizada de maneira simplificada utilizando o comando `az containerapp up` da Azure CLI. Se houver um Dockerfile na raiz do repositório local do projeto, o comando com o parâmetro `--source.` pode ser empregado para criar e implantar o aplicativo. Este comando não apenas implanta o contêiner, mas também provisiona o ambiente Container Apps e o workspace do Log Analytics associado.</p>
                 <p class="mb-4">O surgimento de serviços como o ACA reflete uma clara direção da Microsoft em fornecer plataformas "serverless" que simplificam a adoção de microsserviços e contêineres. O ACA preenche uma lacuna importante, oferecendo um equilíbrio entre a simplicidade da ACI e a flexibilidade total (mas com maior complexidade) do AKS. A capacidade do ACA de dimensionar e recuperar automaticamente reduz significativamente a sobrecarga operacional para desenvolvedores e equipes de operações, permitindo que se concentrem na lógica de negócios da aplicação em vez da gestão da infraestrutura subjacente. Isso torna o ACA uma escolha estratégica para arquiteturas de microsserviços, aplicações baseadas em eventos e APIs que necessitam de escalabilidade e resiliência sem a curva de aprendizado íngreme do Kubernetes.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>A questão de simulado indica que a solução para um aplicativo conteinerizado com cargas de trabalho flutuantes e alta disponibilidade é "Implantar aplicativos conteinerizados em Aplicativos de Contêiner do Azure" e "Publicar uma imagem de contêiner para o Registro de Contêiner do Azure". Isso valida o ACA como a solução ideal para esses requisitos.</li>
-                    <li>Uma questão testa o comando `az containerapp up --source.` para implantar um aplicativo de contêiner usando um Dockerfile, demonstrando a abordagem prática de implantação.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-compute-containers" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <div class="chart-container lg:col-span-2" style="height: 380px;">
                     <canvas id="containerOptionsChart"></canvas>
@@ -162,7 +139,6 @@
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Criação de Aplicativos Web e Aplicativos de API do Serviço de Aplicativo do Azure</h4>
                 <p class="mb-4">O Azure App Service é uma plataforma como serviço (PaaS) totalmente gerenciada, projetada para hospedar aplicações web, backends móveis e APIs RESTful. Este serviço oferece suporte a uma ampla variedade de pilhas de desenvolvimento, incluindo.NET, Java, Node.js, Python e PHP, e pode ser executado em ambientes Windows e Linux, além de suportar contêineres personalizados.</p>
                 <p class="mb-4">O App Service se destaca por oferecer recursos intrínsecos como escalabilidade automática, integração com ferramentas de CI/CD (Integração Contínua/Entrega Contínua), segurança de marca e opções de isolamento de rede. Essas características o tornam uma escolha versátil e adequada para diversos perfis de usuários, desde estudantes e pequenas empresas até grandes corporações com requisitos complexos. Um "Aplicativo de API" é, essencialmente, um tipo especializado de aplicativo hospedado dentro do Serviço de Aplicativo do Azure, otimizado para o desenvolvimento e a exposição de APIs RESTful.</p>
-                <p class="mb-4">A escolha do App Service permite que as equipes de desenvolvimento direcionem seu foco primário para a lógica de negócios da aplicação. Enquanto isso, o Azure se encarrega da gestão da infraestrutura subjacente, incluindo patching de segurança, escalabilidade e garantia da segurança básica. Essa abstração da infraestrutura torna o App Service uma opção poderosa e eficiente para a maioria das aplicações web e APIs, dada a sua natureza gerenciada.</p>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Configuração e Implementação de Diagnósticos e Logs</h4>
                 <p class="mb-4">Uma estratégia eficaz de diagnóstico e log é crucial para a saúde operacional de qualquer aplicação na nuvem. O App Service Diagnostics é uma ferramenta interativa integrada no portal do Azure, projetada para auxiliar na solução de problemas, identificando a causa raiz e direcionando o usuário para as informações relevantes.</p>
@@ -219,10 +195,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Ambas as questões testam a necessidade de examinar o log de "erro detalhado" para inspecionar uma cópia da página retornada quando o código de retorno HTTP é maior que 400.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-compute-appservice" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Definição de Configurações (TLS, API, Conexões de Serviço)</h4>
                 <p class="mb-4">A correta configuração de diversos aspectos do Serviço de Aplicativo é fundamental para garantir a segurança, o desempenho e a funcionalidade das aplicações.</p>
@@ -295,13 +268,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Uma questão testa a compra de um certificado do Serviço de Aplicativo para automação de renovação e sincronização.</li>
-                    <li>Ambas as questões validam a "Configuração do slot de implantação" para garantir que uma cadeia de conexão não seja trocada durante o swap.</li>
-                    <li>Uma questão testa a "Afinidade ARR" para rotear um aplicativo cliente para a mesma instância durante a vida útil da sessão em uma implantação de várias instâncias.</li>
-                    <li>Uma questão testa a configuração do Cache Local do Serviço Web do Azure usando `WEBSITE_LOCAL_CACHE_OPTION` e `WEBSITE_LOCAL_CACHE_SIZEINMB`.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-compute-appservice" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Implementação de Dimensionamento Automático</h4>
                 <p class="mb-4">O dimensionamento automático no App Service é um recurso fundamental que permite que as aplicações se ajustem dinamicamente à demanda, adicionando ou removendo capacidade de forma elástica. Isso pode ocorrer tanto por meio de escalonamento vertical (aumentando os recursos de uma instância existente, como CPU e memória) quanto por escalonamento horizontal (adicionando ou removendo instâncias de host). O ajuste é baseado em métricas de desempenho predefinidas ou em agendamentos específicos.</p>
@@ -313,12 +280,7 @@
                 <p class="mb-4">Os principais benefícios dos slots de implantação incluem a capacidade de validar alterações de aplicativo em um ambiente idêntico ao de produção antes de mover o aplicativo para o ambiente de produção, o que elimina o tempo de inatividade durante a implantação. A utilização de um slot de preparo com a troca automática habilitada (`auto-swap`) é uma prática recomendada que reduz significativamente a probabilidade de arquivos bloqueados durante a implantação de um pacote ZIP.</p>
                 <p class="mb-4">Um aspecto importante é a capacidade de marcar uma configuração (como uma cadeia de conexão) como uma "configuração de slot de implantação". Isso garante que essa configuração específica permaneça aderida a esse slot específico e não seja trocada durante as operações de swap entre slots. Isso é vital para manter a integridade do ambiente de produção, especialmente para cadeias de conexão ou outras configurações sensíveis ao ambiente.</p>
                 <p class="mb-4">Os slots de implantação permitem a implementação de estratégias de implantação "blue-green" ou "canary", que são cruciais para reduzir o risco de implantações e garantir zero tempo de inatividade. A capacidade de "fixar" configurações a um slot é vital para manter a integridade do ambiente de produção durante as trocas. A utilização de slots de implantação é uma prática recomendada de DevOps que aprimora a confiabilidade das implantações, a capacidade de reversão rápida e a qualidade geral do software.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Ambas as questões testam a implantação em um slot de preparo com troca automática habilitada para reduzir a probabilidade de arquivos bloqueados.</li>
-                    <li>Ambas as questões validam a "Configuração do slot de implantação" para garantir que uma cadeia de conexão não seja trocada.</li>
-                    <li>Uma questão reforça que os slots de implantação são a solução para validar alterações e eliminar o tempo de inatividade em implantações de aplicativos Web Linux.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-compute-appservice" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="bg-white rounded-lg shadow-md p-6 lg:col-span-1">
@@ -417,21 +379,13 @@
                         </tr>
                     </tbody>
                 </table>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Ambas as questões validam o "Plano de Consumo" como a opção que atende aos requisitos de escalonamento automático, comportamento de escalonamento baseado em eventos e modelo de preço sem servidor.</li>
-                    <li>Uma questão testa a propriedade `functionAppScaleLimit` para controlar o número de instâncias, útil para evitar sobrecarga em bancos de dados com taxa de transferência limitada.</li>
-                    <li>Uma questão recomenda o "Plano Premium" e o "Padrão fan-out/fan-in" para executar várias funções simultaneamente, agregar resultados e evitar inícios frios, minimizando custos.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-compute-functions" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Implementação de Associações de Entrada e Saída</h4>
                 <p class="mb-4">As associações (bindings) são um recurso fundamental do Azure Functions que oferece uma maneira declarativa de conectar funções a outros recursos do Azure. Elas permitem que dados sejam passados para a função (associação de entrada) ou que a função grave dados em outros serviços (associação de saída) de forma simplificada, utilizando parâmetros de associação. O gatilho que inicia a execução de uma função é, na verdade, considerado um tipo especial de associação de entrada.</p>
                 <p class="mb-4">O principal benefício das associações é que elas ajudam a evitar a codificação explícita de acesso a outros serviços, o que simplifica drasticamente o código e a manutenção. Em vez de escrever código para autenticar, conectar e manipular dados de um serviço externo, o desenvolvedor apenas declara a associação, e o runtime do Functions cuida dos detalhes. Para linguagens de script, como C# script, as associações e gatilhos são configurados explicitamente em um arquivo `function.json` para cada função. Já para linguagens compiladas, como C#, são utilizados atributos de método e parâmetro para definir essas associações.</p>
                 <p class="mb-4">O uso de associações reduz a quantidade de código boilerplate necessário para interagir com outros serviços Azure, acelerando o desenvolvimento e tornando o código mais limpo e focado na lógica de negócios. As associações são um recurso poderoso do Azure Functions que promove a integração sem atrito entre serviços, um princípio fundamental para arquiteturas de microsserviços e serverless.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Uma questão de simulado confirma a criação de um arquivo `function.json` para cada função para configurar gatilhos e associações em aplicativos Azure Functions baseados em script em C#.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-compute-functions" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Implementação de Gatilhos de Função (Operações de Dados, Temporizadores e Webhooks)</h4>
                 <p class="mb-4">Gatilhos são os eventos ou condições que fazem com que as funções do Azure sejam executadas. Cada função deve ter exatamente um gatilho, que também pode passar dados para a função para processamento. A flexibilidade dos gatilhos é o que torna o Azure Functions uma ferramenta tão versátil para uma ampla gama de cenários.</p>
@@ -439,11 +393,7 @@
                 <p class="mb-4">Os <strong>Gatilhos HTTP e Webhooks</strong> permitem que as funções sejam invocadas por meio de solicitações HTTP, possibilitando a criação de APIs sem servidor e a resposta a eventos de webhooks. Isso é fundamental para a construção de backends para aplicações web e móveis, bem como para integrações com sistemas de terceiros.</p>
                 <p class="mb-4">Para gerenciar a utilização de recursos e evitar exceder os limites de taxa de serviços de terceiros, as funções podem ser configuradas com controle de concorrência por meio do arquivo `host.json`. As propriedades `maxConcurrentRequests` (que limita o número de execuções paralelas) e `maxOutstandingRequests` (que limita as solicitações pendentes) são essenciais para isso. Essas configurações atuam como um mecanismo de "backpressure" direto, protegendo serviços downstream de serem sobrecarregados por um aplicativo Functions que pode escalar rapidamente em resposta a um grande volume de eventos.</p>
                 <p class="mb-4">A flexibilidade dos gatilhos (HTTP, temporizador, dados, entre outros) permite que o Azure Functions atue como a "cola" para uma vasta gama de cenários de integração e automação na nuvem. A combinação de gatilhos poderosos e controle de concorrência granular faz do Azure Functions uma plataforma robusta para o desenvolvimento de soluções serverless.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Ambas as questões testam a sintaxe da expressão cron para um gatilho de temporizador que executa a função a cada 15 minutos, de segunda a sexta-feira.</li>
-                    <li>Ambas as questões validam a configuração de `maxConcurrentRequests` e `maxOutstandingRequests` no arquivo `host.json` para gerenciar a utilização de recursos e limites de taxa para serviços de terceiros.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-compute-functions" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
             </div>
         </section>
 
@@ -466,10 +416,7 @@
                 </ul>
                 <p class="mb-4">Um exemplo prático da importância da chave de partição é o método `ReadItemAsync` da classe `Container`. Para ler um item específico do serviço Azure Cosmos DB, este método requer dois parâmetros obrigatórios: a `partitionKey` e o `id` exclusivo do item.</p>
                 <p class="mb-4">A utilização do SDK abstrai as complexidades da API REST subjacente do Cosmos DB, permitindo que os desenvolvedores interajam com o banco de dados de forma mais idiomática e eficiente. A exigência da `partitionKey` e do `id` para o método `ReadItemAsync` destaca a importância do design de particionamento para a otimização do desempenho e do custo no Cosmos DB. Um bom design de chave de partição é o fator mais crítico para o desempenho e a escalabilidade de uma aplicação Cosmos DB, pois afeta diretamente a distribuição de dados e a eficiência das operações de leitura e gravação.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Uma questão de simulado testa os parâmetros obrigatórios (`partitionKey` e `id`) para o método `ReadItemAsync`, validando o conhecimento prático do SDK.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-storage-cosmosdb" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Definição do Nível de Consistência Adequado para Operações</h4>
                 <p class="mb-4">O Azure Cosmos DB oferece uma escolha flexível entre cinco níveis de consistência, permitindo que os desenvolvedores encontrem o equilíbrio ideal entre consistência dos dados, disponibilidade e latência, dependendo dos requisitos específicos de suas aplicações. A escolha do nível de consistência é uma decisão arquitetural fundamental que impacta diretamente o desempenho (latência e taxa de transferência), a disponibilidade e a integridade dos dados da aplicação, especialmente em cenários de múltiplas regiões. O desenvolvedor deve entender profundamente o "trilema CAP" (Consistência, Disponibilidade, Tolerância à Partição) para selecionar o nível de consistência que melhor atende aos requisitos de negócios, pois não há uma solução "tamanho único".</p>
@@ -531,13 +478,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Ambas as questões validam a consistência "Eventual" para maximizar a taxa de transferência e minimizar a latência para operações de gravação.</li>
-                    <li>Ambas as questões validam a consistência "Eventual" para leituras sem garantia de ordenação e máxima disponibilidade.</li>
-                    <li>Uma questão testa a consistência "Prefixo coerente" para garantir que as operações de atualização em lote sejam visíveis juntas.</li>
-                    <li>Uma questão valida a consistência de "Sessão" para leituras monotônicas sem garantia de que o valor lido seja o último gravado.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-storage-cosmosdb" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <div class="chart-container" style="height: 320px;">
                     <canvas id="cosmosConsistencyChart"></canvas>
@@ -558,10 +499,7 @@
                     <li><strong>Modo Todas as Versões e Exclusões (Preview):</strong> Este modo fornece um registro completo de todas as alterações, incluindo criações, atualizações e exclusões de itens. Para utilizar este modo, é necessário ter backups contínuos configurados para a conta Cosmos DB.</li>
                 </ul>
                 <p class="mb-4">A escolha entre o gatilho do Azure Functions e a biblioteca do Processador do Feed de Alterações depende da complexidade do cenário: o gatilho é mais simples para reações básicas e automáticas, enquanto a biblioteca oferece um controle mais granular sobre o processamento distribuído, checkpointing e gerenciamento de estado. O feed de alterações é uma ferramenta poderosa para cenários como sincronização de dados entre sistemas, replicação de dados para outros sistemas, auditoria, análise em tempo real e implementação de padrões de Event Sourcing.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Uma questão de simulado testa os dois componentes que podem ser usados para ler um feed de alterações do Azure Cosmos DB utilizando um modelo de push: "Azure Functions com um gatilho do Azure Cosmos DB" e "Biblioteca do processador do feed de alterações".</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-storage-cosmosdb" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
             </div>
 
             <div class="bg-white rounded-lg shadow-md p-6">
@@ -572,20 +510,13 @@
                 <p class="mb-4">O Armazenamento de Blobs do Azure é otimizado para armazenar objetos de dados não estruturados, como imagens, documentos, arquivos de áudio e vídeo. Ao trabalhar com blobs, é fundamental entender a diferença e o uso de suas propriedades e metadados.</p>
                 <p class="mb-4"><strong>Metadados</strong> são pares nome-valor definidos pelo usuário que podem ser associados a um blob ou a um contêiner. Eles são definidos por meio de cabeçalhos HTTP que começam com `x-ms-meta-` e podem ter um tamanho total de até 8 KB. Uma característica importante dos metadados é que eles podem ser obtidos e definidos de forma independente do conteúdo do blob, o que significa que é possível atualizar informações contextuais sobre um arquivo sem precisar modificá-lo ou baixá-lo completamente. Por exemplo, para registrar informações de localização e condição climática de fotos, utilizando até 2.000 caracteres, o uso de cabeçalhos de metadados definidos com uma solicitação `PUT` é a abordagem adequada. A capacidade de adicionar metadados personalizados a blobs é crucial para enriquecer os dados com informações contextuais sem modificar o conteúdo do arquivo, o que facilita a organização, pesquisa e processamento de grandes volumes de dados não estruturados.</p>
                 <p class="mb-4">As <strong>Propriedades</strong> são valores padrão do HTTP ou do sistema que são automaticamente associados a blobs e contêineres. Para contêineres, as únicas propriedades HTTP disponíveis são `ETag` (Entity Tag, usada para controle de concorrência) e `Last-Modified` (data e hora da última modificação). Para blobs, existe uma lista mais extensa de propriedades, incluindo `Content-Type`, `Content-Length`, `Creation-Time`, `Last-Accessed`, entre outras. A distinção entre propriedades (gerenciadas pelo sistema) e metadados (definidos pelo usuário) é importante para o design de aplicações que interagem com o Armazenamento de Blobs, permitindo flexibilidade na categorização e recuperação de dados.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Uma questão testa a utilização de cabeçalhos de metadados com uma solicitação PUT para registrar informações adicionais em blobs, destacando a capacidade de armazenar até 8 KB de metadados.</li>
-                    <li>Uma questão testa as propriedades HTTP padrão que podem ser definidas para contêineres (`ETag`, `Last-Modified`), mostrando a necessidade de conhecer as características dos recursos.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-storage-blobs" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Execução de Operações em Dados Usando o SDK Apropriado</h4>
                 <p class="mb-4">O SDK do Azure Storage para.NET (e para outras linguagens) é a principal ferramenta para criar, manipular e interagir com os dados armazenados no Armazenamento de Blobs. Ao realizar operações como o download de conteúdo de um blob para uma matriz de bytes, é fundamental considerar a resiliência da aplicação.</p>
                 <p class="mb-4">Em ambientes de nuvem, falhas transitórias (como problemas de rede momentâneos ou indisponibilidade temporária de serviços) são comuns e esperadas. Para lidar com essas situações de forma robusta, o SDK permite configurar uma <strong>política de repetição (retry policy)</strong>, que automatiza a recuperação de falhas transitórias. A configuração dessa política é realizada por meio de `BlobClientOptions`, onde se definem parâmetros como `options.Retry.MaxRetries` (o número máximo de tentativas de repetição) e `options.Retry.Delay` (o atraso entre as tentativas).</p>
                 <p class="mb-4">A implementação de políticas de repetição no SDK é uma prática fundamental para construir aplicações resilientes na nuvem. A automação da repetição de operações melhora significativamente a confiabilidade da aplicação sem exigir lógica de tratamento de erro complexa no código do desenvolvedor. O conhecimento de como configurar essas políticas é crucial para qualquer desenvolvedor que construa aplicações que interagem com serviços de nuvem, garantindo que as aplicações sejam robustas e capazes de se recuperar de interrupções temporárias.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Uma questão de simulado testa o trecho de código para configurar uma política de repetição (`options.Retry.MaxRetries`, `options.Retry.Delay`) ao baixar o conteúdo de um blob, demonstrando a aplicação prática da resiliência.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-storage-blobs" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Implementação de Políticas de Armazenamento e Gerenciamento do Ciclo de Vida de Dados</h4>
                 <p class="mb-4">As políticas de gerenciamento do ciclo de vida do Armazenamento de Blobs do Azure são um recurso poderoso que permite automatizar a transição de objetos entre diferentes camadas de acesso (Hot, Cool, Archive) e a exclusão de objetos no final de seu ciclo de vida. Essa automação é essencial para otimizar custos e garantir a conformidade regulatória em ambientes de armazenamento em larga escala.</p>
@@ -649,13 +580,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Ambas as questões testam que o primeiro elemento de uma regra de filtro `prefixMatch` deve ser um nome de contêiner.</li>
-                    <li>Uma questão testa a configuração de uma política de retenção legal para imutabilidade temporária.</li>
-                    <li>Uma questão testa o segmento de código para fazer a transição de blobs para a camada Cool (`tierToCool`) se não tiverem sido modificados em mais de 90 dias.</li>
-                    <li>Uma questão testa a reidratação de um blob da camada de Arquivos para a camada de acesso esporádico na <strong>mesma região</strong>.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-storage-blobs" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
             </div>
         </section>
 
@@ -687,10 +612,7 @@
                 </ul>
                 <p class="mb-4">Em um cenário de aplicação multi-inquilino (multi-tenant), a aplicação terá um único objeto de aplicativo no Microsoft Entra ID, mas várias entidades de serviço (service principals) associadas. Cada entidade de serviço representa a instância da aplicação em um locatário específico onde ela está registrada. Isso permite que a aplicação seja utilizada por usuários de diferentes organizações, mantendo uma única representação lógica da aplicação.</p>
                 <p class="mb-4">A transição da autenticação baseada em nome de usuário/senha para a identidade de aplicativo com certificados é um avanço significativo na segurança, pois reduz a superfície de ataque associada ao gerenciamento de credenciais. A escolha da opção de gerenciamento (Microsoft Entra Connect gerenciado, BYOA ou BYOC) depende do nível de controle e responsabilidade que a organização deseja assumir sobre o ciclo de vida dos certificados. A compreensão da relação entre objetos de aplicativo e entidades de serviço é fundamental para projetar e gerenciar aplicações multi-inquilino no Microsoft Entra ID.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Uma questão testa o entendimento de que um aplicativo multi-inquilino terá um único objeto de aplicativo e várias entidades de serviço.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-security-auth" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Criação e Implementação de Assinaturas de Acesso Compartilhado (SAS)</h4>
                 <p class="mb-4">As Assinaturas de Acesso Compartilhado (SAS) são um mecanismo de segurança crucial no Armazenamento do Azure, permitindo conceder acesso delegado e seguro a recursos de armazenamento por um período limitado e com permissões específicas. As SAS são chaves que concedem permissões a recursos de armazenamento e devem ser protegidas da mesma forma que uma chave de conta.</p>
@@ -709,13 +631,7 @@
                     <li><strong>Privilégio Mínimo e Tempos de Expiração Curtos:</strong> Conceder os privilégios mínimos necessários e usar tempos de expiração de curto prazo para SAS ad hoc ou de conta. Isso limita o período de validade da SAS, mesmo que ela seja comprometida.</li>
                 </ul>
                 <p class="mb-4">A SAS é um mecanismo de segurança crítico para conceder acesso granular e com tempo limitado a recursos de armazenamento. A superioridade da SAS de Delegação de Usuário, devido à sua integração com o Microsoft Entra ID e suporte a RBAC, a torna a opção preferencial para muitos cenários. A adesão rigorosa às melhores práticas de proteção de tokens SAS é fundamental para mitigar riscos de segurança.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Uma questão testa o tipo de SAS (delegação de usuário) que atende aos requisitos de proteção com credenciais do Microsoft Entra ID, RBAC e acesso a contêineres.</li>
-                    <li>Uma questão testa que o serviço de blob é o único que suporta assinaturas de acesso compartilhado de delegação de usuário.</li>
-                    <li>Uma questão testa que a permissão `Write` é necessária para permitir que usuários externos criem e atualizem blobs.</li>
-                    <li>Ambas as questões testam as três ações para proteger uma SAS: sempre usar HTTPS, monitorar com logs do Azure Monitor e Armazenamento do Azure, e definir uma política de acesso armazenada para uma SAS de serviço.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-security-auth" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Implementar Soluções que Interagem com o Microsoft Graph</h4>
                 <p class="mb-4">O Microsoft Graph é uma interface unificada e poderosa para acessar dados e inteligência de diversos serviços de nuvem da Microsoft, incluindo Microsoft 365, Windows e Enterprise Mobility + Security. Ele oferece um único endpoint (`https://graph.microsoft.com`) que pode ser acessado via APIs REST ou SDKs, permitindo que os desenvolvedores construam aplicações que interagem com milhões de usuários e utilizem a vasta quantidade de dados disponíveis.</p>
@@ -725,10 +641,7 @@
                     <li>`$select`: Esta opção limita os atributos (propriedades) projetados do conjunto de resultados, tornando a consulta mais eficiente ao buscar apenas os dados necessários.</li>
                 </ul>
                 <p class="mb-4">A utilização de `$filter` e `$select` não apenas otimiza o desempenho das consultas, mas também minimiza o consumo de recursos e a latência, o que é crucial para aplicações que interagem com grandes volumes de dados.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Ambas as questões testam a utilização das opções de consulta `$filter` e `$select` para otimizar os resultados de uma consulta ao Microsoft Graph.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-security-auth" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <div class="chart-container" style="height: 320px;">
                     <canvas id="identityPlatformChart"></canvas>
@@ -753,12 +666,7 @@
                 <p class="mb-4">Para criar uma hierarquia de namespace de chave, o caractere de dois-pontos (`:`) é o separador recomendado para nomes de chaves individuais.</p>
                 <p class="mb-4">Para atender a requisitos de criptografia mais rigorosos, como o uso de chaves gerenciadas pelo cliente e chaves protegidas por HSM (Módulo de Segurança de Hardware), é necessário utilizar as camadas de serviço específicas: a <strong>camada Standard do Azure App Configuration</strong> e a <strong>camada Premium do Azure Key Vault</strong> (que oferece suporte a HSM).</p>
                 <p class="mb-4">A externalização da configuração do código para serviços como App Configuration e Key Vault é uma prática fundamental que aumenta a segurança e a flexibilidade da aplicação. A utilização de identidades gerenciadas para acesso sem credenciais simplifica o gerenciamento e reduz a superfície de ataque. A organização eficaz das chaves e a compreensão dos requisitos de criptografia em diferentes camadas de serviço são cruciais para cenários corporativos.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Ambas as questões testam as duas maneiras possíveis de agrupar chaves na Configuração de Aplicativos do Azure: usando prefixos de chave e rótulos.</li>
-                    <li>Ambas as questões testam o caractere de dois-pontos (`:`) para separar nomes de chaves individuais em uma hierarquia de namespace na Configuração de Aplicativos do Azure.</li>
-                    <li>Ambas as questões testam a recomendação das camadas Standard da Configuração de Aplicativos do Azure e Premium do Azure Key Vault para requisitos de criptografia com chaves gerenciadas pelo cliente e protegidas por HSM.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-security-secure-solutions" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Desenvolver um Código que Use Chaves, Segredos e Certificados Armazenados no Azure Key Vault</h4>
                 <p class="mb-4">O Azure Key Vault é um serviço de nuvem que oferece um armazenamento seguro para informações sensíveis, como chaves criptográficas, senhas, cadeias de conexão, chaves de API e certificados, sem a necessidade de o desenvolvedor escrever código complexo para protegê-las. Isso permite que as aplicações utilizem esses segredos de forma segura e que os clientes mantenham a propriedade e o controle sobre suas próprias chaves e certificados.</p>
@@ -771,10 +679,7 @@
                 <p class="mb-4">Para interagir com o Key Vault programaticamente, a biblioteca de cliente do Azure Key Vault Secrets para.NET (e outras linguagens) é a ferramenta principal. Ela permite gerenciar segredos, e a classe `DefaultAzureCredential` da biblioteca Azure Identity é a abordagem recomendada para implementar conexões sem senha para serviços Azure no código. `DefaultAzureCredential` suporta múltiplos métodos de autenticação e determina qual método deve ser usado em tempo de execução, permitindo que o mesmo código funcione em ambientes de desenvolvimento local e produção sem modificações.</p>
                 <p class="mb-4">Para recuperar o valor de um segredo específico armazenado no Key Vault usando a Azure CLI, o comando `az keyvault secret show --name <secret-name> --vault-name <vault-name>` é utilizado.</p>
                 <p class="mb-4">A externalização de segredos do código para o Azure Key Vault é uma prática de segurança fundamental que reduz a superfície de ataque e melhora a postura geral de segurança da aplicação. A utilização de identidades gerenciadas é a abordagem preferencial para recursos do Azure, devido à sua capacidade de gerenciar automaticamente as credenciais, enquanto `DefaultAzureCredential` facilita a autenticação agnóstica ao ambiente.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Uma questão testa o comando da CLI (`az keyvault secret show`) para recuperar o valor de um segredo armazenado no Azure Key Vault.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-security-secure-solutions" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Implementação de Identidades Gerenciadas para Recursos do Azure</h4>
                 <p class="mb-4">As identidades gerenciadas para recursos do Azure são um recurso de segurança que fornece aos serviços do Azure uma identidade gerenciada automaticamente no Microsoft Entra ID, eliminando a necessidade de ter credenciais no código da aplicação. Isso simplifica drasticamente o gerenciamento de credenciais e reduz a superfície de ataque.</p>
@@ -785,11 +690,7 @@
                 </ul>
                 <p class="mb-4">Para permitir que um usuário crie uma identidade gerenciada para uma máquina virtual (VM) do Azure, a função de permissão menos privilegiada necessária é a de <strong>Colaborador de Máquina Virtual (Virtual Machine Contributor)</strong>. Funções como Administrador Global ou Administrador de Segurança, embora tenham permissões mais amplas no Microsoft Entra ID, não seguem o princípio de privilégio mínimo e não fornecem permissões suficientes para os recursos do Azure em si.</p>
                 <p class="mb-4">As identidades gerenciadas são um pilar da segurança no desenvolvimento em nuvem, pois simplificam o gerenciamento de credenciais e reduzem a superfície de ataque. A escolha entre identidades atribuídas ao sistema (simplicidade, ciclo de vida vinculado) e atribuídas ao usuário (flexibilidade, compartilhamento) depende dos requisitos específicos da carga de trabalho e do ciclo de vida do recurso.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Ambas as questões testam a utilização de uma "identidade gerenciada atribuída ao sistema" para garantir que um aplicativo web possa autenticar e conduzir operações com o Key Vault sem gerenciar a rotação de um segredo, e que o recurso seja excluído automaticamente com o aplicativo.</li>
-                    <li>Ambas as questões testam que a função "Colaborador de Máquina Virtual" é a permissão menos privilegiada para permitir que um usuário crie uma identidade gerenciada para uma VM do Azure.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-security-secure-solutions" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
             </div>
         </section>
 
@@ -855,12 +756,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Ambas as questões testam a utilização de Live Metrics no Application Insights para observar a atividade do aplicativo implantado em tempo real, visando detectar e resolver problemas de desempenho.</li>
-                    <li>Ambas as questões testam a configuração do Application Insights para usar métricas padrão pré-agregadas para painéis e alertas em tempo real, garantindo que as métricas não sejam afetadas pela amostragem.</li>
-                    <li>Ambas as questões testam a implantação de múltiplas instâncias do Application Insights para cada região e o uso do Azure Monitor para agregar os dados, visando uma solução de monitoramento robusta e escalável globalmente.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-monitoring" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <div class="chart-container h-64 md:h-80">
                     <canvas id="appInsightsChart"></canvas>
@@ -872,10 +768,7 @@
                 <p class="mb-4">Os <strong>testes web</strong> do Application Insights permitem configurar testes recorrentes que simulam interações de usuários com o site ou aplicação, monitorando sua disponibilidade e capacidade de resposta a partir de diversos pontos ao redor do mundo. Esses testes enviam requisições web em intervalos regulares e alertam se a aplicação não está respondendo ou se o tempo de resposta é excessivamente lento. Uma característica importante é que um erro é reportado apenas se três tentativas sucessivas de teste falharem, o que ajuda a evitar falsos positivos por problemas transitórios.</p>
                 <p class="mb-4">Os <strong>alertas</strong> podem ser configurados com base nos resultados desses testes web ou em limites de métricas específicas, como contagens de falhas, uso de memória ou visualizações de página. Quando o tempo de resposta de um aplicativo excede um determinado limite, a implementação de alertas e testes web do Application Insights é a ação recomendada para ser notificado.</p>
                 <p class="mb-4">Os testes web são cruciais para o monitoramento proativo da disponibilidade, complementando as métricas internas da aplicação. A configuração de alertas é fundamental para garantir a notificação imediata de condições críticas, permitindo que as equipes respondam rapidamente a incidentes que possam afetar a experiência do usuário.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Ambas as questões testam a implementação de alertas e testes Web do Application Insights para ser notificado quando o tempo de resposta de um aplicativo web exceder um determinado limite.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-monitoring" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Instrumentar um Aplicativo ou Serviço para Usar o Application Insights</h4>
                 <p class="mb-4">A instrumentação é o processo de adicionar código ou configurar agentes para coletar telemetria de um aplicativo ou serviço, tornando-o monitorável pelo Application Insights.</p>
@@ -905,10 +798,7 @@
                 <p class="mb-4">No Gerenciamento de API do Azure, é possível criar APIs de diversas maneiras, seja importando definições existentes ou construindo-as do zero. O APIM permite a importação de APIs a partir de especificações OpenAPI (anteriormente Swagger) em formato JSON, como a popular Petstore API. Alternativamente, é possível criar uma API em branco e definir manualmente as operações necessárias.</p>
                 <p class="mb-4">Quando uma API de backend é importada para o APIM, ela se torna uma fachada para a API original. Essa abordagem permite personalizar a API exposta (por exemplo, aplicar políticas, transformar respostas, adicionar segurança) sem a necessidade de modificar o serviço de backend subjacente. A documentação da API é um aspecto intrínseco a esse processo; ao importar uma especificação OpenAPI, o APIM preenche automaticamente campos como nome de exibição, nome, descrição e esquema de URL da API.</p>
                 <p class="mb-4">A criação de uma fachada para as APIs de backend oferece a vantagem de personalização e versionamento sem alterar o serviço original. A capacidade de definir operações manualmente para uma API em branco proporciona um controle preciso sobre o que é exposto, além de permitir a simulação de respostas para fins de teste sem invocar os serviços de backend reais.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Ambas as questões testam a criação de uma API em branco e a definição manual das operações necessárias, com a implementação de políticas para validar tokens JWT e limitar as taxas de chamada, para expor apenas as operações necessárias e simular respostas para testes.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-connect-apim" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Configuração de Acesso às APIs</h4>
                 <p class="mb-4">A configuração de acesso às APIs no Gerenciamento de API do Azure é um aspecto crítico para garantir a segurança e o controle sobre quem pode consumir os serviços expostos. O APIM suporta diversas opções de autenticação para o portal do desenvolvedor, incluindo acesso anônimo, integração com Microsoft Entra ID B2C e Microsoft Entra External ID, e o provedor de nome de usuário/senha integrado.</p>
@@ -916,11 +806,7 @@
                 <p class="mb-4">A política `validate-jwt` é fundamental para validar os tokens OAuth apresentados nas requisições de API de entrada. Essa política verifica a validade do token e, se inválido, bloqueia a requisição, garantindo que apenas usuários autenticados e autorizados acessem a API.</p>
                 <p class="mb-4">Os desenvolvedores consomem APIs por meio de <strong>assinaturas</strong>, que podem ser configuradas com escopo de produto. Uma assinatura com escopo de produto permite que um único desenvolvedor utilize uma única chave para obter acesso a várias APIs associadas a esse produto, sem a necessidade de aprovação individual para cada API.</p>
                 <p class="mb-4">A implementação de mecanismos robustos de controle de acesso, como OAuth 2.0 e validação de JWT, é essencial para a segurança das APIs. A utilização de assinaturas com escopo de produto simplifica o acesso para desenvolvedores e o gerenciamento de permissões, ao mesmo tempo em que permite a imposição de cotas de uso para evitar abusos.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Ambas as questões testam a configuração de uma política `validate-jwt` para autenticar solicitações de entrada e um limite de taxa por política de chave para impor cotas de chamadas.</li>
-                    <li>Ambas as questões testam a recomendação de definir uma assinatura com o escopo do produto para permitir que um único desenvolvedor acesse várias APIs com uma única chave.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-connect-apim" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Implementação de Políticas para APIs</h4>
                 <p class="mb-4">As políticas no Gerenciamento de API do Azure são uma coleção de declarações que são executadas sequencialmente na requisição ou resposta de uma API. Elas são expressas em XML e permitem configurar uma ampla gama de funcionalidades, como autenticação, limitação de taxa, cache e transformação de requisições ou respostas. O APIM oferece mais de 75 políticas prontas para uso, cobrindo cenários comuns de gerenciamento de API.</p>
@@ -928,11 +814,7 @@
                 <p class="mb-4">Para fins de segurança e para evitar a exposição de informações desnecessárias, é uma prática comum remover cabeçalhos HTTP específicos das respostas da API. Por exemplo, para remover os cabeçalhos `X-Powered-By` e `X-AspNet-Version` de uma resposta, utiliza-se o elemento `set-header` na seção `outbound` da política, com a ação `exists-action="delete"`.</p>
                 <p class="mb-4">Para cenários de gerenciamento de API híbrido e multi-nuvem, o APIM permite a criação de <strong>gateways auto-hospedados</strong>. Para produção, é crucial utilizar uma marca de imagem de contêiner com uma <strong>versão fixa</strong> (por exemplo, `2.9.0`), em vez de tags como `latest` ou `v3`. A fixação da versão garante estabilidade e previsibilidade no ambiente de produção.</p>
                 <p class="mb-4">As políticas são um mecanismo poderoso para a governança de APIs e a modificação de seu comportamento sem a necessidade de alterar o código do backend. A compreensão dos escopos e da ordem de avaliação das políticas é fundamental para aplicar regras de forma eficaz. A remoção de cabeçalhos sensíveis por meio de políticas é uma medida de segurança importante, e a prática de versionar gateways auto-hospedados é essencial para a estabilidade em ambientes de produção.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Ambas as questões testam o segmento de código para remover cabeçalhos `X-Powered-By` e `X-AspNet-Version` de uma resposta usando a política `set-header` com `exists-action="delete"`.</li>
-                    <li>Uma questão testa a marca de imagem de contêiner (`2.9.0`) a ser usada para um gateway auto-hospedado em produção, enfatizando a fixação da versão.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-connect-apim" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <div class="bg-white rounded-lg shadow-md p-6">
                     <h3 class="font-bold text-xl mb-4 text-[#007EA7]">Azure API Management (APIM)</h3>
@@ -966,11 +848,7 @@
                 <p class="mb-4">Uma funcionalidade essencial do Event Grid é a <strong>filtragem avançada</strong>, que permite rotear eventos específicos com base em valores dentro dos campos de dados do evento, utilizando operadores de comparação (como `NumberIn`, `StringContains`, `BoolEquals`). A notação de ponto (`.`) é usada para acessar campos aninhados dentro da seção de dados (por exemplo, `data.siteName`). Múltiplos filtros podem ser combinados com operações `AND` (para múltiplos filtros diferentes) ou `OR` (para um único filtro com múltiplos valores).</p>
                 <p class="mb-4">Para garantir a confiabilidade da entrega de eventos e evitar a perda de dados em cenários de falha, o Event Grid oferece o recurso de <strong>dead-lettering</strong>. Esse processo move eventos que não puderam ser entregues ou processados para um local de armazenamento de *dead-letter* (atualmente, Azure Blob Storage). O dead-lettering pode ser acionado por mensagens "venenosas" (poison messages), limitações da aplicação consumidora ou quando o número máximo de tentativas de entrega é atingido. Os eventos de *dead-letter* incluem metadados sobre a condição de erro que levou ao seu não processamento. Embora o agendamento de repetição para o armazenamento de *dead-letter* não seja configurável, o período máximo de repetição pode ser definido (até 2 dias).</p>
                 <p class="mb-4">A filtragem avançada permite um roteamento de eventos granular, enquanto o dead-lettering garante a resiliência e a integridade dos dados, permitindo a recuperação e reprocessamento de eventos falhos.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Uma questão testa o uso de um filtro "avançado" para receber eventos filtrados por valores no campo de dados, com opções avançadas de filtragem.</li>
-                    <li>Ambas as questões testam a habilitação da colocação em fila de mensagens mortas (dead-lettering) para capturar eventos que não são entregues dentro do agendamento de repetição especificado, garantindo alta confiabilidade.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-connect-events" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Implementar Soluções que Usam o Hub de Evento Azure</h4>
                 <p class="mb-4">O Azure Event Hubs é um serviço de publicação-assinatura altamente escalável, projetado para ingerir milhões de eventos por segundo e transmiti-los para múltiplos consumidores. É totalmente compatível com Apache Kafka, o que permite a migração de cargas de trabalho Kafka existentes sem modificações de código. O Event Hubs serve como a espinha dorsal para soluções de ingestão de dados em tempo real, como telemetria de IoT.</p>
@@ -979,14 +857,7 @@
                 <p class="mb-4">O recurso de <strong>Captura (Capture Feature)</strong> do Event Hubs permite entregar automaticamente os dados de streaming para uma conta do Azure Blob Storage ou Azure Data Lake Storage Gen 2 (o Gen 1 foi descontinuado). Os dados capturados são gravados no formato Apache Avro. Este recurso é eficiente, pois copia os dados diretamente do armazenamento interno do Event Hubs, ignorando as cotas de saída das unidades de throughput/processamento e economizando-as para outros leitores.</p>
                 <p class="mb-4">Para <strong>soluções multi-inquilino (multi-tenant)</strong>, a implementação de um <strong>namespace dedicado para cada inquilino</strong> no Event Hubs oferece o nível mais alto de isolamento de dados e desempenho. Isso é essencial para evitar problemas de "vizinho barulhento" (noisy neighbor) e garantir que a atividade de um inquilino não afete o desempenho de outros.</p>
                 <p class="mb-4">O Event Hubs é um componente vital para arquiteturas de dados em tempo real, como as de IoT e telemetria. As partições são a chave para sua escalabilidade e capacidade de processamento paralelo. O `EventProcessorClient` simplifica o balanceamento de carga em aplicações consumidoras. O Event Hubs Capture é uma solução eficiente para arquivamento e processamento em lote de dados de streaming. E para ambientes multi-inquilino, a segregação por namespace dedicado é fundamental para garantir o isolamento e a qualidade do serviço.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Uma questão testa o comando CLI para adicionar partições a um hub de eventos existente.</li>
-                    <li>Ambas as questões testam os segmentos de código para ler todos os eventos publicados para a primeira partição nos Hubs de Eventos do Azure, utilizando `EventPosition.Earliest` e `GetPartitionIdsAsync().First()`.</li>
-                    <li>Uma questão testa o uso do `EventProcessorClient` para balancear a carga entre múltiplas instâncias de um aplicativo.NET para processamento de eventos.</li>
-                    <li>Uma questão testa os locais para os quais os dados podem ser capturados pelos Hubs de Eventos do Azure (Armazenamento de Blobs do Azure, Azure Data Lake Storage Gen1, Azure Data Lake Storage Gen2).</li>
-                    <li>Ambas as questões testam a implementação de um "Namespace dedicado para cada locatário" para fornecer isolamento de dados e desempenho em um aplicativo multi-inquilino.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-connect-events" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="bg-white rounded-lg shadow-md p-6">
@@ -1030,13 +901,7 @@
                 <p class="mb-4">As <strong>sessões de mensagem</strong> permitem o processamento conjunto e ordenado de sequências ilimitadas de mensagens relacionadas, sendo ideais para implementar padrões <strong>FIFO (First-In, First-Out)</strong> e <strong>request-response</strong>. Um remetente inicia uma sessão definindo uma propriedade `session ID` única. Quando um cliente aceita e mantém uma sessão, ele obtém um bloqueio exclusivo em todas as mensagens com esse `session ID` na fila ou assinatura, incluindo mensagens que chegam posteriormente. O estado da sessão pode ser armazenado no broker, permitindo que o estado de processamento seja imediatamente disponível quando um novo processador adquire a sessão. Para garantir o processamento FIFO e a detecção de duplicatas, o Service Bus do Azure com sessões habilitadas e detecção de duplicatas é a solução recomendada.</p>
                 <p class="mb-4">O padrão de <strong>solicitação/resposta multicast</strong> permite que um editor envie uma mensagem para um tópico e que vários assinantes se tornem elegíveis para consumir essa mensagem. Isso é um exemplo do padrão de publicação-assinatura.</p>
                 <p class="mb-4">O Service Bus é uma escolha robusta para mensagens confiáveis, ordenadas e transacionais em cenários empresariais. A variedade de tipos de filtro permite um roteamento de mensagens granular e eficiente. A detecção de duplicatas é crucial para garantir a idempotência das operações, enquanto as sessões de mensagem são fundamentais para o processamento FIFO e padrões de solicitação-resposta.</p>
-                <p class="mb-4 font-bold text-[#007EA7]">Correlação com Perguntas do Simulado:</p>
-                <ul class="list-disc list-inside mb-6 text-sm">
-                    <li>Uma questão testa os tipos de filtro que podem ser usados para um tópico do Barramento de Serviço do Azure: SQL, booleano e correlação.</li>
-                    <li>Uma questão testa a recomendação de criar um novo tópico com um tempo de vida padrão de 15 minutos para enviar mensagens com um TTL maior que o padrão, sem afetar outros aplicativos.</li>
-                    <li>Uma questão testa a utilização do Barramento de Serviço do Azure com detecção duplicada e filas do Barramento de Serviço com a opção Sessões habilitada para garantir o processamento FIFO e a detecção de duplicatas.</li>
-                    <li>Uma questão testa o padrão de roteamento de mensagens de solicitação/resposta multicast para permitir que um editor envie mensagens para um tópico e que vários assinantes as consumam.</li>
-                </ul>
+                <p class="mb-4 text-sm"><a href="#simulated-questions-connect-messaging" class="text-[#007EA7] hover:underline">Para perguntas de simulado relacionadas a este tópico, clique aqui.</a></p>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Implementar Soluções que Usam Filas de Armazenamento de Fila Azure</h4>
                 <p class="mb-4">O Azure Queue Storage é um serviço de armazenamento projetado para hospedar um grande número de mensagens, que podem ser recuperadas e processadas posteriormente. É uma solução simples e econômica para cenários de mensagens assíncronas de alto volume.</p>
@@ -1051,9 +916,9 @@
             <p class="mb-6">Esta seção reúne as perguntas de simulado mencionadas ao longo do guia, organizadas por suas respectivas seções para facilitar a revisão e o auto-teste.</p>
 
             <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-                <h3 class="font-bold text-xl mb-4 text-[#007EA7]">2. Desenvolver Soluções de Computação do Azure</h3>
+                <h3 class="font-bold text-xl mb-4 text-[#007EA7]" id="simulated-questions-compute">2. Desenvolver Soluções de Computação do Azure</h3>
                 
-                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">2.1 Implementar Soluções Conteinerizadas</h4>
+                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]" id="simulated-questions-compute-containers">2.1 Implementar Soluções Conteinerizadas</h4>
                 <div class="mb-4">
                     <p class="font-semibold">Pergunta 1:</p>
                     <p>Você precisa criar um contêiner em um grupo de contêineres e montar um compartilhamento de arquivos do Azure como volume. Qual segmento de código você deve usar?</p>
@@ -1073,7 +938,7 @@
                     </div>
                 </div>
                 
-                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Outras perguntas relevantes desta seção:</h4>
+                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Outras perguntas relevantes desta subseção:</h4>
                 <ul class="list-disc list-inside mb-4 space-y-2 text-sm">
                     <li>Uma questão de simulado testa o comando `az acr repository delete --name devregistry --image dev/nginx:latest` para excluir uma imagem do ACR, o que sublinha a importância de conhecer os comandos da CLI para o gerenciamento de imagens.</li>
                     <li>Outra questão valida a utilização de "espaço para nome" (namespace) para compartilhar o registro entre múltiplos grupos, mantendo o isolamento. Isso reforça a relevância do conceito de namespace para a organização e o controle de acesso dentro do ACR.</li>
@@ -1085,7 +950,7 @@
                     <li>Uma questão testa o comando `az containerapp up --source.` para implantar um aplicativo de contêiner usando um Dockerfile, demonstrando a abordagem prática de implantação.</li>
                 </ul>
 
-                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">2.2 Implementar Aplicativos Web do Serviço de Aplicativo do Azure</h4>
+                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]" id="simulated-questions-compute-appservice">2.2 Implementar Aplicativos Web do Serviço de Aplicativo do Azure</h4>
                 <ul class="list-disc list-inside mb-4 space-y-2 text-sm">
                     <li>Ambas as questões testam a necessidade de examinar o log de "erro detalhado" para inspecionar uma cópia da página retornada quando o código de retorno HTTP é maior que 400.</li>
                     <li>Uma questão testa a compra de um certificado do Serviço de Aplicativo para automação de renovação e sincronização.</li>
@@ -1096,7 +961,7 @@
                     <li>Uma questão reforça que os slots de implantação são a solução para validar alterações e eliminar o tempo de inatividade em implantações de aplicativos Web Linux.</li>
                 </ul>
 
-                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">2.3 Implementar Funções do Azure</h4>
+                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]" id="simulated-questions-compute-functions">2.3 Implementar Funções do Azure</h4>
                 <ul class="list-disc list-inside mb-4 space-y-2 text-sm">
                     <li>Ambas as questões validam o "Plano de Consumo" como a opção que atende aos requisitos de escalonamento automático, comportamento de escalonamento baseado em eventos e modelo de preço sem servidor.</li>
                     <li>Uma questão testa a propriedade `functionAppScaleLimit` para controlar o número de instâncias, útil para evitar sobrecarga em bancos de dados com taxa de transferência limitada.</li>
@@ -1108,9 +973,9 @@
             </div>
 
             <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-                <h3 class="font-bold text-xl mb-4 text-[#007EA7]">3. Desenvolver para Armazenamento do Azure</h3>
+                <h3 class="font-bold text-xl mb-4 text-[#007EA7]" id="simulated-questions-storage">3. Desenvolver para Armazenamento do Azure</h3>
 
-                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">3.1 Desenvolver Soluções que Usam o Azure Cosmos DB</h4>
+                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]" id="simulated-questions-storage-cosmosdb">3.1 Desenvolver Soluções que Usam o Azure Cosmos DB</h4>
                 <ul class="list-disc list-inside mb-4 space-y-2 text-sm">
                     <li>Uma questão de simulado testa os parâmetros obrigatórios (`partitionKey` e `id`) para o método `ReadItemAsync`, validando o conhecimento prático do SDK.</li>
                     <li>Ambas as questões validam a consistência "Eventual" para maximizar a taxa de transferência e minimizar a latência para operações de gravação.</li>
@@ -1120,7 +985,7 @@
                     <li>Uma questão de simulado testa os dois componentes que podem ser usados para ler um feed de alterações do Azure Cosmos DB utilizando um modelo de push: "Azure Functions com um gatilho do Azure Cosmos DB" e "Biblioteca do processador do feed de alterações".</li>
                 </ul>
 
-                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">3.2 Desenvolver Soluções que Usam o Armazenamento de Blobs do Azure</h4>
+                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]" id="simulated-questions-storage-blobs">3.2 Desenvolver Soluções que Usam o Armazenamento de Blobs do Azure</h4>
                 <ul class="list-disc list-inside mb-4 space-y-2 text-sm">
                     <li>Uma questão testa a utilização de cabeçalhos de metadados com uma solicitação PUT para registrar informações adicionais em blobs, destacando a capacidade de armazenar até 8 KB de metadados.</li>
                     <li>Uma questão testa as propriedades HTTP padrão que podem ser definidas para contêineres (`ETag`, `Last-Modified`), mostrando a necessidade de conhecer as características dos recursos.</li>
@@ -1133,9 +998,9 @@
             </div>
 
             <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-                <h3 class="font-bold text-xl mb-4 text-[#007EA7]">4. Implementar a Segurança do Azure</h3>
+                <h3 class="font-bold text-xl mb-4 text-[#007EA7]" id="simulated-questions-security">4. Implementar a Segurança do Azure</h3>
 
-                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">4.1 Implementar Autenticação e Autorização de Usuário</h4>
+                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]" id="simulated-questions-security-auth">4.1 Implementar Autenticação e Autorização de Usuário</h4>
                 <ul class="list-disc list-inside mb-4 space-y-2 text-sm">
                     <li>Uma questão testa o entendimento de que um aplicativo multi-inquilino terá um único objeto de aplicativo e várias entidades de serviço.</li>
                     <li>Uma questão testa o tipo de SAS (delegação de usuário) que atende aos requisitos de proteção com credenciais do Microsoft Entra ID, RBAC e acesso a contêineres.</li>
@@ -1145,7 +1010,7 @@
                     <li>Ambas as questões testam a utilização das opções de consulta `$filter` e `$select` para otimizar os resultados de uma consulta ao Microsoft Graph.</li>
                 </ul>
 
-                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">4.2 Implementar Soluções Seguras do Azure</h4>
+                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]" id="simulated-questions-security-secure-solutions">4.2 Implementar Soluções Seguras do Azure</h4>
                 <ul class="list-disc list-inside mb-4 space-y-2 text-sm">
                     <li>Ambas as questões testam as duas maneiras possíveis de agrupar chaves na Configuração de Aplicativos do Azure: usando prefixos de chave e rótulos.</li>
                     <li>Ambas as questões testam o caractere de dois-pontos (`:`) para separar nomes de chaves individuais em uma hierarquia de namespace na Configuração de Aplicativos do Azure.</li>
@@ -1157,7 +1022,7 @@
             </div>
 
             <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-                <h3 class="font-bold text-xl mb-4 text-[#007EA7]">5. Monitorar e Solucionar Problemas de Soluções do Azure</h3>
+                <h3 class="font-bold text-xl mb-4 text-[#007EA7]" id="simulated-questions-monitoring">5. Monitorar e Solucionar Problemas de Soluções do Azure</h3>
 
                 <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">5.1 Monitorar e Solucionar Problemas Usando o Application Insights</h4>
                 <ul class="list-disc list-inside mb-4 space-y-2 text-sm">
@@ -1169,9 +1034,9 @@
             </div>
 
             <div class="bg-white rounded-lg shadow-md p-6">
-                <h3 class="font-bold text-xl mb-4 text-[#007EA7]">6. Conectar e Consumir Serviços do Azure e Serviços de Terceiros</h3>
+                <h3 class="font-bold text-xl mb-4 text-[#007EA7]" id="simulated-questions-connect">6. Conectar e Consumir Serviços do Azure e Serviços de Terceiros</h3>
 
-                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">6.1 Implementar a Gestão da API</h4>
+                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]" id="simulated-questions-connect-apim">6.1 Implementar a Gestão da API</h4>
                 <ul class="list-disc list-inside mb-4 space-y-2 text-sm">
                     <li>Ambas as questões testam a criação de uma API em branco e a definição manual das operações necessárias, com a implementação de políticas para validar tokens JWT e limitar as taxas de chamada, para expor apenas as operações necessárias e simular respostas para testes.</li>
                     <li>Ambas as questões testam a configuração de uma política `validate-jwt` para autenticar solicitações de entrada e um limite de taxa por política de chave para impor cotas de chamadas.</li>
@@ -1180,7 +1045,7 @@
                     <li>Uma questão testa a marca de imagem de contêiner (`2.9.0`) a ser usada para um gateway auto-hospedado em produção, enfatizando a fixação da versão.</li>
                 </ul>
 
-                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">6.2 Desenvolver Soluções Baseadas em Evento</h4>
+                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]" id="simulated-questions-connect-events">6.2 Desenvolver Soluções Baseadas em Evento</h4>
                 <ul class="list-disc list-inside mb-4 space-y-2 text-sm">
                     <li>Uma questão testa o uso de um filtro "avançado" para receber eventos filtrados por valores no campo de dados, com opções avançadas de filtragem.</li>
                     <li>Ambas as questões testam a habilitação da colocação em fila de mensagens mortas (dead-lettering) para capturar eventos que não são entregues dentro do agendamento de repetição especificado, garantindo alta confiabilidade.</li>
@@ -1191,7 +1056,7 @@
                     <li>Ambas as questões testam a implementação de um "Namespace dedicado para cada locatário" para fornecer isolamento de dados e desempenho em um aplicativo multi-inquilino.</li>
                 </ul>
 
-                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">6.3 Desenvolver Soluções Baseadas em Mensagem</h4>
+                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]" id="simulated-questions-connect-messaging">6.3 Desenvolver Soluções Baseadas em Mensagem</h4>
                 <div class="mb-4">
                     <p class="font-semibold">Pergunta 1:</p>
                     <p>Você precisa escrever uma condição de filtro para um tópico do Barramento de Serviço do Azure. Quais três filtros você pode usar? Cada resposta correta apresenta uma solução completa.</p>
@@ -1217,7 +1082,7 @@
                         <p class="mt-2 text-sm">O Barramento de Serviço do Azure com sessões habilitadas permite o processamento PEPS usando sessões para garantir que as mensagens relacionadas sejam tratadas na ordem em que são recebidas. A detecção duplicada ajuda a garantir que o sistema não processe a mesma transação mais de uma vez. O Armazenamento de Filas do Azure não garante o processamento PEPS, pois ele não dá suporte a sessões e o tempo limite de visibilidade apenas oculta a mensagem temporariamente de outros consumidores. A Grade de Eventos do Azure é um serviço de roteamento de eventos e não fornece garantias de PEPS ou sessões de mensagem.</p>
                     </div>
                 </div>
-                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Outras perguntas relevantes desta seção:</h4>
+                <h4 class="font-semibold text-lg mb-2 text-[#007EA7]">Outras perguntas relevantes desta subseção:</h4>
                 <ul class="list-disc list-inside mb-4 space-y-2 text-sm">
                     <li>Uma questão testa os tipos de filtro que podem ser usados para um tópico do Barramento de Serviço do Azure: SQL, booleano e correlação.</li>
                     <li>Uma questão testa a recomendação de criar um novo tópico com um tempo de vida padrão de 15 minutos para enviar mensagens com um TTL maior que o padrão, sem afetar outros aplicativos.</li>
@@ -1226,53 +1091,6 @@
                 </ul>
             </div>
         </section>
-
-        <section id="conclusion" class="mb-12 bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-3xl font-bold text-[#003459] mb-4 border-l-4 border-[#00A8E8] pl-4">Conclusões e Recomendações</h2>
-            <p class="mb-4">A preparação para a certificação Microsoft AZ-204 exige uma compreensão aprofundada e prática dos serviços de desenvolvimento no Azure. A análise detalhada dos domínios do exame e a correlação com as perguntas de simulado revelam padrões e áreas de foco cruciais para o sucesso.</p>
-
-            <h3 class="font-bold text-xl mb-2 text-[#007EA7]">Principais Conclusões:</h3>
-            <ul class="list-disc list-inside mb-4 space-y-2">
-                <li><strong>Conteinerização é Fundamental:</strong> A capacidade de criar, gerenciar e implantar soluções conteinerizadas usando Azure Container Registry (ACR), Azure Container Instances (ACI) e Azure Container Apps (ACA) é um pilar central. A escolha entre ACI (simplicidade, tarefas de curta duração) e ACA (microsserviços, escalabilidade automática, abstração do Kubernetes) depende dos requisitos da carga de trabalho. O ACR é o repositório central para todas as imagens, e o uso de namespaces para isolamento é uma prática recomendada.</li>
-                <li><strong>App Service: Versatilidade e DevOps:</strong> O Azure App Service continua sendo uma plataforma robusta para aplicações web e APIs. A proficiência em diagnósticos e logs (especialmente logs de erro detalhados), configurações (TLS, afinidade ARR, cache local) e slots de implantação é vital. Os slots de implantação são essenciais para implantações de zero tempo de inatividade e estratégias de "blue-green".</li>
-                <li><strong>Azure Functions: O Poder do Serverless:</strong> A compreensão dos planos de hospedagem (Consumo para otimização de custos, Premium para baixa latência) e suas implicações é crucial. O domínio de gatilhos (temporizador, HTTP) e associações (entrada/saída) simplifica a integração. O controle de concorrência via `host.json` é um mecanismo importante para proteger serviços de backend.</li>
-                <li><strong>Armazenamento de Dados: Escolhas Estratégicas:</strong>
-                    <ul class="list-disc list-inside ml-4">
-                        <li><strong>Azure Cosmos DB:</strong> A escolha do nível de consistência (Eventual para throughput máximo, Consistente Prefixo para integridade de lote, Sessão para consistência de usuário) é uma decisão arquitetural crítica que impacta diretamente o desempenho e a disponibilidade. O domínio do SDK e a implementação do feed de alterações (via Azure Functions ou Processador de Feed de Alterações) são essenciais para arquiteturas orientadas a eventos.</li>
-                        <li><strong>Armazenamento de Blobs:</strong> A gestão de propriedades e metadados é fundamental para a organização de dados. A implementação de políticas de repetição no SDK é vital para a resiliência da aplicação. As políticas de gerenciamento do ciclo de vida (tiering, exclusão) e a retenção legal são cruciais para otimização de custos e conformidade.</li>
-                    </ul>
-                </li>
-                <li><strong>Segurança: Prioridade Máxima:</strong>
-                    <ul class="list-disc list-inside ml-4">
-                        <li><strong>Microsoft Entra ID:</strong> A autenticação e autorização de usuários e aplicativos via Microsoft Entra ID é central, com a compreensão da relação entre objetos de aplicativo e entidades de serviço para aplicações multi-inquilino.</li>
-                        <li><strong>SAS:</strong> A criação e implementação de Assinaturas de Acesso Compartilhado, especialmente a SAS de Delegação de Usuário (integrada ao Microsoft Entra ID), exige atenção às melhores práticas de segurança (HTTPS, privilégio mínimo, tempos de expiração curtos).</li>
-                        <li><strong>Key Vault e App Configuration:</strong> A externalização de segredos (Key Vault) e configurações (App Configuration) do código é uma prática de segurança fundamental, com o uso de identidades gerenciadas como método de autenticação preferencial para recursos do Azure. A compreensão das camadas de serviço para criptografia (Standard para App Configuration, Premium para Key Vault com HSM) é importante.</li>
-                    </ul>
-                </li>
-                <li><strong>Monitoramento: Visibilidade Proativa:</strong> O Azure Application Insights é a ferramenta principal para monitoramento de desempenho. A capacidade de analisar métricas e logs em tempo real (Live Metrics), configurar alertas e testes web para disponibilidade, e entender a correlação de telemetria entre serviços é essencial para a saúde operacional da aplicação. A estratégia de múltiplas instâncias para monitoramento global é um diferencial.</li>
-                <li><strong>Integração de Serviços: A Cola da Nuvem:</strong>
-                    <ul class="list-disc list-inside ml-4">
-                        <li><strong>API Management (APIM):</strong> Atua como um hub central para publicação, segurança e governança de APIs. A capacidade de criar e documentar APIs (importando OpenAPI ou definindo manualmente), configurar acesso (OAuth 2.0, validação JWT, assinaturas de produto) e implementar políticas (limitação de taxa, transformação, remoção de cabeçalhos) é crucial. A fixação de versões para gateways auto-hospedados em produção é uma prática recomendada.</li>
-                        <li><strong>Event Grid:</strong> Essencial para arquiteturas orientadas a eventos, com foco em filtragem avançada e dead-lettering para resiliência.</li>
-                        <li><strong>Event Hubs:</strong> Para ingestão de dados em tempo real em larga escala, com o domínio de partições para escalabilidade, EventProcessorClient para balanceamento de carga, e o recurso de Captura para arquivamento. O isolamento por namespace dedicado para multi-inquilino é vital.</li>
-                        <li><strong>Service Bus e Queue Storage:</strong> A escolha entre eles depende dos requisitos de mensagens: Service Bus para cenários empresariais (filtros, sessões FIFO, detecção de duplicatas), Queue Storage para mensagens assíncronas simples e de alto volume.</li>
-                    </ul>
-                </li>
-            </ul>
-
-            <h3 class="font-bold text-xl mb-2 text-[#007EA7]">Recomendações Acionáveis para Otimizar Seus Estudos:</h3>
-            <ol class="list-decimal list-inside mb-4 space-y-2">
-                <li><strong>Foco nos Comandos da CLI:</strong> Muitas perguntas de simulado envolvem comandos da Azure CLI. Pratique a sintaxe e os parâmetros para operações comuns (criação de recursos, gerenciamento de imagens, configuração de políticas).</li>
-                <li><strong>Compreensão dos Trade-offs:</strong> Para serviços como Cosmos DB (consistência) e Azure Functions (planos de hospedagem), concentre-se em entender os trade-offs entre desempenho, custo, disponibilidade e garantias de dados. Não há uma única resposta "certa", mas sim a mais adequada para um cenário específico.</li>
-                <li><strong>Segurança em Primeiro Lugar:</strong> Dedique tempo significativo aos conceitos de segurança, incluindo identidades gerenciadas, SAS e a proteção de configurações/segredos. A capacidade de aplicar o princípio do privilégio mínimo e escolher a ferramenta de segurança correta para cada cenário é fundamental.</li>
-                <li><strong>Prática com Cenários de Falha:</strong> Entenda como os serviços Azure lidam com falhas transitórias (políticas de repetição) e falhas persistentes (dead-lettering). A resiliência é um tema recorrente.</li>
-                <li><strong>Simulados como Ferramenta de Aprendizagem:</strong> Utilize as perguntas de simulado não apenas para testar seu conhecimento, mas para aprofundar sua compreensão. Analise as explicações das respostas corretas e incorretas para entender o "porquê" por trás de cada escolha.</li>
-                <li><strong>Diagramas de Arquitetura:</strong> Desenhe diagramas de arquitetura para diferentes cenários, incluindo os serviços discutidos e como eles interagem. Isso ajuda a visualizar as conexões e dependências entre os componentes.</li>
-                <li><strong>Documentação Oficial:</strong> Embora este relatório resuma os pontos chave, a documentação oficial do Microsoft Learn (citada ao longo do texto) deve ser consultada para detalhes mais aprofundados e exemplos de código.</li>
-            </ol>
-            <p>Ao seguir estas recomendações e focar nas áreas destacadas, o candidato estará bem preparado para demonstrar sua proficiência no desenvolvimento de soluções Azure e obter a certificação AZ-204.</p>
-        </section>
-
     </main>
 
     <footer class="text-center p-6 bg-[#003459] text-white mt-8">
