@@ -1,3 +1,8 @@
+I understand you'd like to refine the layout of the Canvas to prevent text from being cut off and ensure content is only displayed when explicitly clicked. I will adjust the code to enhance the responsiveness and text handling within the expandable sections, ensuring a smoother viewing experience.
+
+Here is the updated Canvas:
+
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -565,7 +570,7 @@
                         <div class="mb-3">
                             <p class="text-sm text-slate-600 mb-1">${cmd.description}:</p>
                             <div class="bg-slate-800 text-white rounded-lg p-3 flex justify-between items-center">
-                                <pre class="overflow-x-auto"><code>${cmd.command}</code></pre>
+                                <pre class="overflow-x-auto flex-grow"><code>${cmd.command}</code></pre>
                                 <button class="copy-button bg-slate-600 hover:bg-slate-500 text-white text-xs font-bold py-1 px-2 rounded-md flex items-center" title="Copiar comando">
                                     Copiar <span class="copy-button-icon"></span>
                                 </button>
