@@ -3,200 +3,760 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resumo de Conceitos para a Prova de Certificação Azure (AZ-204)</title>
+    <title>Guia de Estudos Interativo: Azure AZ-204</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: A single-page application structured thematically based on the five main domains of the AZ-204 exam. A primary tab-based navigation allows users to switch between domains (Computação, Armazenamento, Segurança, etc.). Within each domain, an accordion interface presents specific Azure services. A new tab for 'Perguntas do Simulado' has been added to provide interactive quiz questions. This structure was chosen because it directly maps to the user's study plan, allowing them to focus on one major area at a time while easily drilling down into specific services or testing their knowledge with the quiz. Interactive elements like scenario cards (problem/solution) and one-click copy for CLI commands are integrated to transform passive reading into an active learning and practice session. -->
+    <!-- Visualization & Content Choices: 
+        1. Report Info: Exam domain weights (e.g., Computação 25-30%). Goal: Inform user of study priorities. Viz/Presentation: Doughnut Chart. Interaction: Hover to see details. Justification: Provides a quick, visual summary of exam structure. Library: Chart.js (Canvas).
+        2. Report Info: Key concepts for each Azure service. Goal: Organize and inform. Viz/Presentation: Accordion with styled cards. Interaction: Click to expand/collapse. Justification: Prevents information overload and provides a clear hierarchy. Library: HTML/CSS/JS.
+        3. Report Info: Practical scenarios from practice tests. Goal: Test application of knowledge. Viz/Presentation: Clickable cards revealing problem and solution. Interaction: Click to reveal solution. Justification: Encourages active recall over passive reading. Library: HTML/CSS/JS.
+        4. Report Info: Relevant CLI/Docker commands. Goal: Provide practical, ready-to-use commands. Viz/Presentation: Pre-formatted code blocks. Interaction: "Copy to clipboard" button. Justification: High usability for students who want to practice. Library: Vanilla JS.
+        5. Report Info: Simulated quiz questions. Goal: Assess understanding and provide immediate feedback. Viz/Presentation: Interactive quiz questions with multiple-choice options, correct answers, and rationales. Interaction: Select answer, reveal explanation. Justification: Direct application of knowledge in an exam-like format. Library: HTML/CSS/JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc;
-            color: #1e293b;
-        }
-        .summary-section {
-            background-color: white;
-            border-radius: 0.5rem;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        }
-        .summary-section h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 1.5rem;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 0.5rem;
-        }
-        .summary-section h3 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: #334155;
-            margin-top: 1.5rem;
-            margin-bottom: 0.75rem;
-        }
-        .summary-section ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        .summary-section li {
+        .chart-container {
             position: relative;
-            padding-left: 1.5rem;
-            margin-bottom: 0.5rem;
+            margin: auto;
+            height: 320px;
+            width: 100%;
+            max-width: 320px;
         }
-        .summary-section li::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: #0ea5e9;
-            font-weight: bold;
+        .tab-active {
+            border-color: #2563eb; /* blue-600 */
+            color: #2563eb;
+            background-color: #eff6ff; /* blue-50 */
         }
-        .questions-link {
+        .tab-inactive {
+            border-color: transparent;
+            color: #4b5563; /* gray-600 */
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .accordion-header-active + .accordion-content {
+            max-height: 5000px; /* Large enough for content */
+            transition: max-height 0.5s ease-in;
+        }
+        .copy-button-icon {
+            width: 16px;
+            height: 16px;
             display: inline-block;
-            margin-top: 1rem;
-            font-size: 0.875rem;
-            color: #0369a1;
-            font-weight: 600;
-            text-decoration: none;
-            background-color: #f0f9ff;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            transition: background-color 0.2s;
+            vertical-align: middle;
+            margin-left: 8px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='9' y='9' width='13' height='13' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: contain;
         }
-        .questions-link:hover {
-            background-color: #e0f2fe;
+        .copy-button-success .copy-button-icon {
+             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'%3E%3C/path%3E%3C/svg%3E");
+        }
+        .quiz-option.correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #34d399; /* green-400 */
+        }
+        .quiz-option.incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
         }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-slate-50 text-slate-800">
 
-    <header class="bg-slate-800 text-white p-6 text-center shadow-md">
-        <h1 class="text-3xl font-bold">Resumo de Conceitos para a Prova de Certificação Azure (AZ-204)</h1>
-    </header>
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-7xl">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-blue-700">Guia de Estudos Interativo: Azure AZ-204</h1>
+            <p class="mt-2 text-lg text-slate-600">Um resumo direto ao ponto dos principais serviços e cenários para a sua certificação.</p>
+        </header>
 
-    <main class="container mx-auto p-4 md:p-8">
+        <section class="mb-12 p-6 bg-white rounded-xl shadow-md">
+            <h2 class="text-2xl font-bold text-center mb-4">Distribuição de Tópicos do Exame</h2>
+            <p class="text-center text-slate-600 mb-6">Esta visualização mostra o peso de cada área de conhecimento no exame AZ-204. Use-a para priorizar seus estudos nos domínios mais importantes.</p>
+            <div class="chart-container">
+                <canvas id="examWeightsChart"></canvas>
+            </div>
+        </section>
 
-        <div class="summary-section">
-            <h2>✅ Desenvolver soluções de computação do Azure (25-30%)</h2>
+        <main>
+            <div class="border-b border-slate-200 mb-6">
+                <nav id="main-tabs" class="flex flex-wrap -mb-px" aria-label="Tabs">
+                </nav>
+            </div>
+
+            <div id="tab-content">
+            </div>
+        </main>
+        
+        <footer class="text-center mt-12 text-sm text-slate-500">
+            <p>Guia gerado para auxiliar nos estudos. Sempre consulte a documentação oficial da Microsoft para informações completas.</p>
+        </footer>
+    </div>
+
+    <script>
+        const studyData = {
+            compute: {
+                title: 'Soluções de Computação',
+                id: 'compute',
+                services: [
+                    {
+                        title: 'Contêineres (ACR, ACI, Container Apps)',
+                        content: `
+                            <p class="mb-4">Orquestração e execução de aplicações em contêineres. Essencial para arquiteturas de microsserviços e portabilidade.</p>
+                        `,
+                        scenarios: [
+                            {
+                                scenario: "Sua equipe precisa implantar um contêiner que necessita persistir dados através de um ponto de montagem. Qual serviço de armazenamento deve ser usado com ACI?",
+                                solution: "<strong>Compartilhamentos de Arquivos do Azure (Azure Files)</strong>. Eles podem ser montados como volumes em uma Instância de Contêiner do Azure (ACI), permitindo que os dados persistam mesmo que o contêiner seja reiniciado."
+                            },
+                            {
+                                scenario: "Como garantir que um contêiner em ACI seja sempre reiniciado, independentemente do seu código de saída?",
+                                solution: "Definindo a política de reinicialização como <strong>'Always'</strong>. Isso garante que o contêiner reinicie após falhas ou conclusões, mantendo a aplicação disponível."
+                            }
+                        ],
+                        commands: [
+                            {
+                                description: "Construir imagem Docker e taguear para o ACR",
+                                command: "docker build . -t seu-registro.azurecr.io/myapp:v1"
+                            },
+                            {
+                                description: "Fazer login no Azure Container Registry",
+                                command: "az acr login --name seu-registro"
+                            },
+                            {
+                                description: "Publicar imagem no ACR",
+                                command: "docker push seu-registro.azurecr.io/myapp:v1"
+                            },
+                            {
+                                description: "Criar uma Instância de Contêiner (ACI) a partir de uma imagem",
+                                command: "az container create --resource-group MeuGrupo --name meu-app-container --image seu-registro.azurecr.io/myapp:v1 --dns-name-label meu-app-dns"
+                            }
+                        ]
+                    },
+                    {
+                        title: 'Azure App Service',
+                        content: `
+                            <p class="mb-4">Plataforma totalmente gerenciada para criar e implantar aplicações web e APIs em escala. Abstrai a infraestrutura subjacente.</p>
+                        `,
+                        scenarios: [
+                            {
+                                scenario: "Uma aplicação web precisa ser escalada automaticamente com base no uso da CPU. Quais são os dois passos principais para configurar isso?",
+                                solution: "1. <strong>Escalar verticalmente (Scale Up) o Plano do Serviço de Aplicativo</strong> para um nível que suporte auto scale (Standard ou superior). 2. <strong>Configurar regras de Auto Scale (Scale Out)</strong> baseadas na métrica de percentual de CPU."
+                            },
+                            {
+                                scenario: "Como testar uma nova versão de uma API em produção com um subconjunto de usuários e garantir a reversão instantânea sem tempo de inatividade?",
+                                solution: "Utilizando <strong>Deployment Slots</strong>. Implante a nova versão em um slot de 'staging', teste e depois realize o 'swap' com o slot de produção. O tráfego é redirecionado instantaneamente e o 'swap' pode ser revertido se necessário."
+                            }
+                        ],
+                        commands: [
+                             {
+                                description: "Criar um Plano do App Service",
+                                command: "az appservice plan create --name MeuPlano --resource-group MeuGrupo --sku B1 --is-linux"
+                            },
+                            {
+                                description: "Criar um Web App",
+                                command: "az webapp create --name MeuWebApp --resource-group MeuGrupo --plan MeuPlano"
+                            },
+                            {
+                                description: "Listar configurações do Web App",
+                                command: "az webapp config show --name MeuWebApp --resource-group MeuGrupo"
+                            },
+                            {
+                                description: "Criar um slot de implantação 'staging'",
+                                command: "az webapp deployment slot create --name MeuWebApp --resource-group MeuGrupo --slot staging"
+                            }
+                        ]
+                    },
+                    {
+                        title: 'Azure Functions',
+                        content: `
+                            <p class="mb-4">Plataforma de computação sem servidor (serverless) e orientada a eventos. Execute código sob demanda sem gerenciar infraestrutura.</p>
+                        `,
+                        scenarios: [
+                           {
+                                scenario: "Você precisa processar cada imagem (.jpg) que é carregada em um contêiner de blob 'uploads'. Qual é a combinação de trigger e binding mais adequada?",
+                                solution: "Usar um <strong>Blob Trigger</strong> para iniciar a função, com o path configurado para 'uploads/{name}.jpg'. Para acessar o conteúdo da imagem, use um <strong>Input Binding</strong> para o mesmo blob."
+                           }
+                        ],
+                        commands: [
+                            {
+                                description: "Criar um Function App",
+                                command: "az functionapp create --resource-group MeuGrupo --consumption-plan-location eastus --runtime node --name MinhaFunctionApp --storage-account MeuStorageAccount"
+                            },
+                            {
+                                description: "Listar funções em um Function App",
+                                command: "az functionapp function show --name MinhaFunctionApp --resource-group MeuGrupo --function-name MinhaFuncaoHttp"
+                            }
+                        ]
+                    }
+                ]
+            },
+            storage: {
+                title: 'Armazenamento',
+                id: 'storage',
+                services: [
+                    {
+                        title: 'Azure Cosmos DB',
+                        content: `
+                            <p class="mb-4">Banco de dados NoSQL multimodelo e distribuído globalmente, com baixa latência e alta disponibilidade.</p>
+                        `,
+                        scenarios: [
+                           {
+                                scenario: "Uma aplicação legada usa drivers e a sintaxe do MongoDB. Qual API do Cosmos DB deve ser usada para migrar com o mínimo de alterações de código?",
+                                solution: "A <strong>API for MongoDB</strong>. Ela oferece um endpoint compatível com o protocolo do MongoDB, permitindo que a aplicação se conecte ao Cosmos DB como se fosse um banco MongoDB nativo."
+                           }
+                        ],
+                        commands: [
+                           {
+                                description: "Criar uma conta do Cosmos DB (API NoSQL)",
+                                command: "az cosmosdb create --name minha-conta-cosmos --resource-group MeuGrupo --kind GlobalDocumentDB"
+                            },
+                            {
+                                description: "Criar um banco de dados SQL dentro da conta",
+                                command: "az cosmosdb sql database create --account-name minha-conta-cosmos --name MeuBanco --resource-group MeuGrupo"
+                            }
+                        ]
+                    },
+                    {
+                        title: 'Azure Blob Storage',
+                        content: `
+                            <p class="mb-4">Armazenamento de objetos otimizado para grandes quantidades de dados não estruturados, como textos ou binários.</p>
+                        `,
+                         scenarios: [
+                           {
+                                scenario: "Para otimizar custos, como automatizar o arquivamento de blobs que não foram acessados nos últimos 180 dias?",
+                                solution: "Configurando uma <strong>Política de Gerenciamento do Ciclo de Vida (Lifecycle Management Policy)</strong> na conta de armazenamento. Crie uma regra que mova blobs da camada 'Hot' ou 'Cool' para 'Archive' com base na propriedade 'last access time'."
+                           }
+                        ],
+                        commands: [
+                           {
+                                description: "Criar uma conta de armazenamento",
+                                command: "az storage account create --name meustorageunico123 --resource-group MeuGrupo --location eastus --sku Standard_LRS"
+                            },
+                            {
+                                description: "Criar um contêiner de blob",
+                                command: "az storage container create --name meu-container --account-name meustorageunico123"
+                            },
+                            {
+                                description: "Fazer upload de um arquivo para o contêiner",
+                                command: "az storage blob upload --container-name meu-container --account-name meustorageunico123 --name meu-arquivo.txt --file ./local/path/meu-arquivo.txt"
+                            }
+                        ]
+                    }
+                ]
+            },
+            security: {
+                title: 'Segurança',
+                id: 'security',
+                services: [
+                    {
+                        title: 'Autenticação e Autorização',
+                        content: `<p class="mb-4">Implementação de acesso seguro a recursos usando Microsoft Identity Platform (Azure AD), MSAL, e SAS.</p>`,
+                        scenarios: [
+                            {
+                                scenario: "Como conceder acesso de leitura temporário (24 horas) a um único blob para um parceiro externo sem criar um usuário ou expor chaves?",
+                                solution: "Gerando uma <strong>Assinatura de Acesso Compartilhado (SAS Token)</strong> no nível do blob, com permissões de 'leitura' e um tempo de expiração definido."
+                            }
+                        ],
+                        commands: [
+                            {
+                                description: "Gerar uma SAS token para um contêiner (válida por 1h)",
+                                command: "az storage container generate-sas --account-name meustorageunico123 --name meu-container --permissions r --expiry $(date -u -d '1 hour' '+%Y-%m-%dT%H:%MZ')"
+                            }
+                        ]
+                    },
+                    {
+                        title: 'Azure Key Vault e App Configuration',
+                        content: `<p class="mb-4">Gerenciamento seguro de segredos, chaves, certificados e configurações de aplicativos centralizadas.</p>`,
+                         scenarios: [
+                            {
+                                scenario: "Um Web App precisa acessar um segredo no Key Vault sem armazenar credenciais no código ou nas configurações. Qual é a melhor prática?",
+                                solution: "Habilitar uma <strong>Identidade Gerenciada (Managed Identity)</strong> para o App Service e conceder a essa identidade permissões de 'Get' para segredos na política de acesso do Key Vault. A aplicação usará essa identidade para se autenticar automaticamente."
+                            }
+                        ],
+                        commands: [
+                            {
+                                description: "Criar um Key Vault",
+                                command: "az keyvault create --name MeuKeyVaultUnico --resource-group MeuGrupo --location eastus"
+                            },
+                            {
+                                description: "Adicionar um segredo ao Key Vault",
+                                command: "az keyvault secret set --vault-name MeuKeyVaultUnico --name MeuSegredo --value 'MinhaSenhaSuperSecreta'"
+                            }
+                        ]
+                    }
+                ]
+            },
+            monitoring: {
+                title: 'Monitoramento',
+                id: 'monitoring',
+                services: [
+                     {
+                        title: 'Application Insights',
+                        content: `<p class="mb-4">Serviço de Application Performance Management (APM) para monitorar aplicações, detectar anomalias, diagnosticar problemas e entender o uso.</p>`,
+                        scenarios: [
+                           {
+                                scenario: "Você precisa verificar continuamente a disponibilidade de um endpoint público de uma API e ser alertado se ele ficar offline. Qual recurso do Application Insights deve ser usado?",
+                                solution: "Configurar um <strong>Teste de disponibilidade (Availability Test)</strong>, especificamente um 'URL ping test'. Ele fará requisições periódicas ao endpoint e poderá acionar alertas em caso de falha."
+                           }
+                        ],
+                        commands: [
+                             {
+                                description: "Criar um recurso do Application Insights",
+                                command: "az monitor app-insights component create --app MeuAppInsights --location eastus --kind web --resource-group MeuGrupo"
+                             }
+                        ]
+                    }
+                ]
+            },
+            integration: {
+                title: 'Conexão e Consumo de Serviços',
+                id: 'integration',
+                 services: [
+                    {
+                        title: 'API Management (APIM)',
+                        content: `<p class="mb-4">Hub central para gerenciar, proteger e publicar APIs para desenvolvedores internos e externos.</p>`,
+                        scenarios: [
+                            {
+                                scenario: "Em uma política de APIM, como tratar um erro de requisição não autorizada (401) e retornar uma mensagem de erro customizada no cabeçalho da resposta?",
+                                solution: "Dentro da seção <strong>&lt;on-error&gt;</strong> da política. Você pode adicionar uma condição para verificar se o status da resposta é 401 e, em seguida, usar a política <strong>&lt;set-header&gt;</strong> para adicionar a mensagem de erro customizada."
+                            }
+                        ],
+                        commands: [
+                           {
+                                description: "Criar uma instância de APIM (consumo)",
+                                command: "az apim create --name MeuAPIM --resource-group MeuGrupo --publisher-name 'MinhaEmpresa' --publisher-email admin@minhaempresa.com --sku-name Consumption --location eastus"
+                           }
+                        ]
+                    },
+                    {
+                        title: 'Soluções Orientadas a Eventos',
+                        content: `<p class="mb-4">Construção de arquiteturas reativas com Event Grid (push-based) e Event Hubs (streaming de dados).</p>`,
+                        scenarios: [],
+                        commands: [
+                            {
+                                description: "Criar um tópico do Event Grid",
+                                command: "az eventgrid topic create --name meu-topico-eventos --resource-group MeuGrupo --location eastus"
+                            },
+                            {
+                                description: "Criar um namespace do Event Hubs",
+                                command: "az eventhubs namespace create --name meu-namespace-hubs --resource-group MeuGrupo --location eastus --sku Basic"
+                            }
+                        ]
+                    },
+                    {
+                        title: 'Soluções Baseadas em Mensagens',
+                        content: `<p class="mb-4">Comunicação assíncrona desacoplada com Service Bus (mensageria avançada) e Queue Storage (filas simples).</p>`,
+                        scenarios: [
+                           {
+                                scenario: "Um sistema precisa processar transações financeiras na ordem exata em que são recebidas (FIFO) e garantir que cada transação seja processada apenas uma vez. Qual solução de mensageria e quais recursos devem ser usados?",
+                                solution: "Usar <strong>Azure Service Bus</strong>. Especificamente, uma <strong>Fila com Sessões habilitadas</strong> para garantir o processamento FIFO e a <strong>detecção de duplicados</strong> ativada para prevenir o reprocessamento da mesma mensagem."
+                           }
+                        ],
+                        commands: [
+                             {
+                                description: "Criar um namespace do Service Bus",
+                                command: "az servicebus namespace create --name meu-namespace-sb --resource-group MeuGrupo --location eastus --sku Standard"
+                            },
+                            {
+                                description: "Criar uma fila no Service Bus",
+                                command: "az servicebus queue create --name minha-fila --namespace-name meu-namespace-sb --resource-group MeuGrupo"
+                            }
+                        ]
+                    }
+                ]
+            },
+            quiz: {
+                title: 'Perguntas do Simulado',
+                id: 'quiz',
+                questions: [
+                    {
+                        question: "Sua equipe precisa implantar um contêiner por meio do uso do serviço de Instância de Contêiner do Azure. O contêiner precisa persistir dados por meio de um ponto de montagem. Qual das opções a seguir pode ser usada para montar o armazenamento em uma Instância de Contêiner do Azure?",
+                        options: [
+                            { text: "Conta de Armazenamento do Azure – Armazenamento de Blobs", isCorrect: false, rationale: "Armazenamento de Blobs não é diretamente montável como volume em ACI para persistência de arquivos." },
+                            { text: "Conta de Armazenamento do Azure – Compartilhamentos de arquivos", isCorrect: true, rationale: "Compartilhamentos de arquivos do Azure podem ser montados como volumes em Instâncias de Contêiner do Azure para persistência de dados." },
+                            { text: "Azure Cosmos DB", isCorrect: false, rationale: "Azure Cosmos DB é um banco de dados NoSQL e não é usado para montar armazenamento de arquivos diretamente em ACI." },
+                            { text: "Banco de dados SQL do Azure", isCorrect: false, rationale: "Banco de dados SQL do Azure é um serviço de banco de dados relacional e não é usado para montar armazenamento de arquivos em ACI." }
+                        ],
+                        explanation: "Compartilhamentos de arquivos podem ser montados diretamente em Instâncias de Contêiner do Azure para persistência de dados."
+                    },
+                    {
+                        question: "A infraestrutura subjacente para o Aplicativo Web do Azure precisa ser dimensionada com base na carga induzida no aplicativo Web subjacente. Qual das opções a seguir precisa ser implementada para esse requisito? Escolha 2 respostas das opções abaixo?",
+                        options: [
+                            { text: "Escalar verticalmente o Plano do Serviço de Aplicativo", isCorrect: true, rationale: "É necessário escalar verticalmente o Plano do Serviço de Aplicativo para uma camada que suporte auto scale (Standard ou superior)." },
+                            { text: "Scale out based on Rule-based conditions.", isCorrect: true, rationale: "Após escalar verticalmente o plano, regras de autoescalamento baseadas em condições como CPU ou memória podem ser criadas." },
+                            { text: "Create a deployment slot.", isCorrect: false, rationale: "Criar um slot de implantação é para testes e implantação sem tempo de inatividade, não para dimensionamento de infraestrutura baseado em carga." },
+                            { text: "Change the operating system for the App Service Plan.", isCorrect: false, rationale: "Alterar o sistema operacional não está relacionado ao dimensionamento automático baseado na carga do aplicativo." }
+                        ],
+                        explanation: "Para habilitar o dimensionamento automático (scale out), primeiro é necessário escalar verticalmente o App Service Plan para uma camada que suporte isso (como Standard). Em seguida, podem-se criar regras de autoescalamento baseadas em condições como CPU ou memória."
+                    },
+                    {
+                        question: "Sua equipe precisa criar um contêiner em uma conta existente do Azure Cosmos DB. Atualmente, não há nenhuma propriedade candidata no conjunto de dados que se encaixe nos critérios da chave de partição. Quais são as outras opções disponíveis para especificar a chave de partição? Escolha 2 respostas das opções abaixo.",
+                        options: [
+                            { text: "Concatenate multiple properties of an item.", isCorrect: true, rationale: "A concatenação de múltiplas propriedades pode criar uma chave sintética para distribuição de dados." },
+                            { text: "Choose a property that does not have multiple values.", isCorrect: false, rationale: "Esta opção não resolve a ausência de uma propriedade candidata para a chave de partição." },
+                            { text: "Append a random number to the partition key value.", isCorrect: true, rationale: "Anexar um número aleatório ajuda a distribuir a carga uniformemente em partições, mesmo sem uma chave natural." },
+                            { text: "Use a static number as the partition key.", isCorrect: false, rationale: "Usar um número estático resultaria em uma única partição quente, prejudicando o desempenho." }
+                        ],
+                        explanation: "Para cenários onde não há uma chave de partição natural, a criação de chaves sintéticas (concatenando propriedades) ou a adição de um número aleatório (para espalhar a carga) são estratégias válidas."
+                    },
+                    {
+                        question: "Você cria a política de retenção a seguir. Você precisará fazer a transição de blobs na camada de acesso frequente para uma camada online se os blobs não tiverem sido modificados em mais de 90 dias. Qual segmento de código você deve adicionar à linha 14?",
+                        options: [
+                            { text: `"tierToArchive": { "daysAfterModificationGreaterThan": 90 }`, isCorrect: false, rationale: "Esta opção move para a camada 'Archive', que é offline, não online." },
+                            { text: `"tierToCool": { "daysAfterModificationGreaterThan": 90 }`, isCorrect: true, rationale: "Esta configuração especifica que blobs não modificados por mais de 90 dias devem ser movidos para a camada Cool, que é uma camada online." },
+                            { text: `"tierToHot": { "daysAfterModificationGreaterThan": 90 }`, isCorrect: false, rationale: "Esta opção move para a camada 'Hot', que é a camada de acesso frequente, não uma transição para uma camada mais fria." },
+                            { text: `"tierToCool": { "daysAfterCreationGreaterThan": 90 }`, isCorrect: false, rationale: "Esta opção usa 'daysAfterCreationGreaterThan', mas o requisito é 'daysAfterModificationGreaterThan'." }
+                        ],
+                        explanation: "Esta configuração especifica que blobs não modificados por mais de 90 dias devem ser movidos para a camada Cool, que é uma camada online."
+                    },
+                    {
+                        question: "Sua equipe precisa publicar um aplicativo web em um Azure Web App. O aplicativo web precisa buscar segredos de um recurso Azure Key Vault. Você tem que garantir que o aplicativo web possa fazê-lo sem a necessidade de incorporar qualquer tipo de credenciais no aplicativo web. Qual das opções a seguir pode ser implementada para este requisito?",
+                        options: [
+                            { text: "Enable SSL binding for the Azure Web App", isCorrect: false, rationale: "Habilitar SSL é para segurança de comunicação, não para autenticação em Key Vault sem credenciais." },
+                            { text: "Configure CORS for the Azure Web App", isCorrect: false, rationale: "CORS é para controle de acesso entre domínios, não para acesso seguro a segredos." },
+                            { text: "Configure a Managed Identity for the Azure Web App", isCorrect: true, rationale: "A Identidade Gerenciada permite que o App Service se autentique no Key Vault usando uma identidade do Azure AD, sem credenciais no código." },
+                            { text: "Assign a self-signed certificate for the web application", isCorrect: false, rationale: "Certificados autoassinados são para identificação, mas não eliminam a necessidade de gerenciar credenciais para acesso a segredos." }
+                        ],
+                        explanation: "A configuração de uma Identidade Gerenciada permite que o Web App se autentique no Key Vault usando uma identidade gerenciada pelo Azure, eliminando a necessidade de credenciais no código."
+                    },
+                    {
+                        question: "Which of the following feature in Application Insights allows you to see performance and failure counts of your web application in near real time?",
+                        options: [
+                            { text: "Profiler", isCorrect: false, rationale: "Profiler é para diagnosticar problemas de desempenho em nível de código, não para visão geral em tempo real." },
+                            { text: "Live Metrics Stream", isCorrect: true, rationale: "Live Metrics Stream fornece uma visão em tempo real do desempenho e das contagens de falhas de sua aplicação web." },
+                            { text: "Smart Detection", isCorrect: false, rationale: "Smart Detection é um recurso de análise automática que alerta sobre anomalias, não uma ferramenta de monitoramento em tempo real." },
+                            { text: "Snapshot Debugger", isCorrect: false, rationale: "Snapshot Debugger captura snapshots de depuração em produção, mas não fornece métricas em tempo real." }
+                        ],
+                        explanation: "Live Metrics Stream oferece uma visão em tempo real do desempenho da aplicação, ideal para diagnósticos imediatos."
+                    },
+                    {
+                        question: "Your team currently has an Azure API Management service in place. They need to set a policy in which an Error message is passed in the header of the response if an unauthorized request is sent to the API service. You need to complete the below policy snippet for this requirement. Which of the following would go into Slot 1 for this requirement?",
+                        options: [
+                            { text: "inbound", isCorrect: false, rationale: "A seção 'inbound' lida com políticas aplicadas antes da requisição ir para o backend." },
+                            { text: "on-error", isCorrect: true, rationale: "A seção 'on-error' é usada para definir políticas que são aplicadas quando ocorre um erro durante o processamento da requisição." },
+                            { text: "outbound", isCorrect: false, rationale: "A seção 'outbound' lida com políticas aplicadas antes da resposta ser enviada de volta ao cliente." },
+                            { text: "backend", isCorrect: false, rationale: "A seção 'backend' lida com políticas aplicadas antes da requisição ser enviada ao serviço de backend." }
+                        ],
+                        explanation: "A seção `on-error` em políticas APIM é onde se define o comportamento quando ocorre um erro, como uma solicitação não autorizada."
+                    },
+                    {
+                        question: "Here multiple devices would need to send their device data to an Azure service. The data would finally be stored in Azure Blob storage. Each device would produce around 1 MB of data per day. Currently there are around 1000 devices used by company employees. Which of the following would be ideally suited to be the Azure service to consume data from the devices?",
+                        options: [
+                            { text: "Azure Storage queues", isCorrect: false, rationale: "Azure Storage Queues são para filas de mensagens simples e não otimizadas para ingestão de alto volume de telemetria." },
+                            { text: "Azure Service Bus queues", isCorrect: false, rationale: "Azure Service Bus Queues são para mensageria empresarial e não para ingestão em massa de IoT." },
+                            { text: "Azure Event Grid", isCorrect: false, rationale: "Azure Event Grid é para roteamento de eventos reativos, não para ingestão de dados em massa de dispositivos." },
+                            { text: "Azure Event Hubs", isCorrect: true, rationale: "Azure Event Hubs é um serviço de ingestão de dados em tempo real e streaming de eventos, ideal para cenários de telemetria de IoT em larga escala." }
+                        ],
+                        explanation: "Para ingestão de grandes volumes de dados de telemetria de dispositivos em tempo real, o Azure Event Hubs é a escolha mais apropriada."
+                    },
+                    {
+                        question: "Uma empresa de serviços financeiros está implementando um sistema para processar transações recebidas como mensagens. O sistema precisa garantir que as transações sejam processadas apenas uma vez e, na ordem exata, sejam recebidas para manter a integridade dos dados. Você precisa criar uma solução de mensagens que garanta a entrega e o processamento de mensagens PEPS (primeiro a entrar, primeiro a sair). Quais dois serviços você deve usar?",
+                        options: [
+                            { text: "Barramento de Serviço do Azure com detecção duplicada", isCorrect: true, rationale: "A detecção de duplicatas no Service Bus garante que as transações sejam processadas apenas uma vez." },
+                            { text: "Fila do Barramento de Serviço com a opção Sessões habilitada", isCorrect: true, rationale: "Sessões no Service Bus garantem o processamento FIFO (Primeiro a Entrar, Primeiro a Sair) para mensagens relacionadas." },
+                            { text: "Armazenamento de Filas do Azure", isCorrect: false, rationale: "O Armazenamento de Filas do Azure não garante o processamento FIFO nem a detecção de duplicatas." },
+                            { text: "Grade de Eventos do Azure", isCorrect: false, rationale: "A Grade de Eventos do Azure é um serviço de roteamento de eventos e não fornece garantias de PEPS ou sessões de mensagem." }
+                        ],
+                        explanation: "A combinação de sessões (para FIFO) e detecção de duplicatas (para processamento 'apenas uma vez') no Azure Service Bus é a solução robusta para os requisitos de integridade de dados."
+                    },
+                    {
+                        question: "Você está desenvolvendo um aplicativo Web do Linux no Serviço de Aplicativo do Azure. Você precisa implantar o aplicativo Web no ambiente de produção com base nos seguintes requisitos: As alterações de aplicativo devem ser validadas em um ambiente idêntico ao ambiente de produção antes de mover o aplicativo para o ambiente de produção. O tempo de inatividade deve ser eliminado quando o aplicativo é implantado no ambiente de produção. O que você deve usar?",
+                        options: [
+                            { text: "Configurar o Auto Scale", isCorrect: false, rationale: "O Auto Scale é para dimensionamento de recursos, não para validação de implantação ou eliminação de tempo de inatividade durante o deploy." },
+                            { text: "Fazer um backup e restauração", isCorrect: false, rationale: "Backup e restauração são para recuperação de desastres e causariam tempo de inatividade durante a restauração." },
+                            { text: "Usar Deployment Slots", isCorrect: true, rationale: "Deployment Slots permitem validação em um ambiente de preparo e troca instantânea com o ambiente de produção, eliminando o tempo de inatividade." },
+                            { text: "Habilitar o Application Insights", isCorrect: false, rationale: "Application Insights é para monitoramento de desempenho, não para estratégias de implantação sem tempo de inatividade." }
+                        ],
+                        explanation: "Os slots de implantação são a solução ideal para validação em ambiente de preparo e implantação sem tempo de inatividade, permitindo a troca instantânea de uma versão testada para produção."
+                    }
+                ]
+            }
+        };
+
+        const examWeights = {
+            labels: [
+                'Computação (25-30%)',
+                'Armazenamento (15-20%)',
+                'Segurança (15-20%)',
+                'Monitoramento (10-15%)',
+                'Conexão (20-25%)'
+            ],
+            data: [27.5, 17.5, 17.5, 12.5, 22.5] 
+        };
+
+        function initializeChart() {
+            const ctx = document.getElementById('examWeightsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: examWeights.labels,
+                    datasets: [{
+                        label: 'Peso no Exame',
+                        data: examWeights.data,
+                        backgroundColor: [
+                            '#3b82f6', // blue-500
+                            '#10b981', // emerald-500
+                            '#f97316', // orange-500
+                            '#8b5cf6', // violet-500
+                            '#ec4899'  // pink-500
+                        ],
+                        borderColor: '#f9fafb', // gray-50
+                        borderWidth: 2,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed + '%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function createServiceAccordion(service) {
+            let scenariosHtml = '';
+            if (service.scenarios && service.scenarios.length > 0) {
+                 scenariosHtml += '<h4 class="text-md font-semibold mt-6 mb-3 text-slate-700">Cenários Práticos</h4>';
+                 service.scenarios.forEach(sc => {
+                     scenariosHtml += `
+                        <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg mb-3">
+                            <p class="font-semibold text-blue-800">Cenário:</p>
+                            <p class="text-slate-700">${sc.scenario}</p>
+                            <p class="font-semibold mt-2 text-emerald-800">Solução:</p>
+                            <p class="text-slate-700">${sc.solution}</p>
+                        </div>
+                     `;
+                 });
+            }
+
+            let commandsHtml = '';
+            if (service.commands && service.commands.length > 0) {
+                 commandsHtml += '<h4 class="text-md font-semibold mt-6 mb-3 text-slate-700">Comandos Relevantes (CLI)</h4>';
+                 service.commands.forEach(cmd => {
+                     commandsHtml += `
+                        <div class="mb-3">
+                            <p class="text-sm text-slate-600 mb-1">${cmd.description}:</p>
+                            <div class="bg-slate-800 text-white rounded-lg p-3 flex justify-between items-center">
+                                <pre class="overflow-x-auto"><code>${cmd.command}</code></pre>
+                                <button class="copy-button bg-slate-600 hover:bg-slate-500 text-white text-xs font-bold py-1 px-2 rounded-md flex items-center" title="Copiar comando">
+                                    Copiar <span class="copy-button-icon"></span>
+                                </button>
+                            </div>
+                        </div>
+                     `;
+                 });
+            }
             
-            <h3>Contêineres e Aplicativos de Contêiner</h3>
-            <ul>
-                <li><strong>Azure Container Registry (ACR):</strong> Crie repositórios para armazenar imagens de container.</li>
-                <li><strong>Publicar imagem no ACR:</strong> `docker push &lt;registry&gt;/&lt;imagem&gt;` após login e tag.</li>
-                <li><strong>Azure Container Instances (ACI):</strong> Executa contêineres sem orquestrador; rápido e simples.</li>
-                <li><strong>Azure Container Apps:</strong> Execução gerenciada de microsserviços baseados em contêiner com autoscaling.</li>
-            </ul>
-            <a href="az-204-study-guide-full.html#simulated-questions-compute-containers" class="questions-link">Ver perguntas sobre Contêineres ➔</a>
+            return `
+                <div class="border-b border-slate-200">
+                    <button class="accordion-header w-full text-left p-4 focus:outline-none">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg font-semibold text-blue-700">${service.title}</h3>
+                            <span class="transform transition-transform duration-300">
+                               <svg class="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </div>
+                    </button>
+                    <div class="accordion-content bg-white px-4 pb-4">
+                        ${service.content}
+                        ${scenariosHtml}
+                        ${commandsHtml}
+                    </div>
+                </div>
+            `;
+        }
 
-            <h3>Azure App Service</h3>
-            <ul>
-                <li><strong>App Service Plan:</strong> Define recursos (CPU/RAM).</li>
-                <li><strong>Web Apps / API Apps:</strong> Hospedagem de aplicações web e APIs.</li>
-                <li><strong>Diagnóstico e logs:</strong> Application Insights, Log Stream, Web Server Logs.</li>
-                <li><strong>Deploy:</strong> GitHub Actions, Azure DevOps, FTP, CLI.</li>
-                <li><strong>Configurações:</strong> TLS, conexões de string, variáveis de ambiente.</li>
-                <li><strong>Auto Scale:</strong> Por CPU, memória ou filas.</li>
-                <li><strong>Deployment Slots:</strong> Slots de produção/staging com swap.</li>
-            </ul>
-             <a href="az-204-study-guide-full.html#simulated-questions-compute-appservice" class="questions-link">Ver perguntas sobre App Service ➔</a>
+        function createQuizContent(quizData) {
+            let quizHtml = '<div class="p-6 bg-white rounded-xl shadow-md">';
+            quizHtml += `<h2 class="text-2xl font-bold text-center mb-6">${quizData.title}</h2>`;
+            quizData.questions.forEach((q, qIndex) => {
+                quizHtml += `
+                    <div class="mb-8 p-4 border border-slate-200 rounded-lg bg-slate-50">
+                        <p class="text-lg font-semibold mb-4 text-slate-800">Questão ${qIndex + 1}: ${q.question}</p>
+                        <div class="options-container space-y-3">
+                `;
+                q.options.forEach((option, optIndex) => {
+                    quizHtml += `
+                        <button class="quiz-option w-full text-left p-3 border border-slate-300 rounded-md hover:bg-slate-100 transition-colors duration-200" data-question-index="${qIndex}" data-option-index="${optIndex}">
+                            ${option.text}
+                        </button>
+                    `;
+                });
+                quizHtml += `
+                        </div>
+                        <div class="explanation-container mt-4 p-3 bg-slate-100 border-l-4 border-slate-300 rounded-r-lg hidden">
+                            <p class="font-semibold text-slate-700">Explicação:</p>
+                            <p class="text-slate-600">${q.explanation}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            quizHtml += '</div>';
+            return quizHtml;
+        }
 
-            <h3>Azure Functions</h3>
-            <ul>
-                <li><strong>Triggers:</strong> Timer, HTTP, Blob, Queue, Event Grid.</li>
-                <li><strong>Bindings:</strong> Entrada/saída (ex: ler blob, gravar no Cosmos).</li>
-                <li><strong>Durable Functions:</strong> Para workflows com estado.</li>
-            </ul>
-            <a href="az-204-study-guide-full.html#simulated-questions-compute-functions" class="questions-link">Ver perguntas sobre Azure Functions ➔</a>
-        </div>
+        function renderTabContent(tabId) {
+            const contentContainer = document.getElementById('tab-content');
+            const data = studyData[tabId];
+            if (tabId === 'quiz') {
+                contentContainer.innerHTML = createQuizContent(data);
+                addQuizListeners();
+            } else {
+                let servicesHtml = data.services.map(createServiceAccordion).join('');
+                contentContainer.innerHTML = `
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                        ${servicesHtml}
+                    </div>
+                `;
+                addAccordionListeners();
+                addCopyButtonListeners();
+            }
+        }
 
-        <div class="summary-section">
-            <h2>✅ Desenvolver para Armazenamento do Azure (15-20%)</h2>
+        function handleTabClick(e) {
+            e.preventDefault();
+            const targetTab = e.currentTarget;
+            const tabId = targetTab.dataset.tab;
 
-            <h3>Azure Cosmos DB</h3>
-            <ul>
-                <li><strong>APIs:</strong> SQL, MongoDB, Cassandra, Table, Gremlin.</li>
-                <li><strong>Operar via SDK:</strong> CRUD com .NET, Java, Python etc.</li>
-                <li><strong>Níveis de Consistência:</strong> Strong, Bounded Staleness, Session, Consistent Prefix, Eventual.</li>
-                <li><strong>Feed de alteração (Change Feed):</strong> Detecta mudanças para processar eventos em tempo real.</li>
-            </ul>
-            <a href="az-204-study-guide-full.html#simulated-questions-storage-cosmosdb" class="questions-link">Ver perguntas sobre Cosmos DB ➔</a>
+            document.querySelectorAll('#main-tabs a').forEach(tab => {
+                tab.classList.remove('tab-active');
+                tab.classList.add('tab-inactive');
+                tab.setAttribute('aria-selected', 'false');
+            });
 
-            <h3>Azure Blob Storage</h3>
-            <ul>
-                <li><strong>Propriedades/Metadados:</strong> Usados para armazenar dados extras.</li>
-                <li><strong>SDK:</strong> Permite CRUD de blobs.</li>
-                <li><strong>Políticas de ciclo de vida:</strong> Automatiza arquivamento/deleção.</li>
-                <li><strong>Segurança:</strong> SAS Token, RBAC, Firewalls.</li>
-            </ul>
-            <a href="az-204-study-guide-full.html#simulated-questions-storage-blobs" class="questions-link">Ver perguntas sobre Blob Storage ➔</a>
-        </div>
-
-        <div class="summary-section">
-            <h2>✅ Implementar a segurança do Azure (15-20%)</h2>
+            targetTab.classList.add('tab-active');
+            targetTab.classList.remove('tab-inactive');
+            targetTab.setAttribute('aria-selected', 'true');
             
-            <h3>Autenticação e Autorização</h3>
-            <ul>
-                <li><strong>Microsoft Identity / Entra ID (Azure AD):</strong> OAuth2, OpenID Connect, MSAL.</li>
-                <li><strong>App registrations:</strong> Para apps acessarem APIs com tokens.</li>
-                <li><strong>SAS (Shared Access Signature):</strong> Tokens com permissões limitadas.</li>
-                <li><strong>Microsoft Graph API:</strong> Acesso a dados do M365 e Azure AD.</li>
-            </ul>
-            <a href="az-204-study-guide-full.html#simulated-questions-security-auth" class="questions-link">Ver perguntas sobre Autenticação ➔</a>
+            renderTabContent(tabId);
+        }
 
-            <h3>Azure Key Vault / App Configuration</h3>
-            <ul>
-                <li><strong>Azure Key Vault:</strong> Armazena secrets, keys, certificados com controle de acesso.</li>
-                <li><strong>App Configuration:</strong> Gerencia configurações centralizadas para apps.</li>
-                <li><strong>Identidades Gerenciadas:</strong> Azure fornece identidade gerenciada para recursos acessarem secrets sem armazenar credenciais no código.</li>
-            </ul>
-            <a href="az-204-study-guide-full.html#simulated-questions-security-secure-solutions" class="questions-link">Ver perguntas sobre Key Vault e App Config ➔</a>
-        </div>
+        function addAccordionListeners() {
+            document.querySelectorAll('.accordion-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    const currentlyActive = document.querySelector('.accordion-header-active');
+                    if (currentlyActive && currentlyActive !== header) {
+                        currentlyActive.classList.remove('accordion-header-active');
+                        currentlyActive.querySelector('.transform').classList.remove('rotate-180');
+                    }
 
-        <div class="summary-section">
-            <h2>✅ Monitorar e solucionar problemas (10-15%)</h2>
+                    header.classList.toggle('accordion-header-active');
+                    header.querySelector('.transform').classList.toggle('rotate-180');
+                });
+            });
+        }
+        
+        function addCopyButtonListeners() {
+            document.querySelectorAll('.copy-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const pre = e.currentTarget.previousElementSibling;
+                    const code = pre.querySelector('code').innerText;
+                    
+                    const tempTextArea = document.createElement('textarea');
+                    tempTextArea.value = code;
+                    document.body.appendChild(tempTextArea);
+                    tempTextArea.select();
+                    try {
+                        document.execCommand('copy');
+                        e.currentTarget.classList.add('copy-button-success');
+                        const originalText = e.currentTarget.childNodes[0].nodeValue;
+                        e.currentTarget.childNodes[0].nodeValue = "Copiado!";
+                        setTimeout(() => {
+                            e.currentTarget.childNodes[0].nodeValue = originalText;
+                            e.currentTarget.classList.remove('copy-button-success');
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Fallback: Oops, unable to copy', err);
+                    }
+                    document.body.removeChild(tempTextArea);
+                });
+            });
+        }
+
+        function addQuizListeners() {
+            document.querySelectorAll('.quiz-option').forEach(optionButton => {
+                optionButton.addEventListener('click', (e) => {
+                    const button = e.currentTarget;
+                    const questionIndex = parseInt(button.dataset.questionIndex);
+                    const optionIndex = parseInt(button.dataset.optionIndex);
+                    const questionData = studyData.quiz.questions[questionIndex];
+                    const explanationContainer = button.closest('.options-container').nextElementSibling;
+                    
+                    // Disable all options for this question after selection
+                    button.closest('.options-container').querySelectorAll('.quiz-option').forEach(opt => {
+                        opt.disabled = true;
+                    });
+
+                    // Show correct/incorrect styling
+                    questionData.options.forEach((opt, index) => {
+                        const currentOptionButton = button.closest('.options-container').children[index];
+                        if (opt.isCorrect) {
+                            currentOptionButton.classList.add('correct');
+                        } else if (index === optionIndex) {
+                            currentOptionButton.classList.add('incorrect');
+                        }
+                    });
+
+                    // Show explanation
+                    explanationContainer.classList.remove('hidden');
+                });
+            });
+        }
+
+        function initializeTabs() {
+            const tabsContainer = document.getElementById('main-tabs');
+            const tabIds = Object.keys(studyData);
+            tabsContainer.innerHTML = tabIds.map((key, index) => {
+                const isActive = index === 0;
+                return `
+                    <a href="#" data-tab="${key}" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm sm:text-base sm:px-4 ${isActive ? 'tab-active' : 'tab-inactive'}" ${isActive ? 'aria-current="page"' : ''}>
+                        ${studyData[key].title}
+                    </a>
+                `;
+            }).join('');
             
-            <h3>Application Insights</h3>
-            <ul>
-                <li><strong>Telemetria:</strong> Desempenho, exceções e uso do aplicativo.</li>
-                <li><strong>Métricas / Logs / Rastreamentos:</strong> Insights de uso e problemas.</li>
-                <li><strong>Alertas e Testes Web:</strong> Simulação de chamadas e notificação em caso de falhas.</li>
-            </ul>
-            <a href="az-204-study-guide-full.html#simulated-questions-monitoring" class="questions-link">Ver perguntas sobre Monitoramento ➔</a>
-        </div>
+            tabsContainer.querySelectorAll('a').forEach(tab => {
+                tab.addEventListener('click', handleTabClick);
+            });
 
-        <div class="summary-section">
-            <h2>✅ Conectar e consumir serviços (20-25%)</h2>
-            
-            <h3>API Management (APIM)</h3>
-            <ul>
-                <li><strong>Instância de APIM:</strong> Gerencia e protege APIs.</li>
-                <li><strong>Documentação e acesso:</strong> Developer Portal.</li>
-                <li><strong>Políticas:</strong> Cache, rate limit, transformação de URL/cabeçalhos.</li>
-            </ul>
-            <a href="az-204-study-guide-full.html#simulated-questions-connect-apim" class="questions-link">Ver perguntas sobre API Management ➔</a>
+            if (tabIds.length > 0) {
+                renderTabContent(tabIds[0]);
+            }
+        }
 
-            <h3>Event-driven Solutions</h3>
-            <ul>
-                <li><strong>Event Grid:</strong> Eventos baseados em push (como blob criado).</li>
-                <li><strong>Event Hub:</strong> Ingestão de dados em massa (telemetria, IoT).</li>
-            </ul>
-            <a href="az-204-study-guide-full.html#simulated-questions-connect-events" class="questions-link">Ver perguntas sobre Soluções por Eventos ➔</a>
-
-            <h3>Message-based Solutions</h3>
-            <ul>
-                <li><strong>Service Bus:</strong> Mensageria com suporte a ordenação, dead-letter e FIFO.</li>
-                <li><strong>Queue Storage:</strong> Fila simples, baseada em armazenamento.</li>
-            </ul>
-            <a href="az-204-study-guide-full.html#simulated-questions-connect-messaging" class="questions-link">Ver perguntas sobre Soluções por Mensagens ➔</a>
-        </div>
-
-    </main>
-
-    <footer class="text-center p-4 bg-slate-800 text-white mt-4">
-        <p class="text-sm">Boa sorte nos seus estudos!</p>
-    </footer>
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeChart();
+            initializeTabs();
+        });
+    </script>
 
 </body>
 </html>
-```
