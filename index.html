@@ -4,954 +4,1035 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guia Completo para a Certificação Microsoft Azure AZ-204</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #0078d4; /* Azul Microsoft */
+            --secondary-color: #0056b3; /* Azul mais escuro */
+            --light-bg-color: #f8f8f8;
+            --text-color: #333;
+            --light-text-color: #666;
+            --border-color: #eee;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Open Sans', sans-serif;
             line-height: 1.6;
             margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-            color: #333;
+            padding: 0;
+            background-color: var(--light-bg-color);
+            color: var(--text-color);
         }
+
+        .header {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.2em;
+        }
+
         .container {
             max-width: 1000px;
-            margin: auto;
+            margin: 30px auto;
             background: #fff;
             padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
         }
-        h1, h2, h3, h4 {
-            color: #0056b3;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+
         h2 {
-            border-bottom: 2px solid #eee;
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--border-color);
             padding-bottom: 10px;
-            margin-top: 30px;
+            margin-top: 40px;
+            font-size: 1.8em;
+            font-weight: 600;
         }
+
         h3 {
-            margin-top: 25px;
+            color: var(--primary-color);
+            margin-top: 30px;
+            font-size: 1.4em;
+            font-weight: 600;
         }
+
         h4 {
-            margin-top: 20px;
-            color: #333;
+            color: var(--text-color);
+            margin-top: 25px;
+            font-size: 1.1em;
+            font-weight: 600;
         }
+
         ul {
             list-style-type: disc;
-            margin-left: 20px;
+            margin-left: 25px;
+            padding: 0;
         }
+
         ul ul {
             list-style-type: circle;
+            margin-left: 20px;
         }
+
+        p {
+            margin-bottom: 1em;
+        }
+
         code {
-            background-color: #e9e9e9;
-            padding: 2px 4px;
+            background-color: #e0e0e0;
+            padding: 2px 5px;
             border-radius: 4px;
             font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            color: #c02a2a;
         }
+
+        strong {
+            color: var(--secondary-color);
+        }
+
         .citation {
             font-size: 0.8em;
-            color: #666;
-            margin-top: 20px;
+            color: var(--light-text-color);
             text-align: right;
+            margin-top: 15px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: var(--light-text-color);
+            font-size: 0.9em;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+            .header h1 {
+                font-size: 1.8em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            h3 {
+                font-size: 1.2em;
+            }
+            h4 {
+                font-size: 1em;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="header">
+        <h1>Guia Completo para a Certificação Microsoft Azure AZ-204</h1>
+        <p>Desenvolvendo Soluções para Microsoft Azure</p>
+    </div>
+
     <div class="container">
-        <h1>Guia Completo para a Certificação Microsoft Azure AZ-204: Desenvolvendo Soluções para Microsoft Azure [cite: 1]</h1>
-        [cite_start]<p>Este guia detalha os principais tópicos e subitens cobrados na prova de certificação AZ-204, organizada pelas áreas de conhecimento, para ajudar na sua preparação. [cite: 2]</p>
+        <p>Este guia detalha os principais tópicos e subitens cobrados na prova de certificação AZ-204, organizada pelas áreas de conhecimento, para ajudar na sua preparação.</p>
 
-        [cite_start]<h2>Desenvolver soluções de computação do Azure (25–30%) [cite: 3]</h2>
-        [cite_start]<p>Esta seção abrange os conhecimentos e habilidades necessários para criar e gerenciar diferentes tipos de soluções de computação na nuvem Azure. [cite: 4]</p>
+        <h2>Desenvolver soluções de computação do Azure (25–30%)</h2>
+        <p>Esta seção abrange os conhecimentos e habilidades necessários para criar e gerenciar diferentes tipos de soluções de computação na nuvem Azure.</p>
 
-        <h3>1. [cite_start]Implementar soluções conteinerizadas [cite: 5]</h3>
-        [cite_start]<p>Este tópico é fundamental para quem busca a certificação AZ-204 e abrange a criação, publicação e execução de contêineres no Azure. [cite: 6]</p>
+        <h3>1. Implementar soluções conteinerizadas</h3>
+        <p>Este tópico é fundamental para quem busca a certificação AZ-204 e abrange a criação, publicação e execução de contêineres no Azure.</p>
 
-        <h4>1.1. [cite_start]Criar e gerenciar imagens de contêiner para soluções [cite: 7]</h4>
-        [cite_start]<p>Para a certificação AZ-204, você precisa ser proficiente em: [cite: 8]</p>
+        <h4>1.1. Criar e gerenciar imagens de contêiner para soluções</h4>
+        <p>Para a certificação AZ-204, você precisa ser proficiente em:</p>
         <ul>
-            [cite_start]<li><strong>Dockerfiles:</strong> [cite: 9]
+            <li><strong>Dockerfiles:</strong>
                 <ul>
-                    [cite_start]<li>Estrutura e Sintaxe: Entender a estrutura de um Dockerfile e as instruções mais comuns, como <code>FROM</code>, <code>RUN</code>, <code>COPY</code>, <code>ADD</code>, <code>WORKDIR</code>, <code>EXPOSE</code>, <code>ENV</code>, <code>CMD</code> e <code>ENTRYPOINT</code>. [cite: 10]</li>
-                    [cite_start]<li>Melhores Práticas: Saber como criar Dockerfiles eficientes e seguros, incluindo o uso de imagens base menores, camadas otimizadas, multi-stage builds e a minimização de dependências desnecessárias. [cite: 11]</li>
-                    [cite_start]<li>Variáveis de Ambiente e Argumentos de Build: Utilizar <code>ENV</code> para variáveis de ambiente em tempo de execução e <code>ARG</code> para variáveis em tempo de build. [cite: 12]</li>
+                    <li>Estrutura e Sintaxe: Entender a estrutura de um Dockerfile e as instruções mais comuns, como <code>FROM</code>, <code>RUN</code>, <code>COPY</code>, <code>ADD</code>, <code>WORKDIR</code>, <code>EXPOSE</code>, <code>ENV</code>, <code>CMD</code> e <code>ENTRYPOINT</code>.</li>
+                    <li>Melhores Práticas: Saber como criar Dockerfiles eficientes e seguros, incluindo o uso de imagens base menores, camadas otimizadas, multi-stage builds e a minimização de dependências desnecessárias.</li>
+                    <li>Variáveis de Ambiente e Argumentos de Build: Utilizar <code>ENV</code> para variáveis de ambiente em tempo de execução e <code>ARG</code> para variáveis em tempo de build.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Construção de Imagens:</strong> [cite: 13]
+            <li><strong>Construção de Imagens:</strong>
                 <ul>
-                    [cite_start]<li><code>docker build</code>: Dominar o comando <code>docker build</code> para criar imagens a partir de um Dockerfile, incluindo o uso do contexto (<code>.</code>) e a especificação de tags (<code>-t</code>). [cite: 14]</li>
-                    [cite_start]<li>Cache de Build: Entender como o Docker utiliza o cache para acelerar o processo de build e como invalidá-lo quando necessário. [cite: 15]</li>
+                    <li><code>docker build</code>: Dominar o comando <code>docker build</code> para criar imagens a partir de um Dockerfile, incluindo o uso do contexto (<code>.</code>) e a especificação de tags (<code>-t</code>).</li>
+                    <li>Cache de Build: Entender como o Docker utiliza o cache para acelerar o processo de build e como invalidá-lo quando necessário.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Gerenciamento Local de Imagens:</strong> [cite: 16]
+            <li><strong>Gerenciamento Local de Imagens:</strong>
                 <ul>
-                    [cite_start]<li>Listar Imagens: Usar <code>docker images</code> ou <code>docker image ls</code> para visualizar as imagens disponíveis localmente. [cite: 17]</li>
-                    [cite_start]<li>Remover Imagens: Empregar <code>docker rmi</code> para remover imagens indesejadas. [cite: 18]</li>
-                    [cite_start]<li>Inspeção de Imagens: Utilizar <code>docker inspect</code> para obter detalhes sobre uma imagem. [cite: 19]</li>
-                    [cite_start]<li>Salvar e Carregar Imagens: Conhecer <code>docker save</code> e <code>docker load</code> para exportar e importar imagens como arquivos. [cite: 20]</li>
+                    <li>Listar Imagens: Usar <code>docker images</code> ou <code>docker image ls</code> para visualizar as imagens disponíveis localmente.</li>
+                    <li>Remover Imagens: Empregar <code>docker rmi</code> para remover imagens indesejadas.</li>
+                    <li>Inspeção de Imagens: Utilizar <code>docker inspect</code> para obter detalhes sobre uma imagem.</li>
+                    <li>Salvar e Carregar Imagens: Conhecer <code>docker save</code> e <code>docker load</code> para exportar e importar imagens como arquivos.</li>
                 </ul>
             </li>
         </ul>
 
-        <h4>1.2. [cite_start]Publicar uma imagem no Registro de Contêiner do Azure [cite: 21]</h4>
-        [cite_start]<p>Este tópico é crucial para disponibilizar suas imagens para implantação no Azure: [cite: 22]</p>
+        <h4>1.2. Publicar uma imagem no Registro de Contêiner do Azure</h4>
+        <p>Este tópico é crucial para disponibilizar suas imagens para implantação no Azure:</p>
         <ul>
-            [cite_start]<li><strong>Azure Container Registry (ACR):</strong> [cite: 23]
+            <li><strong>Azure Container Registry (ACR):</strong>
                 <ul>
-                    [cite_start]<li>Criação e Configuração: Saber como criar uma instância do ACR no portal do Azure, via Azure CLI (<code>az acr create</code>) ou PowerShell. [cite: 24]</li>
-                    [cite_start]<li>SKUs do ACR: Entender as diferentes SKUs (Basic, Standard, Premium) e suas características (armazenamento, largura de banda, replicação geográfica). [cite: 25]</li>
-                    [cite_start]<li>Segurança: Configurar redes virtuais, pontos de extremidade privados e regras de firewall para o ACR. [cite: 26]</li>
+                    <li>Criação e Configuração: Saber como criar uma instância do ACR no portal do Azure, via Azure CLI (<code>az acr create</code>) ou PowerShell.</li>
+                    <li>SKUs do ACR: Entender as diferentes SKUs (Basic, Standard, Premium) e suas características (armazenamento, largura de banda, replicação geográfica).</li>
+                    <li>Segurança: Configurar redes virtuais, pontos de extremidade privados e regras de firewall para o ACR.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Autenticação no ACR:</strong> [cite: 27]
+            <li><strong>Autenticação no ACR:</strong>
                 <ul>
-                    [cite_start]<li>Login do Docker: Usar <code>az acr login --name &lt;nome_do_acr&gt;</code> para autenticar seu cliente Docker localmente. [cite: 28]</li>
-                    [cite_start]<li>Entidades de Serviço: Criar e configurar entidades de serviço com as permissões apropriadas para acessar o ACR de pipelines de CI/CD ou outras aplicações. [cite: 29]</li>
-                    [cite_start]<li>Chaves de Administrador: Entender (e desaconselhar para produção) o uso de chaves de administrador para acesso. [cite: 30]</li>
+                    <li>Login do Docker: Usar <code>az acr login --name &lt;nome_do_acr&gt;</code> para autenticar seu cliente Docker localmente.</li>
+                    <li>Entidades de Serviço: Criar e configurar entidades de serviço com as permissões apropriadas para acessar o ACR de pipelines de CI/CD ou outras aplicações.</li>
+                    <li>Chaves de Administrador: Entender (e desaconselhar para produção) o uso de chaves de administrador para acesso.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Tagging e Push de Imagens:</strong> [cite: 31]
+            <li><strong>Tagging e Push de Imagens:</strong>
                 <ul>
-                    [cite_start]<li>Tagging: Renomear suas imagens locais com o nome de login do ACR (<code>docker tag &lt;imagem_local&gt; &lt;login_server_acr&gt;/&lt;repositorio&gt;:&lt;tag&gt;</code>). [cite: 32]
+                    <li>Tagging: Renomear suas imagens locais com o nome de login do ACR (<code>docker tag &lt;imagem_local&gt; &lt;login_server_acr&gt;/&lt;repositorio&gt;:&lt;tag&gt;</code>).
                         <ul>
-                            [cite_start]<li>Ex: <code>docker tag myapp:v1 myregistry.azurecr.io/myapp:v1</code>. [cite: 33]</li>
+                            <li>Ex: <code>docker tag myapp:v1 myregistry.azurecr.io/myapp:v1</code>.</li>
                         </ul>
                     </li>
-                    [cite_start]<li>Push: Enviar a imagem "taggeada" para o ACR usando <code>docker push &lt;login_server_acr&gt;/&lt;repositorio&gt;:&lt;tag&gt;</code>. [cite: 34]</li>
+                    <li>Push: Enviar a imagem "taggeada" para o ACR usando <code>docker push &lt;login_server_acr&gt;/&lt;repositorio&gt;:&lt;tag&gt;</code>.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Tarefas do ACR (ACR Tasks):</strong> [cite: 35]
+            <li><strong>Tarefas do ACR (ACR Tasks):</strong>
                 <ul>
-                    [cite_start]<li>Builds Automatizados: Utilizar ACR Tasks para automatizar a construção de imagens Docker a partir de código-fonte (GitHub, Azure Repos) ou atualizações de imagem base. [cite: 36]</li>
-                    [cite_start]<li>Multi-step Tasks: Criar tarefas mais complexas que envolvem múltiplos passos, como build, test e push. [cite: 37]</li>
+                    <li>Builds Automatizados: Utilizar ACR Tasks para automatizar a construção de imagens Docker a partir de código-fonte (GitHub, Azure Repos) ou atualizações de imagem base.</li>
+                    <li>Multi-step Tasks: Criar tarefas mais complexas que envolvem múltiplos passos, como build, test e push.</li>
                 </ul>
             </li>
         </ul>
 
-        <h4>1.3. [cite_start]Executar contêineres usando a Instância de Contêiner do Azure [cite: 38]</h4>
-        [cite_start]<p>O ACI é ideal para cenários de execução rápida e simples de contêineres: [cite: 39]</p>
+        <h4>1.3. Executar contêineres usando a Instância de Contêiner do Azure</h4>
+        <p>O ACI é ideal para cenários de execução rápida e simples de contêineres:</p>
         <ul>
-            [cite_start]<li><strong>Conceito e Casos de Uso:</strong> [cite: 40]
+            <li><strong>Conceito e Casos de Uso:</strong>
                 <ul>
-                    [cite_start]<li>Contêineres Sem Servidor: Entender que o ACI permite executar contêineres sem a necessidade de provisionar ou gerenciar máquinas virtuais subjacentes. [cite: 41]</li>
-                    [cite_start]<li>Cargas de Trabalho de Estouro: Cenários onde você precisa de capacidade adicional rapidamente. [cite: 42]</li>
-                    [cite_start]<li>Tarefas Orientadas a Eventos: Execução de tarefas de processamento de dados, automação ou scripts. [cite: 43]</li>
-                    [cite_start]<li>Ambientes de Desenvolvimento/Teste: Implantação rápida para testes ou demonstrações. [cite: 44]</li>
+                    <li>Contêineres Sem Servidor: Entender que o ACI permite executar contêineres sem a necessidade de provisionar ou gerenciar máquinas virtuais subjacentes.</li>
+                    <li>Cargas de Trabalho de Estouro: Cenários onde você precisa de capacidade adicional rapidamente.</li>
+                    <li>Tarefas Orientadas a Eventos: Execução de tarefas de processamento de dados, automação ou scripts.</li>
+                    <li>Ambientes de Desenvolvimento/Teste: Implantação rápida para testes ou demonstrações.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Implantação de Contêineres:</strong> [cite: 45]
+            <li><strong>Implantação de Contêineres:</strong>
                 <ul>
-                    [cite_start]<li>Azure CLI: Dominar o comando <code>az container create</code>, especificando: [cite: 46]
+                    <li>Azure CLI: Dominar o comando <code>az container create</code>, especificando:
                         <ul>
-                            [cite_start]<li>Nome da imagem (<code>--image</code>) [cite: 47]</li>
-                            [cite_start]<li>Nome do grupo de contêineres (<code>--name</code>) [cite: 48]</li>
-                            [cite_start]<li>Recursos (CPU e memória: <code>--cpu</code>, <code>--memory</code>) [cite: 49]</li>
-                            [cite_start]<li>Portas expostas (<code>--ports</code>) [cite: 50]</li>
-                            [cite_start]<li>Variáveis de Ambiente (<code>--environment-variables</code>) [cite: 51]</li>
-                            [cite_start]<li>Comandos de Inicialização (<code>--command-line</code>) [cite: 52]</li>
-                            [cite_start]<li>Montagem de Volumes (Azure File Share: <code>--azure-file-volume-account-name</code>, <code>--azure-file-volume-share-name</code>, <code>--azure-file-volume-mount-path</code>) [cite: 53]</li>
+                            <li>Nome da imagem (<code>--image</code>)</li>
+                            <li>Nome do grupo de contêineres (<code>--name</code>)</li>
+                            <li>Recursos (CPU e memória: <code>--cpu</code>, <code>--memory</code>)</li>
+                            <li>Portas expostas (<code>--ports</code>)</li>
+                            <li>Variáveis de Ambiente (<code>--environment-variables</code>)</li>
+                            <li>Comandos de Inicialização (<code>--command-line</code>)</li>
+                            <li>Montagem de Volumes (Azure File Share: <code>--azure-file-volume-account-name</code>, <code>--azure-file-volume-share-name</code>, <code>--azure-file-volume-mount-path</code>)</li>
                         </ul>
                     </li>
-                    [cite_start]<li>YAML: Criar arquivos YAML para definir grupos de contêineres mais complexos. [cite: 54]</li>
+                    <li>YAML: Criar arquivos YAML para definir grupos de contêineres mais complexos.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Gerenciamento e Monitoramento:</strong> [cite: 55]
+            <li><strong>Gerenciamento e Monitoramento:</strong>
                 <ul>
-                    [cite_start]<li>Iniciar/Parar/Reiniciar: Usar <code>az container start</code>, <code>az container stop</code>, <code>az container restart</code>. [cite: 56]</li>
-                    [cite_start]<li>Logs: Visualizar logs de contêineres com <code>az container logs</code>. [cite: 57]</li>
-                    [cite_start]<li>Executar Comandos: Conectar-se a um contêiner em execução para depuração com <code>az container exec</code>. [cite: 58]</li>
-                    [cite_start]<li>Monitoramento: Integrar com o Azure Monitor para métricas e logs. [cite: 59]</li>
-                </ul>
-            </li>
-        </ul>
-
-        <h4>1.4. [cite_start]Criar soluções usando os Aplicativos de Contêiner do Azure (e orquestradores/webhooks) [cite: 60]</h4>
-        [cite_start]<p>Os Aplicativos de Contêiner do Azure (Azure Container Apps) são uma plataforma mais recente e poderosa para microsserviços e aplicações conteinerizadas. [cite: 61] [cite_start]Orquestradores e Webhooks se encaixam aqui como conceitos complementares. [cite: 62]</p>
-        <ul>
-            [cite_start]<li><strong>Conceito e Benefícios dos Aplicativos de Contêiner do Azure:</strong> [cite: 63]
-                <ul>
-                    [cite_start]<li>Plataforma para Microsserviços: Projetado para hospedar microsserviços e aplicações baseadas em contêineres, incluindo aqueles que usam Dapr e KEDA. [cite: 64]</li>
-                    [cite_start]<li>Serviço Totalmente Gerenciado: Abstrai a complexidade do Kubernetes, permitindo que você se concentre no código. [cite: 65]</li>
-                    [cite_start]<li>Dimensionamento Baseado em Eventos: Suporte nativo para KEDA (Kubernetes Event-Driven Autoscaling), permitindo dimensionamento baseado em filas de mensagens, tópicos Kafka, HTTP e muito mais. [cite: 66]</li>
-                    [cite_start]<li>Dapr (Distributed Application Runtime): Integração com Dapr para simplificar a construção de microsserviços (gerenciamento de estado, pub/sub, service invocation, etc.). [cite: 67]</li>
-                    [cite_start]<li>Revisões: Suporte a revisões para implantações sem tempo de inatividade e rollbacks. [cite: 68]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Componentes Chave dos Aplicativos de Contêiner:</strong> [cite: 69]
-                <ul>
-                    [cite_start]<li>Ambientes de Aplicativos de Contêiner: Onde seus aplicativos de contêiner são implantados. [cite: 70]</li>
-                    [cite_start]<li>Aplicativos de Contêiner: A unidade de implantação, que contém uma ou mais revisões. [cite: 71]</li>
-                    [cite_start]<li>Revisões: Versões imutáveis de um aplicativo de contêiner. [cite: 72]</li>
-                    [cite_start]<li>Dimensionamento: Configuração de regras de dimensionamento (HTTP, CPU, KEDA scalers). [cite: 73]</li>
-                    [cite_start]<li>Entrada (Ingress): Configuração de como o tráfego externo acessa seu aplicativo de contêiner. [cite: 74]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Implantação e Gerenciamento:</strong> [cite: 75]
-                <ul>
-                    [cite_start]<li>Azure CLI: Usar <code>az containerapp create</code> para criar aplicativos de contêiner, especificando a imagem, recursos, variáveis de ambiente e regras de dimensionamento. [cite: 76]</li>
-                    [cite_start]<li>Dapr e KEDA: Configurar Dapr para funcionalidades de microsserviços e KEDA para dimensionamento baseado em eventos. [cite: 77]</li>
-                    [cite_start]<li>Gerenciamento de Revisões: Gerenciar diferentes revisões de um aplicativo de contêiner para implantações canary ou blue/green. [cite: 78]</li>
-                    [cite_start]<li>Monitoramento: Integrar com Azure Monitor e Application Insights. [cite: 79]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Orquestradores (Contexto AZ-204):</strong> [cite: 80]
-                <ul>
-                    [cite_start]<li>Kubernetes (AKS): O principal orquestrador que você precisa entender para o AZ-204. [cite: 81] [cite_start]Ele é usado para automatizar a implantação, dimensionamento e gerenciamento de aplicações conteinerizadas. [cite: 82]</li>
-                    [cite_start]<li>Conceitos Fundamentais: Pods, Deployments, Services, Namespaces, Ingress, ConfigMaps, Secrets, Persistent Volumes. [cite: 83]</li>
-                    [cite_start]<li>Implantação de Aplicações: Uso de arquivos YAML e <code>kubectl</code> para definir e gerenciar recursos do Kubernetes. [cite: 84]</li>
-                    [cite_start]<li>Dimensionamento: Horizontal Pod Autoscaler (HPA) e Cluster Autoscaler. [cite: 85]</li>
-                    [cite_start]<li>Atualizações Rollout/Rollback: Estratégias de atualização de aplicações. [cite: 86]</li>
-                    [cite_start]<li>Azure Container Apps: Embora seja um serviço mais gerenciado, ele internamente utiliza conceitos de orquestração (como KEDA para dimensionamento) que se assemelham a orquestradores de contêineres. [cite: 87]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Webhooks (Contexto AZ-204):</strong> [cite: 88]
-                <ul>
-                    [cite_start]<li>Automação e Integração: Webhooks são usados para permitir que um serviço notifique outro serviço sobre um evento. [cite: 89] [cite_start]No contexto de contêineres, eles são frequentemente usados em cenários de CI/CD e automação. [cite: 90]</li>
-                    [cite_start]<li>ACR Tasks: As ACR Tasks podem ser configuradas para disparar builds de imagem automaticamente quando o código-fonte é atualizado em um repositório Git (usando webhooks do GitHub/Azure Repos). [cite: 91]</li>
-                    [cite_start]<li>Azure DevOps/GitHub Actions: Pipelines de CI/CD em Azure DevOps ou GitHub Actions podem ser configurados para serem disparados por webhooks de repositórios de código ou de registros de contêiner (ex: quando uma nova imagem é enviada para o ACR). [cite: 92]</li>
-                    [cite_start]<li>Azure Functions/Logic Apps: Webhooks podem ser o gatilho para Azure Functions ou Logic Apps que executam ações em resposta a eventos relacionados a contêineres (ex: notificar uma equipe quando um contêiner falha, ou disparar um processo de auditoria quando uma nova imagem é implantada). [cite: 93]</li>
-                    [cite_start]<li>Integração com Ferramentas Externas: Webhooks permitem que suas soluções conteinerizadas se integrem com sistemas de monitoramento, ferramentas de notificação (Slack, Teams) ou outros serviços externos. [cite: 94]</li>
+                    <li>Iniciar/Parar/Reiniciar: Usar <code>az container start</code>, <code>az container stop</code>, <code>az container restart</code>.</li>
+                    <li>Logs: Visualizar logs de contêineres com <code>az container logs</code>.</li>
+                    <li>Executar Comandos: Conectar-se a um contêiner em execução para depuração com <code>az container exec</code>.</li>
+                    <li>Monitoramento: Integrar com o Azure Monitor para métricas e logs.</li>
                 </ul>
             </li>
         </ul>
 
-        <h2>2. [cite_start]Implementar Aplicativos Web do Serviço de Aplicativo do Azure [cite: 95]</h2>
-        [cite_start]<p>Este tópico se concentra nos recursos do Azure App Service para hospedar e gerenciar aplicações web. [cite: 96]</p>
-
-        <h4>2.1. [cite_start]Criar um Aplicativo de API do Serviço de Aplicativo do Azure [cite: 97]</h4>
+        <h4>1.4. Criar soluções usando os Aplicativos de Contêiner do Azure (e orquestradores/webhooks)</h4>
+        <p>Os Aplicativos de Contêiner do Azure (Azure Container Apps) são uma plataforma mais recente e poderosa para microsserviços e aplicações conteinerizadas. Orquestradores e Webhooks se encaixam aqui como conceitos complementares.</p>
         <ul>
-            [cite_start]<li>Conceito de Aplicativo de API: Entender que um Aplicativo de API no App Service é otimizado para hospedar APIs RESTful, fornecendo recursos como CORS (Cross-Origin Resource Sharing) e integração com o Azure API Management. [cite: 98]</li>
-            [cite_start]<li>Criação via Portal/CLI/PowerShell: Saber como provisionar um Aplicativo de API, escolhendo o runtime (Node.js, .NET, Java, Python, etc.) e o plano do Serviço de Aplicativo. [cite: 99]</li>
-            [cite_start]<li>Publicação de API: Entender os métodos de publicação, como o uso de ferramentas de publicação do Visual Studio, FTP, Git local ou integração com CI/CD. [cite: 100]</li>
-        </ul>
-
-        <h4>2.2. [cite_start]Configurar e implementar diagnósticos e registros [cite: 101]</h4>
-        [cite_start]<p>A capacidade de monitorar e depurar suas aplicações é crucial: [cite: 102]</p>
-        <ul>
-            [cite_start]<li><strong>Logs do Aplicativo:</strong> [cite: 103]
+            <li><strong>Conceito e Benefícios dos Aplicativos de Contêiner do Azure:</strong>
                 <ul>
-                    [cite_start]<li>Tipos de Log: Entender os diferentes tipos de logs disponíveis (logs de aplicativo, logs do servidor web, mensagens de erro detalhadas, rastreamento de solicitações com falha). [cite: 104]</li>
-                    [cite_start]<li>Níveis de Log: Configurar o nível de detalhe dos logs (erro, aviso, informação, depuração). [cite: 105]</li>
-                    [cite_start]<li>Armazenamento: Habilitar o envio de logs para Armazenamento de Blobs do Azure, Log Analytics ou stream de logs. [cite: 106]</li>
+                    <li>Plataforma para Microsserviços: Projetado para hospedar microsserviços e aplicações baseadas em contêineres, incluindo aqueles que usam Dapr e KEDA.</li>
+                    <li>Serviço Totalmente Gerenciado: Abstrai a complexidade do Kubernetes, permitindo que você se concentre no código.</li>
+                    <li>Dimensionamento Baseado em Eventos: Suporte nativo para KEDA (Kubernetes Event-Driven Autoscaling), permitindo dimensionamento baseado em filas de mensagens, tópicos Kafka, HTTP e muito mais.</li>
+                    <li>Dapr (Distributed Application Runtime): Integração com Dapr para simplificar a construção de microsserviços (gerenciamento de estado, pub/sub, service invocation, etc.).</li>
+                    <li>Revisões: Suporte a revisões para implantações sem tempo de inatividade e rollbacks.</li>
                 </ul>
             </li>
-            [cite_start]<li>Logs do Servidor Web: Ativar e analisar logs de requisições HTTP para depurar problemas de conectividade ou desempenho. [cite: 107]</li>
-            [cite_start]<li><strong>Azure Application Insights:</strong> [cite: 108]
+            <li><strong>Componentes Chave dos Aplicativos de Contêiner:</strong>
                 <ul>
-                    [cite_start]<li>Configuração: Integrar o Application Insights à sua aplicação para monitoramento de desempenho de aplicativos (APM). [cite: 109]</li>
-                    [cite_start]<li>Recursos: Utilizar mapas de aplicativo, gráficos de desempenho, telemetria de requisições e exceções. [cite: 110]</li>
+                    <li>Ambientes de Aplicativos de Contêiner: Onde seus aplicativos de contêiner são implantados.</li>
+                    <li>Aplicativos de Contêiner: A unidade de implantação, que contém uma ou mais revisões.</li>
+                    <li>Revisões: Versões imutáveis de um aplicativo de contêiner.</li>
+                    <li>Dimensionamento: Configuração de regras de dimensionamento (HTTP, CPU, KEDA scalers).</li>
+                    <li>Entrada (Ingress): Configuração de como o tráfego externo acessa seu aplicativo de contêiner.</li>
                 </ul>
             </li>
-            [cite_start]<li>Diagnóstico e Solução de Problemas: Utilizar as ferramentas de diagnóstico integradas no portal do Azure para identificar problemas comuns. [cite: 111]</li>
-        </ul>
-
-        <h4>2.3. [cite_start]Implantar código e soluções em contêineres [cite: 112]</h4>
-        [cite_start]<p>Este subitem aborda os diferentes métodos de implantação: [cite: 113]</p>
-        <ul>
-            [cite_start]<li><strong>Implantação de Código (Não Contêiner):</strong> [cite: 114]
+            <li><strong>Implantação e Gerenciamento:</strong>
                 <ul>
-                    [cite_start]<li>Git Local/GitHub/Azure Repos: Configurar a implantação contínua a partir de repositórios de código. [cite: 115]</li>
-                    [cite_start]<li>ZIP Deploy: Utilizar o comando <code>az webapp deployment source config-zip</code> para implantar pacotes ZIP. [cite: 116]</li>
-                    [cite_start]<li>FTP/Web Deploy: Métodos tradicionais de implantação. [cite: 117]</li>
+                    <li>Azure CLI: Usar <code>az containerapp create</code> para criar aplicativos de contêiner, especificando a imagem, recursos, variáveis de ambiente e regras de dimensionamento.</li>
+                    <li>Dapr e KEDA: Configurar Dapr para funcionalidades de microsserviços e KEDA para dimensionamento baseado em eventos.</li>
+                    <li>Gerenciamento de Revisões: Gerenciar diferentes revisões de um aplicativo de contêiner para implantações canary ou blue/green.</li>
+                    <li>Monitoramento: Integrar com Azure Monitor e Application Insights.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Implantação de Soluções em Contêineres:</strong> [cite: 118]
+            <li><strong>Orquestradores (Contexto AZ-204):</strong>
                 <ul>
-                    [cite_start]<li>Imagens Docker: Implantar imagens do Docker Hub, Azure Container Registry (ACR) ou registros de contêiner privados. [cite: 119]</li>
-                    [cite_start]<li>Configuração de Contêineres: Definir a imagem, porta do contêiner, variáveis de ambiente e comandos de inicialização para o contêiner. [cite: 120]</li>
-                    [cite_start]<li>Implantação Contínua com Contêineres: Configurar webhooks ou pipelines de CI/CD para que o App Service puxe automaticamente a imagem mais recente do ACR quando ela for atualizada. [cite: 121]</li>
-                    [cite_start]<li>Docker Compose (para multi-contêiner): Entender como usar arquivos Docker Compose para implantar aplicações com múltiplos contêineres no App Service. [cite: 122]</li>
+                    <li>Kubernetes (AKS): O principal orquestrador que você precisa entender para o AZ-204. Ele é usado para automatizar a implantação, dimensionamento e gerenciamento de aplicações conteinerizadas.</li>
+                    <li>Conceitos Fundamentais: Pods, Deployments, Services, Namespaces, Ingress, ConfigMaps, Secrets, Persistent Volumes.</li>
+                    <li>Implantação de Aplicações: Uso de arquivos YAML e <code>kubectl</code> para definir e gerenciar recursos do Kubernetes.</li>
+                    <li>Dimensionamento: Horizontal Pod Autoscaler (HPA) e Cluster Autoscaler.</li>
+                    <li>Atualizações Rollout/Rollback: Estratégias de atualização de aplicações.</li>
+                    <li>Azure Container Apps: Embora seja um serviço mais gerenciado, ele internamente utiliza conceitos de orquestração (como KEDA para dimensionamento) que se assemelham a orquestradores de contêineres.</li>
                 </ul>
             </li>
-        </ul>
-
-        <h4>2.4. [cite_start]Definir configurações, incluindo o protocolo TLS (TLS), configurações de API e conexões de serviço [cite: 123]</h4>
-        [cite_start]<p>A configuração adequada é vital para a segurança e funcionalidade: [cite: 124]</p>
-        <ul>
-            [cite_start]<li><strong>Certificados TLS/SSL:</strong> [cite: 125]
+            <li><strong>Webhooks (Contexto AZ-204):</strong>
                 <ul>
-                    [cite_start]<li>Gerenciamento: Entender como vincular domínios personalizados e carregar certificados SSL (incluindo certificados Let's Encrypt via extensões do App Service). [cite: 126]</li>
-                    [cite_start]<li>Imposição HTTPS: Configurar o aplicativo para redirecionar todo o tráfego HTTP para HTTPS. [cite: 127]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Variáveis de Ambiente e Configurações de Aplicativo:</strong> [cite: 128]
-                <ul>
-                    [cite_start]<li>Configurações de Aplicativo: Gerenciar pares chave-valor para configurações da aplicação (string de conexão, chaves de API) que podem ser injetadas como variáveis de ambiente no runtime. [cite: 129]</li>
-                    [cite_start]<li>Prioridade: Entender a precedência entre variáveis de ambiente do sistema operacional, configurações do aplicativo e configurações de conexão. [cite: 130]</li>
-                </ul>
-            </li>
-            [cite_start]<li>Cadeias de Conexão: Configurar cadeias de conexão para bancos de dados e outros serviços, com segurança aprimorada. [cite: 131]</li>
-            [cite_start]<li>CORS (Cross-Origin Resource Sharing): Configurar regras CORS para permitir que clientes de diferentes origens acessem sua API de forma segura. [cite: 132]</li>
-            [cite_start]<li><strong>Identidades Gerenciadas:</strong> [cite: 133]
-                <ul>
-                    [cite_start]<li>Conceito: Utilizar identidades gerenciadas (atribuídas ao sistema ou atribuídas pelo usuário) para permitir que seu aplicativo acesse outros serviços do Azure (Key Vault, SQL Database) de forma segura, sem a necessidade de credenciais embutidas. [cite: 134]</li>
-                    [cite_start]<li>Implementação: Habilitar e configurar permissões para identidades gerenciadas. [cite: 135]</li>
+                    <li>Automação e Integração: Webhooks são usados para permitir que um serviço notifique outro serviço sobre um evento. No contexto de contêineres, eles são frequentemente usados em cenários de CI/CD e automação.</li>
+                    <li>ACR Tasks: As ACR Tasks podem ser configuradas para disparar builds de imagem automaticamente quando o código-fonte é atualizado em um repositório Git (usando webhooks do GitHub/Azure Repos).</li>
+                    <li>Azure DevOps/GitHub Actions: Pipelines de CI/CD em Azure DevOps ou GitHub Actions podem ser configurados para serem disparados por webhooks de repositórios de código ou de registros de contêiner (ex: quando uma nova imagem é enviada para o ACR).</li>
+                    <li>Azure Functions/Logic Apps: Webhooks podem ser o gatilho para Azure Functions ou Logic Apps que executam ações em resposta a eventos relacionados a contêineres (ex: notificar uma equipe quando um contêiner falha, ou disparar um processo de auditoria quando uma nova imagem é implantada).</li>
+                    <li>Integração com Ferramentas Externas: Webhooks permitem que suas soluções conteinerizadas se integrem com sistemas de monitoramento, ferramentas de notificação (Slack, Teams) ou outros serviços externos.</li>
                 </ul>
             </li>
         </ul>
 
-        <h4>2.5. [cite_start]Implementar o dimensionamento automático [cite: 136]</h4>
-        [cite_start]<p>Garantir que sua aplicação possa lidar com diferentes volumes de tráfego: [cite: 137]</p>
+        <h2>2. Implementar Aplicativos Web do Serviço de Aplicativo do Azure</h2>
+        <p>Este tópico se concentra nos recursos do Azure App Service para hospedar e gerenciar aplicações web.</p>
+
+        <h4>2.1. Criar um Aplicativo de API do Serviço de Aplicativo do Azure</h4>
         <ul>
-            [cite_start]<li><strong>Tipos de Dimensionamento:</strong> [cite: 138]
-                <ul>
-                    [cite_start]<li>Escala Manual: Ajustar o número de instâncias manualmente. [cite: 139]</li>
-                    [cite_start]<li>Dimensionamento Automático (Autoscale): Configurar regras para que o App Service dimensione o número de instâncias com base em métricas. [cite: 140]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Regras de Dimensionamento:</strong> [cite: 141]
-                <ul>
-                    [cite_start]<li>Métricas: Basear regras em métricas como CPU, memória, fila de HTTP, dados de saída, ou filas de armazenamento/Service Bus. [cite: 142]</li>
-                    [cite_start]<li>Limites: Definir limites mínimos e máximos de instâncias. [cite: 143]</li>
-                    [cite_start]<li>Períodos de Tempo: Configurar horários específicos para regras de dimensionamento. [cite: 144]</li>
-                    [cite_start]<li>Múltiplas Regras: Criar múltiplas regras para diferentes cenários de carga. [cite: 145]</li>
-                </ul>
-            </li>
-            [cite_start]<li>Planos do Serviço de Aplicativo: Entender como os planos de serviço afetam as opções e capacidades de dimensionamento. [cite: 146]</li>
+            <li>Conceito de Aplicativo de API: Entender que um Aplicativo de API no App Service é otimizado para hospedar APIs RESTful, fornecendo recursos como CORS (Cross-Origin Resource Sharing) e integração com o Azure API Management.</li>
+            <li>Criação via Portal/CLI/PowerShell: Saber como provisionar um Aplicativo de API, escolhendo o runtime (Node.js, .NET, Java, Python, etc.) e o plano do Serviço de Aplicativo.</li>
+            <li>Publicação de API: Entender os métodos de publicação, como o uso de ferramentas de publicação do Visual Studio, FTP, Git local ou integração com CI/CD.</li>
         </ul>
 
-        <h4>2.6. [cite_start]Configurar slots de implantação [cite: 147]</h4>
-        [cite_start]<p>Essencial para implantações sem tempo de inatividade e testes: [cite: 148]</p>
+        <h4>2.2. Configurar e implementar diagnósticos e registros</h4>
+        <p>A capacidade de monitorar e depurar suas aplicações é crucial:</p>
         <ul>
-            [cite_start]<li><strong>Conceito de Slots de Implantação:</strong> [cite: 149]
+            <li><strong>Logs do Aplicativo:</strong>
                 <ul>
-                    [cite_start]<li>Ambientes de Staging: Entender que os slots são instâncias separadas de sua aplicação que compartilham o mesmo plano do Serviço de Aplicativo, mas com URLs e configurações independentes. [cite: 150]</li>
-                    [cite_start]<li>Trocas (Swapping): Compreender o processo de troca de slots (troca ao vivo ou troca com visualização) para mover uma versão testada de um slot de preparo para o slot de produção sem tempo de inatividade. [cite: 151]</li>
+                    <li>Tipos de Log: Entender os diferentes tipos de logs disponíveis (logs de aplicativo, logs do servidor web, mensagens de erro detalhadas, rastreamento de solicitações com falha).</li>
+                    <li>Níveis de Log: Configurar o nível de detalhe dos logs (erro, aviso, informação, depuração).</li>
+                    <li>Armazenamento: Habilitar o envio de logs para Armazenamento de Blobs do Azure, Log Analytics ou stream de logs.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Criação e Gerenciamento:</strong> [cite: 152]
+            <li>Logs do Servidor Web: Ativar e analisar logs de requisições HTTP para depurar problemas de conectividade ou desempenho.</li>
+            <li><strong>Azure Application Insights:</strong>
                 <ul>
-                    [cite_start]<li>Adicionar Slots: Criar novos slots de implantação no portal do Azure ou via CLI (<code>az webapp deployment slot create</code>). [cite: 153]</li>
-                    [cite_start]<li>Configurações Específicas do Slot: Saber como configurar variáveis de ambiente, cadeias de conexão e outras configurações que são específicas de um slot e não são trocadas com o slot de produção. [cite: 154]</li>
+                    <li>Configuração: Integrar o Application Insights à sua aplicação para monitoramento de desempenho de aplicativos (APM).</li>
+                    <li>Recursos: Utilizar mapas de aplicativo, gráficos de desempenho, telemetria de requisições e exceções.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Cenários de Uso:</strong> [cite: 155]
-                <ul>
-                    [cite_start]<li>Implantações Blue/Green: Usar slots para testar novas versões em um ambiente de produção antes de redirecionar o tráfego. [cite: 156]</li>
-                    [cite_start]<li>Testes A/B: Direcionar uma pequena porcentagem do tráfego para um novo slot para testes. [cite: 157]</li>
-                    [cite_start]<li>Rollback Rápido: Em caso de problema, reverter rapidamente para uma versão anterior trocando de volta para um slot estável. [cite: 158]</li>
-                </ul>
-            </li>
+            <li>Diagnóstico e Solução de Problemas: Utilizar as ferramentas de diagnóstico integradas no portal do Azure para identificar problemas comuns.</li>
         </ul>
 
-        <h2>3. [cite_start]Implementar Funções do Azure [cite: 159]</h2>
-        [cite_start]<p>Este tópico é crucial para entender como criar e gerenciar soluções serverless com o Azure Functions. [cite: 160]</p>
-
-        <h4>3.1. [cite_start]Criar e configurar um aplicativo do Azure Functions [cite: 161]</h4>
-        [cite_start]<p>Para criar e gerenciar um Function App, você precisa dominar: [cite: 162]</p>
+        <h4>2.3. Implantar código e soluções em contêineres</h4>
+        <p>Este subitem aborda os diferentes métodos de implantação:</p>
         <ul>
-            [cite_start]<li>Conceito de Azure Functions: Entender o Azure Functions como uma solução de computação serverless baseada em eventos, ideal para executar pequenos trechos de código (funções) sem a necessidade de gerenciar infraestrutura. [cite: 163]</li>
-            [cite_start]<li><strong>Planos de Hospedagem:</strong> [cite: 164]
+            <li><strong>Implantação de Código (Não Contêiner):</strong>
                 <ul>
-                    [cite_start]<li>Plano de Consumo: Saber que este plano é serverless puro, escalando automaticamente de acordo com a carga e cobrando apenas pelo tempo de execução e consumo de memória. [cite: 165] [cite_start]É o plano mais comum para funções baseadas em eventos e uso intermitente. [cite: 166]</li>
-                    [cite_start]<li>Plano Premium (Elastic Premium): Conhecer este plano para cenários que exigem baixa latência, conectividade VNet e pré-aquecimento de instâncias, com um custo base. [cite: 167]</li>
-                    [cite_start]<li>Plano do Serviço de Aplicativo (Dedicated Plan): Entender que suas funções podem ser executadas em um plano de Serviço de Aplicativo existente para ter maior controle sobre os recursos e um custo fixo, mas sem os benefícios serverless de dimensionamento automático e cobrança por execução. [cite: 168]</li>
+                    <li>Git Local/GitHub/Azure Repos: Configurar a implantação contínua a partir de repositórios de código.</li>
+                    <li>ZIP Deploy: Utilizar o comando <code>az webapp deployment source config-zip</code> para implantar pacotes ZIP.</li>
+                    <li>FTP/Web Deploy: Métodos tradicionais de implantação.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Criação do Function App:</strong> [cite: 169]
+            <li><strong>Implantação de Soluções em Contêineres:</strong>
                 <ul>
-                    [cite_start]<li>Portal do Azure/Azure CLI/PowerShell: Saber como criar um Function App, especificando o nome, runtime (C#, JavaScript, Python, Java, PowerShell), região, plano de hospedagem e conta de armazenamento. [cite: 170]</li>
-                    [cite_start]<li>Ferramentas de Desenvolvimento: Usar Visual Studio, Visual Studio Code ou Azure Functions Core Tools para criar e depurar funções localmente. [cite: 171]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Configurações do Aplicativo de Função:</strong> [cite: 172]
-                <ul>
-                    [cite_start]<li>Variáveis de Ambiente: Gerenciar variáveis de ambiente para configurações da função, como strings de conexão e chaves de API. [cite: 173]</li>
-                    [cite_start]<li>Configurações de Conexão: Configurar conexões para outros serviços do Azure (ex: Service Bus, Cosmos DB) nas configurações do Function App. [cite: 174]</li>
-                    [cite_start]<li>Identidades Gerenciadas: Habilitar e configurar identidades gerenciadas para permitir que suas funções acessem outros serviços do Azure com segurança, sem credenciais embutidas. [cite: 175]</li>
+                    <li>Imagens Docker: Implantar imagens do Docker Hub, Azure Container Registry (ACR) ou registros de contêiner privados.</li>
+                    <li>Configuração de Contêineres: Definir a imagem, porta do contêiner, variáveis de ambiente e comandos de inicialização para o contêiner.</li>
+                    <li>Implantação Contínua com Contêineres: Configurar webhooks ou pipelines de CI/CD para que o App Service puxe automaticamente a imagem mais recente do ACR quando ela for atualizada.</li>
+                    <li>Docker Compose (para multi-contêiner): Entender como usar arquivos Docker Compose para implantar aplicações com múltiplos contêineres no App Service.</li>
                 </ul>
             </li>
         </ul>
 
-        <h4>3.2. [cite_start]Implementar associações de entrada e de saída [cite: 176]</h4>
-        [cite_start]<p>As associações são uma das características mais poderosas do Azure Functions, simplificando a integração de dados: [cite: 177]</p>
+        <h4>2.4. Definir configurações, incluindo o protocolo TLS (TLS), configurações de API e conexões de serviço</h4>
+        <p>A configuração adequada é vital para a segurança e funcionalidade:</p>
         <ul>
-            [cite_start]<li>Conceito de Associações (Bindings): Entender que as associações fornecem uma maneira declarativa de conectar suas funções a dados e serviços. [cite: 178] [cite_start]Elas eliminam a necessidade de escrever código complexo para interagir com esses serviços. [cite: 179]</li>
-            [cite_start]<li><strong>Tipos de Associações:</strong> Familiarizar-se com associações comuns: [cite: 180]
+            <li><strong>Certificados TLS/SSL:</strong>
                 <ul>
-                    [cite_start]<li>Associações de Entrada (Input Bindings): Permitem que sua função leia dados de um serviço. [cite: 181] [cite_start]Ex: ler uma mensagem de uma fila do Azure Storage, obter um documento do Cosmos DB, recuperar um blob do Azure Blob Storage. [cite: 182]</li>
-                    [cite_start]<li>Associações de Saída (Output Bindings): Permitem que sua função grave dados em um serviço. [cite: 183] [cite_start]Ex: enviar uma mensagem para uma fila ou tópico do Service Bus, gravar um documento no Cosmos DB, criar um blob no Azure Blob Storage. [cite: 184]</li>
+                    <li>Gerenciamento: Entender como vincular domínios personalizados e carregar certificados SSL (incluindo certificados Let's Encrypt via extensões do App Service).</li>
+                    <li>Imposição HTTPS: Configurar o aplicativo para redirecionar todo o tráfego HTTP para HTTPS.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Configuração de Associações:</strong> [cite: 185]
+            <li><strong>Variáveis de Ambiente e Configurações de Aplicativo:</strong>
                 <ul>
-                    [cite_start]<li><code>function.json</code> (para JavaScript/PowerShell/Python): Entender como definir as associações no arquivo <code>function.json</code>, especificando o tipo de ligação, nome do parâmetro e detalhes da conexão. [cite: 186]</li>
-                    [cite_start]<li>Atributos C#: Usar atributos específicos (ex: <code>[BlobInput]</code>, <code>[QueueOutput]</code>, <code>[CosmosDB]</code>) para definir associações diretamente no código C#. [cite: 187]</li>
+                    <li>Configurações de Aplicativo: Gerenciar pares chave-valor para configurações da aplicação (string de conexão, chaves de API) que podem ser injetadas como variáveis de ambiente no runtime.</li>
+                    <li>Prioridade: Entender a precedência entre variáveis de ambiente do sistema operacional, configurações do aplicativo e configurações de conexão.</li>
                 </ul>
             </li>
-            [cite_start]<li>Utilização de Associações no Código: Saber como os dados das associações são passados para sua função como parâmetros de entrada e como retornar dados ou usar parâmetros <code>out</code> para associações de saída. [cite: 188]</li>
+            <li>Cadeias de Conexão: Configurar cadeias de conexão para bancos de dados e outros serviços, com segurança aprimorada.</li>
+            <li>CORS (Cross-Origin Resource Sharing): Configurar regras CORS para permitir que clientes de diferentes origens acessem sua API de forma segura.</li>
+            <li><strong>Identidades Gerenciadas:</strong>
+                <ul>
+                    <li>Conceito: Utilizar identidades gerenciadas (atribuídas ao sistema ou atribuídas pelo usuário) para permitir que seu aplicativo acesse outros serviços do Azure (Key Vault, SQL Database) de forma segura, sem a necessidade de credenciais embutidas.</li>
+                    <li>Implementação: Habilitar e configurar permissões para identidades gerenciadas.</li>
+                </ul>
+            </li>
         </ul>
 
-        <h4>3.3. [cite_start]Implementar gatilhos função usando operações de dados, temporizadores e webhooks [cite: 189]</h4>
-        [cite_start]<p>Gatilhos são o que fazem sua função ser executada: [cite: 190]</p>
+        <h4>2.5. Implementar o dimensionamento automático</h4>
+        <p>Garantir que sua aplicação possa lidar com diferentes volumes de tráfego:</p>
         <ul>
-            [cite_start]<li>Conceito de Gatilho (Trigger): Entender que um gatilho é um evento que inicia a execução de uma função. [cite: 191] [cite_start]Cada função tem exatamente um gatilho. [cite: 192]</li>
-            [cite_start]<li><strong>Tipos de Gatilhos:</strong> Dominar os gatilhos mais comuns e seus casos de uso: [cite: 193]
+            <li><strong>Tipos de Dimensionamento:</strong>
                 <ul>
-                    [cite_start]<li><strong>Gatilho de Operações de Dados:</strong> [cite: 194]
+                    <li>Escala Manual: Ajustar o número de instâncias manualmente.</li>
+                    <li>Dimensionamento Automático (Autoscale): Configurar regras para que o App Service dimensione o número de instâncias com base em métricas.</li>
+                </ul>
+            </li>
+            <li><strong>Regras de Dimensionamento:</strong>
+                <ul>
+                    <li>Métricas: Basear regras em métricas como CPU, memória, fila de HTTP, dados de saída, ou filas de armazenamento/Service Bus.</li>
+                    <li>Limites: Definir limites mínimos e máximos de instâncias.</li>
+                    <li>Períodos de Tempo: Configurar horários específicos para regras de dimensionamento.</li>
+                    <li>Múltiplas Regras: Criar múltiplas regras para diferentes cenários de carga.</li>
+                </ul>
+            </li>
+            <li>Planos do Serviço de Aplicativo: Entender como os planos de serviço afetam as opções e capacidades de dimensionamento.</li>
+        </ul>
+
+        <h4>2.6. Configurar slots de implantação</h4>
+        <p>Essencial para implantações sem tempo de inatividade e testes:</p>
+        <ul>
+            <li><strong>Conceito de Slots de Implantação:</strong>
+                <ul>
+                    <li>Ambientes de Staging: Entender que os slots são instâncias separadas de sua aplicação que compartilham o mesmo plano do Serviço de Aplicativo, mas com URLs e configurações independentes.</li>
+                    <li>Trocas (Swapping): Compreender o processo de troca de slots (troca ao vivo ou troca com visualização) para mover uma versão testada de um slot de preparo para o slot de produção sem tempo de inatividade.</li>
+                </ul>
+            </li>
+            <li><strong>Criação e Gerenciamento:</strong>
+                <ul>
+                    <li>Adicionar Slots: Criar novos slots de implantação no portal do Azure ou via CLI (<code>az webapp deployment slot create</code>).</li>
+                    <li>Configurações Específicas do Slot: Saber como configurar variáveis de ambiente, cadeias de conexão e outras configurações que são específicas de um slot e não são trocadas com o slot de produção.</li>
+                </ul>
+            </li>
+            <li><strong>Cenários de Uso:</strong>
+                <ul>
+                    <li>Implantações Blue/Green: Usar slots para testar novas versões em um ambiente de produção antes de redirecionar o tráfego.</li>
+                    <li>Testes A/B: Direcionar uma pequena porcentagem do tráfego para um novo slot para testes.</li>
+                    <li>Rollback Rápido: Em caso de problema, reverter rapidamente para uma versão anterior trocando de volta para um slot estável.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>3. Implementar Funções do Azure</h2>
+        <p>Este tópico é crucial para entender como criar e gerenciar soluções serverless com o Azure Functions.</p>
+
+        <h4>3.1. Criar e configurar um aplicativo do Azure Functions</h4>
+        <p>Para criar e gerenciar um Function App, você precisa dominar:</p>
+        <ul>
+            <li>Conceito de Azure Functions: Entender o Azure Functions como uma solução de computação serverless baseada em eventos, ideal para executar pequenos trechos de código (funções) sem a necessidade de gerenciar infraestrutura.</li>
+            <li><strong>Planos de Hospedagem:</strong>
+                <ul>
+                    <li>Plano de Consumo: Saber que este plano é serverless puro, escalando automaticamente de acordo com a carga e cobrando apenas pelo tempo de execução e consumo de memória. É o plano mais comum para funções baseadas em eventos e uso intermitente.</li>
+                    <li>Plano Premium (Elastic Premium): Conhecer este plano para cenários que exigem baixa latência, conectividade VNet e pré-aquecimento de instâncias, com um custo base.</li>
+                    <li>Plano do Serviço de Aplicativo (Dedicated Plan): Entender que suas funções podem ser executadas em um plano de Serviço de Aplicativo existente para ter maior controle sobre os recursos e um custo fixo, mas sem os benefícios serverless de dimensionamento automático e cobrança por execução.</li>
+                </ul>
+            </li>
+            <li><strong>Criação do Function App:</strong>
+                <ul>
+                    <li>Portal do Azure/Azure CLI/PowerShell: Saber como criar um Function App, especificando o nome, runtime (C#, JavaScript, Python, Java, PowerShell), região, plano de hospedagem e conta de armazenamento.</li>
+                    <li>Ferramentas de Desenvolvimento: Usar Visual Studio, Visual Studio Code ou Azure Functions Core Tools para criar e depurar funções localmente.</li>
+                </ul>
+            </li>
+            <li><strong>Configurações do Aplicativo de Função:</strong>
+                <ul>
+                    <li>Variáveis de Ambiente: Gerenciar variáveis de ambiente para configurações da função, como strings de conexão e chaves de API.</li>
+                    <li>Configurações de Conexão: Configurar conexões para outros serviços do Azure (ex: Service Bus, Cosmos DB) nas configurações do Function App.</li>
+                    <li>Identidades Gerenciadas: Habilitar e configurar identidades gerenciadas para permitir que suas funções acessem outros serviços do Azure com segurança, sem credenciais embutidas.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>3.2. Implementar associações de entrada e de saída</h4>
+        <p>As associações são uma das características mais poderosas do Azure Functions, simplificando a integração de dados:</p>
+        <ul>
+            <li>Conceito de Associações (Bindings): Entender que as associações fornecem uma maneira declarativa de conectar suas funções a dados e serviços. Elas eliminam a necessidade de escrever código complexo para interagir com esses serviços.</li>
+            <li><strong>Tipos de Associações:</strong> Familiarizar-se com associações comuns:
+                <ul>
+                    <li>Associações de Entrada (Input Bindings): Permitem que sua função leia dados de um serviço. Ex: ler uma mensagem de uma fila do Azure Storage, obter um documento do Cosmos DB, recuperar um blob do Azure Blob Storage.</li>
+                    <li>Associações de Saída (Output Bindings): Permitem que sua função grave dados em um serviço. Ex: enviar uma mensagem para uma fila ou tópico do Service Bus, gravar um documento no Cosmos DB, criar um blob no Azure Blob Storage.</li>
+                </ul>
+            </li>
+            <li><strong>Configuração de Associações:</strong>
+                <ul>
+                    <li><code>function.json</code> (para JavaScript/PowerShell/Python): Entender como definir as associações no arquivo <code>function.json</code>, especificando o tipo de ligação, nome do parâmetro e detalhes da conexão.</li>
+                    <li>Atributos C#: Usar atributos específicos (ex: <code>[BlobInput]</code>, <code>[QueueOutput]</code>, <code>[CosmosDB]</code>) para definir associações diretamente no código C#.</li>
+                </ul>
+            </li>
+            <li>Utilização de Associações no Código: Saber como os dados das associações são passados para sua função como parâmetros de entrada e como retornar dados ou usar parâmetros <code>out</code> para associações de saída.</li>
+        </ul>
+
+        <h4>3.3. Implementar gatilhos função usando operações de dados, temporizadores e webhooks</h4>
+        <p>Gatilhos são o que fazem sua função ser executada:</p>
+        <ul>
+            <li>Conceito de Gatilho (Trigger): Entender que um gatilho é um evento que inicia a execução de uma função. Cada função tem exatamente um gatilho.</li>
+            <li><strong>Tipos de Gatilhos:</strong> Dominar os gatilhos mais comuns e seus casos de uso:
+                <ul>
+                    <li><strong>Gatilho de Operações de Dados:</strong>
                         <ul>
-                            [cite_start]<li>Azure Blob Storage Trigger: Executa a função quando um novo blob é adicionado ou um blob existente é modificado. [cite: 195] [cite_start]Útil para processamento de arquivos. [cite: 196]</li>
-                            [cite_start]<li>Azure Queue Storage Trigger: Executa a função quando uma nova mensagem é adicionada a uma fila. [cite: 197] [cite_start]Perfeito para processamento de mensagens assíncronas. [cite: 198]</li>
-                            [cite_start]<li>Azure Cosmos DB Trigger: Executa a função em resposta a mudanças em documentos em uma coleção do Cosmos DB (via Change Feed). [cite: 199] [cite_start]Ideal para cenários de processamento em tempo real de dados. [cite: 200]</li>
-                            [cite_start]<li>Azure Service Bus Trigger: Executa a função quando uma nova mensagem é adicionada a uma fila ou tópico do Service Bus. [cite: 201] [cite_start]Permite comunicação desacoplada e padrões de mensagens avançados. [cite: 202]</li>
-                            [cite_start]<li>Event Hubs Trigger: Executa a função quando novos eventos são adicionados a um event hub. [cite: 203] [cite_start]Usado para ingestão de dados em larga escala e processamento de streams. [cite: 204]</li>
+                            <li>Azure Blob Storage Trigger: Executa a função quando um novo blob é adicionado ou um blob existente é modificado. Útil para processamento de arquivos.</li>
+                            <li>Azure Queue Storage Trigger: Executa a função quando uma nova mensagem é adicionada a uma fila. Perfeito para processamento de mensagens assíncronas.</li>
+                            <li>Azure Cosmos DB Trigger: Executa a função em resposta a mudanças em documentos em uma coleção do Cosmos DB (via Change Feed). Ideal para cenários de processamento em tempo real de dados.</li>
+                            <li>Azure Service Bus Trigger: Executa a função quando uma nova mensagem é adicionada a uma fila ou tópico do Service Bus. Permite comunicação desacoplada e padrões de mensagens avançados.</li>
+                            <li>Event Hubs Trigger: Executa a função quando novos eventos são adicionados a um event hub. Usado para ingestão de dados em larga escala e processamento de streams.</li>
                         </ul>
                     </li>
-                    [cite_start]<li><strong>Gatilho de Temporizador (Timer Trigger):</strong> [cite: 205]
+                    <li><strong>Gatilho de Temporizador (Timer Trigger):</strong>
                         <ul>
-                            [cite_start]<li>Expressões CRON: Saber como usar expressões CRON para agendar a execução de uma função em intervalos regulares (ex: a cada hora, diariamente à meia-noite). [cite: 206]</li>
-                            [cite_start]<li>Casos de Uso: Tarefas agendadas, manutenção de banco de dados, geração de relatórios. [cite: 207]</li>
+                            <li>Expressões CRON: Saber como usar expressões CRON para agendar a execução de uma função em intervalos regulares (ex: a cada hora, diariamente à meia-noite).</li>
+                            <li>Casos de Uso: Tarefas agendadas, manutenção de banco de dados, geração de relatórios.</li>
                         </ul>
                     </li>
-                    [cite_start]<li><strong>Gatilho HTTP (Webhook):</strong> [cite: 208]
+                    <li><strong>Gatilho HTTP (Webhook):</strong>
                         <ul>
-                            [cite_start]<li>API RESTful: Transforma sua função em um endpoint HTTP que pode ser invocado por requisições HTTP (GET, POST, PUT, DELETE). [cite: 209]</li>
-                            [cite_start]<li>Níveis de Autorização: Configurar diferentes níveis de segurança (Function, Host, Admin, Anonymous) para controlar o acesso à sua função HTTP. [cite: 210]</li>
-                            [cite_start]<li>Integração com Webhooks: Receber webhooks de serviços como GitHub, Azure DevOps, Stripe, etc., para automatizar ações em resposta a eventos externos. [cite: 211]</li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-
-        [cite_start]<h2>Desenvolver para armazenamento do Azure (15–20%) [cite: 212]</h2>
-        [cite_start]<p>Esta seção da certificação AZ-204 foca na implementação de soluções que interagem com os serviços de armazenamento do Azure, com ênfase em Azure Cosmos DB e Azure Blob Storage. [cite: 213]</p>
-
-        <h3>4. [cite_start]Desenvolver soluções que usam o Azure Cosmos DB [cite: 214]</h3>
-        [cite_start]<p>O Azure Cosmos DB é um banco de dados NoSQL totalmente gerenciado, multimodelo e distribuído globalmente. [cite: 215]</p>
-
-        <h4>4.1. [cite_start]Executar operações em contêineres e itens usando o SDK [cite: 216]</h4>
-        <ul>
-            [cite_start]<li>Conceitos do Cosmos DB: Entender a hierarquia de recursos (conta, banco de dados, contêiner/coleção, item/documento) e os modelos de dados suportados (SQL API, MongoDB API, Cassandra API, Gremlin API, Table API). [cite: 217] [cite_start]O foco principal para o AZ-204 é geralmente a SQL API. [cite: 218]</li>
-            [cite_start]<li>Instalação e Configuração do SDK: Saber como adicionar o SDK apropriado ao seu projeto (ex: .NET SDK, Java SDK, Node.js SDK, Python SDK). [cite: 219]</li>
-            [cite_start]<li><strong>Operações CRUD (Create, Read, Update, Delete) em Itens:</strong> [cite: 220]
-                <ul>
-                    [cite_start]<li>Criação de Itens: Inserir novos documentos em um contêiner. [cite: 221]</li>
-                    [cite_start]<li>Leitura de Itens: Recuperar documentos por ID e chave de partição. [cite: 222]</li>
-                    [cite_start]<li>Atualização de Itens: Modificar documentos existentes. [cite: 223]</li>
-                    [cite_start]<li>Exclusão de Itens: Remover documentos. [cite: 224]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Consultas (Queries):</strong> [cite: 225]
-                <ul>
-                    [cite_start]<li>Sintaxe SQL (para SQL API): Escrever consultas SQL para recuperar dados de contêineres. [cite: 226]</li>
-                    [cite_start]<li>Consultas Parametrizadas: Usar parâmetros para evitar injeção de SQL e melhorar o desempenho. [cite: 227]</li>
-                    [cite_start]<li>Paginação: Lidar com grandes conjuntos de resultados usando paginação. [cite: 228]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Operações em Contêineres:</strong> [cite: 229]
-                <ul>
-                    [cite_start]<li>Criação e Exclusão de Contêineres: Saber como criar e remover contêineres programaticamente. [cite: 230]</li>
-                    [cite_start]<li>Throughput (RU/s): Entender o conceito de Request Units (RU/s) e como provisionar ou dimensionar o throughput para contêineres e bancos de dados. [cite: 231]</li>
-                </ul>
-            </li>
-            [cite_start]<li>Tratamento de Exceções: Implementar lógica para lidar com erros comuns, como conflitos e erros de throughput. [cite: 232]</li>
-        </ul>
-
-        <h4>4.2. [cite_start]Definir o nível de consistência adequado para operações [cite: 233]</h4>
-        [cite_start]<p>A consistência é um conceito fundamental no Cosmos DB e impacta o desempenho e a durabilidade dos dados. [cite: 234]</p>
-        <ul>
-            [cite_start]<li><strong>Níveis de Consistência:</strong> Entender os cinco níveis de consistência e seus trade-offs entre latência, throughput e durabilidade: [cite: 235]
-                <ul>
-                    [cite_start]<li>Forte (Strong): Maior consistência, mas maior latência e menor throughput. [cite: 236] [cite_start]Garante que todas as leituras vejam a versão mais recente dos dados. [cite: 237]</li>
-                    [cite_start]<li>Consistência Limitada (Bounded Staleness): Consistência com um limite configurável de defasagem (tempo ou número de versões). [cite: 238]</li>
-                    [cite_start]<li>Sessão (Session): Consistência garantida para a sessão do cliente. [cite: 239] [cite_start]É o padrão e o mais comum para a maioria das aplicações. [cite: 240]</li>
-                    [cite_start]<li>Prefixo Consistente (Consistent Prefix): Garante que as leituras nunca verão dados fora de ordem. [cite: 241]</li>
-                    <li>Final (Eventual): Menor consistência, mas maior latência e menor throughput. [cite_start]As leituras podem ver dados defasados. [cite: 242]</li>
-                </ul>
-            </li>
-            [cite_start]<li>Escolha do Nível de Consistência: Saber quando usar cada nível de consistência com base nos requisitos da aplicação. [cite: 243]</li>
-            [cite_start]<li>Configuração: Entender como definir o nível de consistência no nível da conta e como substituí-lo para operações específicas usando o SDK. [cite: 244]</li>
-        </ul>
-
-        <h4>4.3. [cite_start]Implementar notificações do feed de alterações [cite: 245]</h4>
-        [cite_start]<p>O Change Feed do Cosmos DB é um recurso poderoso para processamento de dados em tempo real. [cite: 246]</p>
-        <ul>
-            [cite_start]<li>Conceito de Change Feed: Entender que o Change Feed fornece um log persistente de todas as alterações feitas em um contêiner do Cosmos DB. [cite: 247]</li>
-            [cite_start]<li><strong>Casos de Uso:</strong> [cite: 248]
-                <ul>
-                    [cite_start]<li>Processamento de Dados em Tempo Real: Sincronização de dados, streaming de dados para outros serviços, atualização de caches. [cite: 249]</li>
-                    [cite_start]<li>Integração: Envio de eventos para Event Hubs, Service Bus ou Azure Functions. [cite: 250]</li>
-                    [cite_start]<li>Auditoria: Manter um registro de todas as modificações de dados. [cite: 251]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Processador do Feed de Alterações (Change Feed Processor):</strong> [cite: 252]
-                <ul>
-                    [cite_start]<li>Azure Functions: Saber como usar o gatilho do Azure Cosmos DB em Azure Functions para consumir o Change Feed de forma escalável e confiável. [cite: 253]</li>
-                    [cite_start]<li>SDK: Utilizar o Change Feed Processor Library para construir processadores personalizados. [cite: 254]</li>
-                    [cite_start]<li>Monitoramento: Monitorar o progresso do Change Feed Processor e lidar com erros. [cite: 255]</li>
-                </ul>
-            </li>
-        </ul>
-
-        <h3>5. [cite_start]Desenvolver soluções que usam o Armazenamento de Blobs do Azure [cite: 256]</h3>
-        [cite_start]<p>O Azure Blob Storage é o serviço de armazenamento de objetos da Microsoft para a nuvem. [cite: 257]</p>
-
-        <h4>5.1. [cite_start]Definir e recuperar as propriedades e os metadados [cite: 258]</h4>
-        <ul>
-            [cite_start]<li>Conceitos de Blob Storage: Entender a hierarquia (conta de armazenamento, contêiner, blob) e os tipos de blobs (Block Blobs, Page Blobs, Append Blobs). [cite: 259] [cite_start]O foco principal para o AZ-204 é Block Blobs. [cite: 260]</li>
-            [cite_start]<li><strong>Propriedades do Blob:</strong> [cite: 261]
-                <ul>
-                    [cite_start]<li>Propriedades Padrão: Saber como acessar e usar propriedades como <code>Content-Type</code>, <code>Content-Length</code>, <code>Last-Modified</code>, <code>ETag</code>. [cite: 262]</li>
-                    [cite_start]<li>Cabeçalhos HTTP: Entender como as propriedades do blob se mapeiam para cabeçalhos HTTP. [cite: 263]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Metadados do Blob:</strong> [cite: 264]
-                <ul>
-                    [cite_start]<li>Metadados Definidos pelo Usuário: Adicionar e recuperar pares chave-valor personalizados para blobs para armazenar informações adicionais sobre o objeto. [cite: 265]</li>
-                    [cite_start]<li>Casos de Uso: Classificação de dados, informações de processamento, tags para pesquisa. [cite: 266]</li>
-                </ul>
-            </li>
-            [cite_start]<li>Operações com SDK: Utilizar o SDK apropriado (ex: .NET SDK, Java SDK, Node.js SDK, Python SDK) para definir e recuperar propriedades e metadados. [cite: 267]</li>
-        </ul>
-
-        <h4>5.2. [cite_start]Executar operações em dados usando o SDK apropriado [cite: 268]</h4>
-        <ul>
-            [cite_start]<li>Instalação e Configuração do SDK: Saber como adicionar o SDK de armazenamento ao seu projeto. [cite: 269]</li>
-            [cite_start]<li><strong>Operações de Contêiner:</strong> [cite: 270]
-                <ul>
-                    [cite_start]<li>Criação e Exclusão de Contêineres: Criar e remover contêineres programaticamente. [cite: 271]</li>
-                    [cite_start]<li>Listagem de Contêineres: Obter uma lista de contêineres em uma conta de armazenamento. [cite: 272]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Operações de Blob:</strong> [cite: 273]
-                <ul>
-                    [cite_start]<li>Upload de Blobs: Enviar arquivos para o Blob Storage (ex: <code>UploadAsync</code>, <code>UploadFromFileAsync</code>). [cite: 274]</li>
-                    [cite_start]<li>Download de Blobs: Baixar arquivos do Blob Storage (ex: <code>DownloadToStreamAsync</code>, <code>DownloadToFileAsync</code>). [cite: 275]</li>
-                    [cite_start]<li>Exclusão de Blobs: Remover blobs. [cite: 276]</li>
-                    [cite_start]<li>Listagem de Blobs: Obter uma lista de blobs em um contêiner. [cite: 277]</li>
-                    [cite_start]<li>Cópia de Blobs: Copiar blobs dentro da mesma conta ou para outra conta. [cite: 278]</li>
-                    [cite_start]<li>Leitura e Escrita de Streams: Trabalhar com blobs como streams de dados. [cite: 279]</li>
-                </ul>
-            </li>
-            [cite_start]<li>Níveis de Acesso (Access Tiers): Entender os diferentes níveis de acesso (Hot, Cool, Archive) e quando usar cada um para otimizar custos e desempenho. [cite: 280]</li>
-            [cite_start]<li><strong>Assinaturas de Acesso Compartilhado (SAS - Shared Access Signatures):</strong> [cite: 281]
-                <ul>
-                    [cite_start]<li>Conceito: Gerar SAS para conceder acesso limitado e delegado a recursos do Azure Storage (Blob, Fila, Tabela) ou Azure Service Bus sem expor as chaves da conta de armazenamento/namespace. [cite: 282]</li>
-                    [cite_start]<li>Tipos de SAS (Storage): Entender SAS de serviço, SAS de conta e SAS de delegação do usuário (para Blob Storage). [cite: 283]</li>
-                    [cite_start]<li>Políticas de Acesso Armazenadas (Stored Access Policies): Entender como usar políticas de acesso armazenadas para gerenciar e revogar SAS de forma mais eficaz. [cite: 284]</li>
-                    [cite_start]<li>Permissões e Validade: Configurar permissões (leitura, escrita, exclusão, listagem) e o período de validade da SAS. [cite: 285]</li>
-                    [cite_start]<li>Casos de Uso: Compartilhamento de arquivos temporário, upload direto de clientes. [cite: 286]</li>
-                </ul>
-            </li>
-        </ul>
-
-        <h4>5.3. [cite_start]Implementar políticas de armazenamento e gerenciamento do ciclo de vida de dados [cite: 287]</h4>
-        <ul>
-            [cite_start]<li><strong>Gerenciamento do Ciclo de Vida do Blob:</strong> [cite: 288]
-                <ul>
-                    [cite_start]<li>Conceito: Automatizar a transição de blobs para níveis de acesso mais frios (Hot -> Cool -> Archive) ou a exclusão de blobs com base em regras definidas. [cite: 289]</li>
-                    [cite_start]<li>Regras: Criar regras baseadas em tempo (ex: mover blobs para Cool após 30 dias, excluir após 180 dias) ou em tags. [cite: 290]</li>
-                    [cite_start]<li>Casos de Uso: Otimização de custos para dados que se tornam menos acessados com o tempo. [cite: 291]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Imutabilidade do Blob (Immutable Storage):</strong> [cite: 292]
-                <ul>
-                    [cite_start]<li>Conceito: Configurar políticas de imutabilidade para blobs, garantindo que os dados não possam ser modificados ou excluídos por um período de tempo específico. [cite: 293]</li>
-                    [cite_start]<li>Casos de Uso: Conformidade regulatória (retenção de dados), auditoria, proteção contra ransomware. [cite: 294]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Versionamento do Blob:</strong> [cite: 295]
-                <ul>
-                    [cite_start]<li>Conceito: Manter automaticamente versões anteriores de um blob quando ele é modificado ou excluído, permitindo a recuperação de versões anteriores. [cite: 296]</li>
-                    [cite_start]<li>Casos de Uso: Proteção contra exclusão acidental ou modificações indesejadas. [cite: 297]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Soft Delete para Blobs:</strong> [cite: 298]
-                <ul>
-                    [cite_start]<li>Conceito: Habilitar a exclusão suave para blobs, que retém os dados por um período configurável após a exclusão, permitindo a recuperação. [cite: 299]</li>
-                    [cite_start]<li>Casos de Uso: Proteção contra exclusão acidental. [cite: 300]</li>
-                </ul>
-            </li>
-        </ul>
-
-        [cite_start]<h2>Implementar a segurança do Azure (15-20%) [cite: 301]</h2>
-        [cite_start]<p>Esta seção da certificação AZ-204 aborda as práticas e serviços para proteger suas soluções no Azure, com foco em autenticação, autorização, gerenciamento de segredos e identidades gerenciadas. [cite: 302]</p>
-
-        <h3>6. [cite_start]Implementar autenticação e autorização de usuário [cite: 303]</h3>
-        [cite_start]<p>Este tópico se aprofunda nos mecanismos para garantir que apenas usuários e aplicativos autorizados acessem seus recursos. [cite: 304]</p>
-
-        <h4>6.1. [cite_start]Autenticar e autorizar usuários usando a plataforma Microsoft Identity [cite: 305]</h4>
-        <ul>
-            [cite_start]<li>Plataforma Microsoft Identity: Entender que esta plataforma é uma evolução do Azure Active Directory (AAD), englobando todos os serviços e ferramentas para autenticação e autorização em aplicações, incluindo AAD, Azure AD B2C e Azure AD B2B. [cite: 306]</li>
-            [cite_start]<li>OAuth 2.0 e OpenID Connect: Compreender os protocolos subjacentes para autenticação e autorização. [cite: 307]</li>
-            [cite_start]<li><strong>Microsoft Authentication Library (MSAL):</strong> [cite: 308]
-                <ul>
-                    [cite_start]<li>Uso do MSAL: Saber como usar as bibliotecas MSAL (para .NET, Java, Node.js, Python, JavaScript, etc.) para integrar a autenticação em suas aplicações cliente e web. [cite: 309]</li>
-                    [cite_start]<li>Fluxos de Autenticação: Entender os diferentes fluxos (código de autorização, implícito, on-behalf-of, credenciais de cliente) e quando usá-los. [cite: 310]</li>
-                    [cite_start]<li>Tokens (ID Token, Access Token): Distinguir entre ID tokens (para autenticação de usuário) e Access tokens (para autorização e acesso a APIs). [cite: 311]</li>
-                </ul>
-            </li>
-        </ul>
-
-        <h4>6.2. [cite_start]Autenticar e autorizar usuários e aplicativos utilizando o Microsoft Entra ID [cite: 312]</h4>
-        <ul>
-            [cite_start]<li><strong>Microsoft Entra ID (Azure Active Directory):</strong> [cite: 313]
-                <ul>
-                    [cite_start]<li>Registro de Aplicativos: Saber como registrar um aplicativo no Microsoft Entra ID para que ele possa ser autenticado e autorizado. [cite: 314] [cite_start]Isso inclui configurar permissões de API, URIs de redirecionamento e credenciais de cliente. [cite: 315]</li>
-                    [cite_start]<li>Tipos de Contas Suportadas: Entender as opções para quem pode usar o aplicativo (somente contas do diretório atual, qualquer diretório, contas da Microsoft pessoais). [cite: 316]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Permissões e Consentimento:</strong> [cite: 317]
-                <ul>
-                    [cite_start]<li>Permissões Delegadas: Entender como o aplicativo age em nome de um usuário. [cite: 318]</li>
-                    [cite_start]<li>Permissões de Aplicativo: Entender como o aplicativo age por conta própria (sem um usuário logado). [cite: 319]</li>
-                    [cite_start]<li>Consentimento do Usuário/Administrador: Compreender o processo de consentimento para que o aplicativo possa acessar recursos. [cite: 320]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Entidades de Serviço:</strong> [cite: 321]
-                <ul>
-                    [cite_start]<li>Conceito: Entender que uma entidade de serviço é uma identidade não-humana usada por aplicativos, serviços ou ferramentas para acessar recursos do Azure. [cite: 322]</li>
-                    [cite_start]<li>Criação e Gerenciamento: Saber como criar e configurar entidades de serviço para acesso programático a recursos do Azure (ex: para pipelines de CI/CD, aplicações daemon). [cite: 323]</li>
-                    [cite_start]<li>Role-Based Access Control (RBAC): Atribuir funções RBAC a entidades de serviço para controlar o acesso a recursos específicos (ex: Contributor para um grupo de recursos). [cite: 324]</li>
-                </ul>
-            </li>
-        </ul>
-
-        <h4>6.3. [cite_start]Criar e implementar assinaturas de acesso compartilhado [cite: 325]</h4>
-        <ul>
-            [cite_start]<li><strong>Assinaturas de Acesso Compartilhado (SAS - Shared Access Signatures):</strong> [cite: 326]
-                <ul>
-                    [cite_start]<li>Conceito: Gerar SAS para conceder acesso limitado e delegado a recursos do Azure Storage (Blob, Fila, Tabela) ou Azure Service Bus sem expor as chaves da conta de armazenamento/namespace. [cite: 327]</li>
-                    [cite_start]<li>Tipos de SAS (Storage): Entender SAS de serviço, SAS de conta e SAS de delegação do usuário (para Blob Storage). [cite: 328]</li>
-                    [cite_start]<li>Políticas de Acesso Armazenadas (Stored Access Policies): Entender como usar políticas de acesso armazenadas para gerenciar e revogar SAS de forma mais eficaz. [cite: 329]</li>
-                    [cite_start]<li>Permissões e Validade: Configurar permissões (leitura, escrita, exclusão, listagem) e o período de validade da SAS. [cite: 330]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Implementação:</strong> [cite: 331]
-                <ul>
-                    [cite_start]<li>Programática: Saber como gerar SAS usando os SDKs do Azure em sua aplicação. [cite: 332]</li>
-                    [cite_start]<li>Casos de Uso: Permitir que clientes web/móveis façam upload/download direto para o Blob Storage, acesso temporário a dados sem credenciais completas. [cite: 333]</li>
-                </ul>
-            </li>
-        </ul>
-
-        <h4>6.4. [cite_start]Implementar soluções que interagem com o Microsoft Graph [cite: 334]</h4>
-        <ul>
-            [cite_start]<li><strong>Microsoft Graph:</strong> [cite: 335]
-                <ul>
-                    [cite_start]<li>Conceito: Entender o Microsoft Graph como uma API unificada para acessar dados e inteligência em todo o Microsoft 365, Windows 10 e Enterprise Mobility + Security. [cite: 336]</li>
-                    [cite_start]<li>Casos de Uso: Gerenciar usuários, grupos, calendários, arquivos, email, dispositivos, etc., de forma programática. [cite: 337]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Autenticação e Autorização:</strong> [cite: 338]
-                <ul>
-                    [cite_start]<li>Permissões do Microsoft Graph: Saber como solicitar e obter as permissões corretas para acessar recursos específicos do Graph (ex: <code>User.Read</code>, <code>User.ReadBasic.All</code>, <code>Directory.Read.All</code>). [cite: 339]</li>
-                    [cite_start]<li>Obtenção de Tokens: Utilizar a MSAL para obter tokens de acesso que podem ser usados para fazer chamadas ao Microsoft Graph. [cite: 340]</li>
-                </ul>
-            </li>
-            [cite_start]<li>SDKs do Microsoft Graph: Saber como usar os SDKs do Microsoft Graph (para .NET, Java, Node.js, Python, etc.) para simplificar a interação com a API. [cite: 341]</li>
-            [cite_start]<li>Consultas: Entender como construir consultas para o Graph, incluindo filtragem, ordenação e expansão de relacionamentos. [cite: 342]</li>
-        </ul>
-
-        <h3>7. [cite_start]Implementar soluções seguras do Azure [cite: 343]</h3>
-        [cite_start]<p>Este tópico foca em como proteger os dados de configuração e credenciais em suas aplicações. [cite: 344]</p>
-
-        <h4>7.1. [cite_start]Dados seguros de configuração de aplicativo usando a Configuração de Aplicativos ou o Azure Key Vault [cite: 345]</h4>
-        <ul>
-            [cite_start]<li><strong>Azure App Configuration:</strong> [cite: 346]
-                <ul>
-                    [cite_start]<li>Conceito: Entender o App Configuration como um serviço centralizado para gerenciar configurações de aplicativos de forma dinâmica e segura. [cite: 347]</li>
-                    [cite_start]<li>Casos de Uso: Gerenciamento de feature flags, variáveis de ambiente, strings de conexão para múltiplas aplicações e ambientes. [cite: 348]</li>
-                    [cite_start]<li>Integração: Saber como integrar o App Configuration em sua aplicação usando os SDKs (ex: .NET Configuration Provider). [cite: 349]</li>
-                    [cite_start]<li>Referência a Key Vault: Conectar valores de configuração no App Configuration a segredos armazenados no Azure Key Vault. [cite: 350]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Azure Key Vault:</strong> [cite: 351]
-                <ul>
-                    [cite_start]<li>Conceito: Entender o Key Vault como um serviço de nuvem para armazenar e gerenciar com segurança chaves criptográficas, segredos (como senhas, strings de conexão) e certificados. [cite: 352]</li>
-                    [cite_start]<li>Casos de Uso: Proteção de credenciais, gerenciamento de certificados SSL/TLS, armazenamento de chaves de criptografia. [cite: 353]</li>
-                </ul>
-            </li>
-            [cite_start]<li>Escolha entre App Configuration e Key Vault: Saber quando usar cada serviço. [cite: 354] [cite_start]O Key Vault é para segredos de alto valor e chaves criptográficas, enquanto o App Configuration é para configurações de aplicação mais gerais (que podem incluir referências a segredos do Key Vault). [cite: 355]</li>
-        </ul>
-
-        <h4>7.2. [cite_start]Desenvolver um código que use chaves, segredos e certificados armazenados no Azure Key Vault [cite: 356]</h4>
-        <ul>
-            [cite_start]<li><strong>Acesso ao Key Vault:</strong> [cite: 357]
-                <ul>
-                    [cite_start]<li>Identidades Gerenciadas: A abordagem preferencial. [cite: 358] [cite_start]Saber como configurar identidades gerenciadas para o seu aplicativo Azure (App Service, Functions, VM) e conceder a essa identidade permissões de acesso ao Key Vault. [cite: 359]</li>
-                    [cite_start]<li>Entidades de Serviço: Usar entidades de serviço com segredos ou certificados para autenticar em cenários onde identidades gerenciadas não são aplicáveis. [cite: 360]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Operações com o SDK do Key Vault:</strong> [cite: 361]
-                <ul>
-                    [cite_start]<li>SecretsClient/SecretClient (SDKs modernos): Saber como usar os SDKs apropriados para: [cite: 362]
-                        <ul>
-                            [cite_start]<li>Obter Segredos: Recuperar segredos por nome e versão. [cite: 363]</li>
-                            [cite_start]<li>Definir Segredos: Criar ou atualizar segredos. [cite: 364]</li>
-                            [cite_start]<li>Excluir Segredos: Remover segredos (com soft-delete). [cite: 365]</li>
-                        </ul>
-                    </li>
-                    [cite_start]<li>Chaves e Certificados: Embora o foco do AZ-204 seja mais em segredos, ter uma compreensão básica do armazenamento e recuperação de chaves e certificados também é útil. [cite: 365]</li>
-                </ul>
-            </li>
-            [cite_start]<li><strong>Best Practices:</strong> [cite: 366]
-                <ul>
-                    [cite_start]<li>Rotação de Segredos: Implementar mecanismos para rotacionar segredos regularmente. [cite: 367]</li>
-                    [cite_start]<li>Soft Delete e Purge Protection: Entender esses recursos para proteger contra exclusão acidental ou maliciosa. [cite: 368]</li>
-                </ul>
-            </li>
-        </ul>
-
-        <h4>7.3. [cite_start]Implementação de identidades gerenciadas para recursos do Azure [cite: 369]</h4>
-        <ul>
-            [cite_start]<li><strong>Conceito de Identidades Gerenciadas:</strong> [cite: 370]
-                <ul>
-                    [cite_start]<li>Autenticação sem Credenciais: Entender que identidades gerenciadas fornecem uma identidade para seus serviços Azure (App Service, Functions, VMs, etc.) no Microsoft Entra ID, eliminando a necessidade de gerenciar credenciais em seu código. [cite: 371]</li>
-                    [cite_start]<li><strong>Tipos:</strong> [cite: 372]
-                        <ul>
-                            [cite_start]<li>Atribuídas pelo Sistema: Criadas automaticamente com o recurso Azure e têm o mesmo ciclo de vida. [cite: 373]</li>
-                            [cite_start]<li>Atribuídas pelo Usuário: Criadas independentemente e podem ser atribuídas a múltiplos recursos. [cite: 374]</li>
+                            <li>API RESTful: Transformar sua função em um endpoint HTTP que pode ser invocado por requisições HTTP (GET, POST, PUT, DELETE).</li>
+                            <li>Níveis de Autorização: Configurar diferentes níveis de segurança (Function, Host, Admin, Anonymous) para controlar o acesso à sua função HTTP.</li>
+                            <li>Integração com Webhooks: Receber webhooks de serviços como GitHub, Azure DevOps, Stripe, etc., para automatizar ações em resposta a eventos externos.</li>
                         </ul>
                     </li>
                 </ul>
             </li>
-            [cite_start]<li>Criação e Atribuição: Saber como habilitar identidades gerenciadas (tanto atribuídas pelo sistema quanto pelo usuário) para recursos Azure. [cite: 375]</li>
-            [cite_start]<li>Atribuição de Funções (RBAC): Conceder permissões de Role-Based Access Control (RBAC) às identidades gerenciadas para que elas possam acessar outros serviços do Azure (ex: Azure Key Vault, Azure Storage, Azure SQL Database). [cite: 376]</li>
-            [cite_start]<li><strong>Utilização no Código:</strong> [cite: 377]
-                <ul>
-                    [cite_start]<li>Azure.Identity Library (para .NET/Python/Java): Usar a biblioteca <code>Azure.Identity</code> para obter automaticamente tokens de acesso para a identidade gerenciada, permitindo que o aplicativo se autentique em outros serviços do Azure. [cite: 378]</li>
-                    [cite_start]<li>Exemplo: Acesso a um blob no Azure Storage ou a um segredo no Key Vault usando a identidade gerenciada, sem strings de conexão ou chaves embutidas. [cite: 379]</li>
-                </ul>
-            </li>
         </ul>
 
-        <h2>8. [cite_start]Monitorar e solucionar problemas de soluções do Azure (5 a 10%) [cite: 380]</h2>
-        [cite_start]<p>Esta seção da certificação AZ-204 foca nas habilidades para observar o desempenho de suas aplicações, identificar e resolver problemas usando as ferramentas de monitoramento do Azure. [cite: 381] [cite_start]O Application Insights é o serviço central aqui. [cite: 382]</p>
+        <h2>Desenvolver para armazenamento do Azure (15–20%)</h2>
+        <p>Esta seção da certificação AZ-204 foca na implementação de soluções que interagem com os serviços de armazenamento do Azure, com ênfase em Azure Cosmos DB e Azure Blob Storage.</p>
 
-        <h3>8.1. [cite_start]Monitorar e solucionar problemas de soluções usando o Application Insights [cite: 383]</h3>
-        [cite_start]<p>O Application Insights é um serviço de Gerenciamento de Desempenho de Aplicativos (APM) para desenvolvedores web profissionais. [cite: 384] [cite_start]Ele monitora suas aplicações ao vivo, automaticamente detectando anomalias de desempenho. [cite: 385]</p>
+        <h3>4. Desenvolver soluções que usam o Azure Cosmos DB</h3>
+        <p>O Azure Cosmos DB é um banco de dados NoSQL totalmente gerenciado, multimodelo e distribuído globalmente.</p>
 
-        <h4>8.1.1. [cite_start]Monitorar e analisar métricas, logs e rastreamentos [cite: 386]</h4>
+        <h4>4.1. Executar operações em contêineres e itens usando o SDK</h4>
         <ul>
-            [cite_start]<li><strong>Métricas do Aplicativo:</strong> [cite: 387]
+            <li>Conceitos do Cosmos DB: Entender a hierarquia de recursos (conta, banco de dados, contêiner/coleção, item/documento) e os modelos de dados suportados (SQL API, MongoDB API, Cassandra API, Gremlin API, Table API). O foco principal para o AZ-204 é geralmente a SQL API.</li>
+            <li>Instalação e Configuração do SDK: Saber como adicionar o SDK apropriado ao seu projeto (ex: .NET SDK, Java SDK, Node.js SDK, Python SDK).</li>
+            <li><strong>Operações CRUD (Create, Read, Update, Delete) em Itens:</strong>
                 <ul>
-                    [cite_start]<li>Coleta: Entender quais métricas o Application Insights coleta automaticamente (tempo de resposta de requisições, taxa de falhas, contagem de dependências, CPU, memória, etc.). [cite: 388]</li>
-                    [cite_start]<li>Visualização: Utilizar o Metrics Explorer no portal do Azure para criar gráficos e analisar o desempenho em diferentes dimensões. [cite: 389]</li>
-                    [cite_start]<li>Métricas Personalizadas: Saber como instrumentar sua aplicação para enviar métricas personalizadas (ex: contagem de itens em um carrinho de compras, duração de uma operação de negócio específica). [cite: 390]</li>
+                    <li>Criação de Itens: Inserir novos documentos em um contêiner.</li>
+                    <li>Leitura de Itens: Recuperar documentos por ID e chave de partição.</li>
+                    <li>Atualização de Itens: Modificar documentos existentes.</li>
+                    <li>Exclusão de Itens: Remover documentos.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Logs (Telemetria de Log):</strong> [cite: 391]
+            <li><strong>Consultas (Queries):</strong>
                 <ul>
-                    [cite_start]<li>Coleta de Logs: Integrar loggers padrão (ex: NLog, Log4net, Serilog para .NET; Console.log para Node.js) ou frameworks de logging para que os logs da sua aplicação sejam enviados para o Application Insights. [cite: 392]</li>
-                    [cite_start]<li>Consultas Kusto (KQL): Dominar a linguagem Kusto Query Language (KQL) para consultar e analisar logs em detalhe (ex: encontrar todas as exceções para uma determinada requisição, correlacionar logs de diferentes componentes). [cite: 393]</li>
-                    [cite_start]<li>Tipos de Telemetria: Entender os tipos de telemetria (requisições, dependências, exceções, eventos, métricas, rastreamentos, page views) e como eles são usados. [cite: 394]</li>
+                    <li>Sintaxe SQL (para SQL API): Escrever consultas SQL para recuperar dados de contêineres.</li>
+                    <li>Consultas Parametrizadas: Usar parâmetros para evitar injeção de SQL e melhorar o desempenho.</li>
+                    <li>Paginação: Lidar com grandes conjuntos de resultados usando paginação.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Rastreamentos (Traces) e Dependências:</strong> [cite: 395]
+            <li><strong>Operações em Contêineres:</strong>
                 <ul>
-                    [cite_start]<li>Coleta Automática: Entender como o Application Insights automaticamente coleta rastreamentos de requisições e chamadas de dependência (bancos de dados, APIs externas, filas). [cite: 396]</li>
-                    [cite_start]<li>Mapa do Aplicativo: Utilizar o Mapa do Aplicativo para visualizar a topologia da sua aplicação e identificar gargalos ou falhas de comunicação entre serviços. [cite: 397]</li>
-                    [cite_start]<li>Detalhes de Transação de Ponta a Ponta: Analisar as operações detalhadamente, vendo a sequência de chamadas, tempos de duração e logs associados para cada etapa da requisição. [cite: 398]</li>
+                    <li>Criação e Exclusão de Contêineres: Saber como criar e remover contêineres programaticamente.</li>
+                    <li>Throughput (RU/s): Entender o conceito de Request Units (RU/s) e como provisionar ou dimensionar o throughput para contêineres e bancos de dados.</li>
                 </ul>
             </li>
+            <li>Tratamento de Exceções: Implementar lógica para lidar com erros comuns, como conflitos e erros de throughput.</li>
         </ul>
 
-        <h4>8.1.2. [cite_start]Implementar alertas e testes Web do Application Insights [cite: 399]</h4>
+        <h4>4.2. Definir o nível de consistência adequado para operações</h4>
+        <p>A consistência é um conceito fundamental no Cosmos DB e impacta o desempenho e a durabilidade dos dados.</p>
         <ul>
-            [cite_start]<li><strong>Alertas:</strong> [cite: 400]
+            <li><strong>Níveis de Consistência:</strong> Entender os cinco níveis de consistência e seus trade-offs entre latência, throughput e durabilidade:
                 <ul>
-                    [cite_start]<li>Criação de Regras de Alerta: Configurar regras de alerta baseadas em métricas (ex: taxa de CPU alta, tempo de resposta lento, taxa de falhas), logs (ex: contagem de exceções específicas excedendo um limite) ou na disponibilidade. [cite: 401]</li>
-                    [cite_start]<li>Grupos de Ação (Action Groups): Definir ações a serem tomadas quando um alerta é disparado (enviar e-mail, SMS, chamar um webhook, disparar um Azure Function, criar um ticket ITSM). [cite: 402]</li>
-                    [cite_start]<li>Severidade: Entender os diferentes níveis de severidade dos alertas. [cite: 403]</li>
+                    <li>Forte (Strong): Maior consistência, mas maior latência e menor throughput. Garante que todas as leituras vejam a versão mais recente dos dados.</li>
+                    <li>Consistência Limitada (Bounded Staleness): Consistência com um limite configurável de defasagem (tempo ou número de versões).</li>
+                    <li>Sessão (Session): Consistência garantida para a sessão do cliente. É o padrão e o mais comum para a maioria das aplicações.</li>
+                    <li>Prefixo Consistente (Consistent Prefix): Garante que as leituras nunca verão dados fora de ordem.</li>
+                    <li>Final (Eventual): Menor consistência, mas maior latência e menor throughput. As leituras podem ver dados defasados.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Testes de Disponibilidade (Web Tests):</strong> [cite: 404]
-                <ul>
-                    [cite_start]<li>Testes de Ping de URL: Criar testes simples para verificar se um endpoint web está respondendo. [cite: 405]</li>
-                    [cite_start]<li>Testes de URL Padrão (Standard URL Tests): Testes mais avançados que podem validar conteúdo de resposta, cabeçalhos e SSL. [cite: 406]</li>
-                    [cite_start]<li>Testes de Várias Etapas (Multi-step Web Tests): Gravar e reproduzir sequências de requisições web para simular cenários de usuário mais complexos (ex: login, adicionar item ao carrinho). [cite: 407]</li>
-                    [cite_start]<li>Localizações de Teste: Configurar testes para serem executados de várias localizações geográficas para verificar o desempenho global. [cite: 408]</li>
-                    [cite_start]<li>Alertas de Disponibilidade: Configurar alertas com base nos resultados dos testes web (ex: se o teste falhar em N localizações). [cite: 409]</li>
-                </ul>
-            </li>
+            <li>Escolha do Nível de Consistência: Saber quando usar cada nível de consistência com base nos requisitos da aplicação.</li>
+            <li>Configuração: Entender como definir o nível de consistência no nível da conta e como substituí-lo para operações específicas usando o SDK.</li>
         </ul>
 
-        <h4>8.1.3. [cite_start]Instrumentar um aplicativo ou serviço para usar o Application Insights [cite: 410]</h4>
+        <h4>4.3. Implementar notificações do feed de alterações</h4>
+        <p>O Change Feed do Cosmos DB é um recurso poderoso para processamento de dados em tempo real.</p>
         <ul>
-            [cite_start]<li><strong>Adicionar SDK do Application Insights:</strong> [cite: 411]
+            <li>Conceito de Change Feed: Entender que o Change Feed fornece um log persistente de todas as alterações feitas em um contêiner do Cosmos DB.</li>
+            <li><strong>Casos de Uso:</strong>
                 <ul>
-                    [cite_start]<li>Bibliotecas de Telemetria: Saber como adicionar os pacotes SDK apropriados para sua tecnologia (ex: <code>Microsoft.ApplicationInsights.AspNetCore</code> para .NET Core, <code>applicationinsights</code> para Node.js, <code>opencensus-ext-azure</code> para Python). [cite: 412]</li>
-                    [cite_start]<li>Strings de Conexão/Chaves de Instrumentação: Configurar o SDK com a string de conexão ou chave de instrumentação do seu recurso do Application Insights. [cite: 413]</li>
+                    <li>Processamento de Dados em Tempo Real: Sincronização de dados, streaming de dados para outros serviços, atualização de caches.</li>
+                    <li>Integração: Envio de eventos para Event Hubs, Service Bus ou Azure Functions.</li>
+                    <li>Auditoria: Manter um registro de todas as modificações de dados.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Configuração Automática (Auto-instrumentation):</strong> [cite: 414]
+            <li><strong>Processador do Feed de Alterações (Change Feed Processor):</strong>
                 <ul>
-                    [cite_start]<li>Azure Web Apps: Habilitar o Application Insights no nível do Serviço de Aplicativo sem modificações de código para runtimes suportados (ex: .NET, Node.js). [cite: 415]</li>
-                    [cite_start]<li>Azure Functions: Habilitar o Application Insights diretamente no Function App. [cite: 416]</li>
-                    [cite_start]<li>Contêineres/VMs: Usar a extensão Azure Monitor para VMs ou agentes OpenTelemetry/Application Insights para contêineres para coletar telemetria. [cite: 417]</li>
+                    <li>Azure Functions: Saber como usar o gatilho do Azure Cosmos DB em Azure Functions para consumir o Change Feed de forma escalável e confiável.</li>
+                    <li>SDK: Utilizar o Change Feed Processor Library para construir processadores personalizados.</li>
+                    <li>Monitoramento: Monitorar o progresso do Change Feed Processor e lidar com erros.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Instrumentação Manual (Custom Telemetry):</strong> [cite: 418]
-                <ul>
-                    [cite_start]<li>TrackEvent: Registrar eventos de negócio (ex: "ItemAdicionadoAoCarrinho"). [cite: 419]</li>
-                    [cite_start]<li>TrackMetric: Enviar pontos de dados numéricos (ex: tempo de processamento de uma função interna). [cite: 420]</li>
-                    [cite_start]<li>TrackTrace: Enviar mensagens de log personalizadas. [cite: 421]</li>
-                    [cite_start]<li>TrackException: Registrar exceções capturadas. [cite: 422]</li>
-                    [cite_start]<li>TrackDependency: Rastrear chamadas para serviços externos ou bancos de dados que não são automaticamente detectados. [cite: 423]</li>
-                </ul>
-            </li>
-            [cite_start]<li>Contexto de Operação e Correlação: Entender como o Application Insights correlaciona automaticamente telemetria de diferentes componentes da sua aplicação (via ID de Operação), permitindo a visualização de transações completas. [cite: 424]</li>
         </ul>
 
-        <h2>9. [cite_start]Conectar e consumir serviços do Azure e serviços de terceiros (20-25%) [cite: 425]</h2>
-        [cite_start]<p>Esta seção da certificação AZ-204 aborda a integração de suas soluções com diversos serviços, tanto nativos do Azure quanto de terceiros, com foco em gerenciamento de API, processamento de eventos e mensagens. [cite: 426]</p>
+        <h3>5. Desenvolver soluções que usam o Armazenamento de Blobs do Azure</h3>
+        <p>O Azure Blob Storage é o serviço de armazenamento de objetos da Microsoft para a nuvem.</p>
 
-        <h3>9.1. [cite_start]Implementar a gestão da API [cite: 427]</h3>
-        [cite_start]<p>O Azure API Management (APIM) é um serviço totalmente gerenciado para publicação, segurança, manutenção e análise de APIs. [cite: 428]</p>
-
-        <h4>9.1.1. [cite_start]Criar uma instância do Gerenciamento de API do Azure [cite: 429]</h4>
+        <h4>5.1. Definir e recuperar as propriedades e os metadados</h4>
         <ul>
-            [cite_start]<li>Conceito de APIM: Entender o APIM como um gateway de API que permite centralizar o gerenciamento de todas as suas APIs, independentemente de onde elas estão hospedadas (Azure, local, outra nuvem). [cite: 430]</li>
-            [cite_start]<li>SKUs do APIM: Conhecer as diferentes SKUs (Developer, Basic, Standard, Premium) e suas capacidades (VNet, replicação geográfica, múltiplas APIs). [cite: 431]</li>
-            [cite_start]<li>Criação: Saber como provisionar uma instância do APIM via portal do Azure, Azure CLI ou PowerShell. [cite: 432]</li>
+            <li>Conceitos de Blob Storage: Entender a hierarquia (conta de armazenamento, contêiner, blob) e os tipos de blobs (Block Blobs, Page Blobs, Append Blobs). O foco principal para o AZ-204 é Block Blobs.</li>
+            <li><strong>Propriedades do Blob:</strong>
+                <ul>
+                    <li>Propriedades Padrão: Saber como acessar e usar propriedades como <code>Content-Type</code>, <code>Content-Length</code>, <code>Last-Modified</code>, <code>ETag</code>.</li>
+                    <li>Cabeçalhos HTTP: Entender como as propriedades do blob se mapeiam para cabeçalhos HTTP.</li>
+                </ul>
+            </li>
+            <li><strong>Metadados do Blob:</strong>
+                <ul>
+                    <li>Metadados Definidos pelo Usuário: Adicionar e recuperar pares chave-valor personalizados para blobs para armazenar informações adicionais sobre o objeto.</li>
+                    <li>Casos de Uso: Classificação de dados, informações de processamento, tags para pesquisa.</li>
+                </ul>
+            </li>
+            <li>Operações com SDK: Utilizar o SDK apropriado (ex: .NET SDK, Java SDK, Node.js SDK, Python SDK) para definir e recuperar propriedades e metadados.</li>
         </ul>
 
-        <h4>9.1.2. [cite_start]Criar e documentar APIs [cite: 433]</h4>
+        <h4>5.2. Executar operações em dados usando o SDK apropriado</h4>
         <ul>
-            [cite_start]<li>Importar APIs: Importar APIs existentes (ex: de Azure Functions, Azure App Services, OpenAPI/Swagger specifications, Logic Apps, SOAP) para o APIM. [cite: 434]</li>
-            [cite_start]<li>Definir APIs: Criar APIs do zero, definindo operações, parâmetros e respostas. [cite: 435]</li>
-            [cite_start]<li>Versionamento de API: Implementar estratégias de versionamento para APIs (via URL, cabeçalho, ou consulta) para gerenciar diferentes versões da sua API. [cite: 436]</li>
-            [cite_start]<li><strong>Documentação (Portal do Desenvolvedor):</strong> [cite: 437]
+            <li>Instalação e Configuração do SDK: Saber como adicionar o SDK de armazenamento ao seu projeto.</li>
+            <li><strong>Operações de Contêiner:</strong>
                 <ul>
-                    [cite_start]<li>Portal do Desenvolvedor: Configurar e personalizar o portal do desenvolvedor no APIM, que fornece documentação interativa (usando Swagger UI/OpenAPI), testes de API e gerenciamento de assinaturas para consumidores de API. [cite: 438]</li>
-                    [cite_start]<li>Publicação de APIs: Publicar APIs no portal do desenvolvedor para que os consumidores possam descobri-las e integrá-las. [cite: 439]</li>
+                    <li>Criação e Exclusão de Contêineres: Criar e remover contêineres programaticamente.</li>
+                    <li>Listagem de Contêineres: Obter uma lista de contêineres em uma conta de armazenamento.</li>
+                </ul>
+            </li>
+            <li><strong>Operações de Blob:</strong>
+                <ul>
+                    <li>Upload de Blobs: Enviar arquivos para o Blob Storage (ex: <code>UploadAsync</code>, <code>UploadFromFileAsync</code>).</li>
+                    <li>Download de Blobs: Baixar arquivos do Blob Storage (ex: <code>DownloadToStreamAsync</code>, <code>DownloadToFileAsync</code>).</li>
+                    <li>Exclusão de Blobs: Remover blobs.</li>
+                    <li>Listagem de Blobs: Obter uma lista de blobs em um contêiner.</li>
+                    <li>Cópia de Blobs: Copiar blobs dentro da mesma conta ou para outra conta.</li>
+                    <li>Leitura e Escrita de Streams: Trabalhar com blobs como streams de dados.</li>
+                </ul>
+            </li>
+            <li>Níveis de Acesso (Access Tiers): Entender os diferentes níveis de acesso (Hot, Cool, Archive) e quando usar cada um para otimizar custos e desempenho.</li>
+            <li><strong>Assinaturas de Acesso Compartilhado (SAS - Shared Access Signatures):</strong>
+                <ul>
+                    <li>Conceito: Gerar SAS para conceder acesso limitado e delegado a recursos do Azure Storage (Blob, Fila, Tabela) ou Azure Service Bus sem expor as chaves da conta de armazenamento/namespace.</li>
+                    <li>Tipos de SAS (Storage): Entender SAS de serviço, SAS de conta e SAS de delegação do usuário (para Blob Storage).</li>
+                    <li>Políticas de Acesso Armazenadas (Stored Access Policies): Entender como usar políticas de acesso armazenadas para gerenciar e revogar SAS de forma mais eficaz.</li>
+                    <li>Permissões e Validade: Configurar permissões (leitura, escrita, exclusão, listagem) e o período de validade da SAS.</li>
+                    <li>Casos de Uso: Compartilhamento de arquivos temporário, upload direto de clientes.</li>
                 </ul>
             </li>
         </ul>
 
-        <h4>9.1.3. [cite_start]Configurar o acesso às APIs [cite: 440]</h4>
+        <h4>5.3. Implementar políticas de armazenamento e gerenciamento do ciclo de vida de dados</h4>
         <ul>
-            [cite_start]<li><strong>Chaves de Assinatura (Subscription Keys):</strong> [cite: 441]
+            <li><strong>Gerenciamento do Ciclo de Vida do Blob:</strong>
                 <ul>
-                    [cite_start]<li>Gerenciamento: Entender como o APIM usa chaves de assinatura para controlar o acesso às APIs, permitindo que os consumidores obtenham suas próprias chaves para acessar APIs específicas. [cite: 442]</li>
-                    [cite_start]<li>Escopos: Gerenciar chaves no nível do produto, API ou operação. [cite: 443]</li>
+                    <li>Conceito: Automatizar a transição de blobs para níveis de acesso mais frios (Hot -> Cool -> Archive) ou a exclusão de blobs com base em regras definidas.</li>
+                    <li>Regras: Criar regras baseadas em tempo (ex: mover blobs para Cool após 30 dias, excluir após 180 dias) ou em tags.</li>
+                    <li>Casos de Uso: Otimização de custos para dados que se tornam menos acessados com o tempo.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Autenticação do Back-end:</strong> [cite: 444]
+            <li><strong>Imutabilidade do Blob (Immutable Storage):</strong>
                 <ul>
-                    [cite_start]<li>Certificados de Cliente: Usar certificados de cliente para autenticar o APIM com serviços de backend. [cite: 445]</li>
-                    [cite_start]<li>Identidades Gerenciadas: Configurar identidades gerenciadas para que o APIM possa acessar serviços de backend de forma segura (ex: Azure Key Vault). [cite: 446]</li>
-                    [cite_start]<li>OAuth 2.0/OpenID Connect: Configurar o APIM para atuar como um gateway de segurança, validando tokens JWT de clientes e, opcionalmente, obtendo novos tokens para o backend. [cite: 447]</li>
+                    <li>Conceito: Configurar políticas de imutabilidade para blobs, garantindo que os dados não possam ser modificados ou excluídos por um período de tempo específico.</li>
+                    <li>Casos de Uso: Conformidade regulatória (retenção de dados), auditoria, proteção contra ransomware.</li>
                 </ul>
             </li>
-            [cite_start]<li>CORS (Cross-Origin Resource Sharing): Configurar políticas CORS no APIM para permitir chamadas de API de domínios específicos. [cite: 448]</li>
+            <li><strong>Versionamento do Blob:</strong>
+                <ul>
+                    <li>Conceito: Manter automaticamente versões anteriores de um blob quando ele é modificado ou excluído, permitindo a recuperação de versões anteriores.</li>
+                    <li>Casos de Uso: Proteção contra exclusão acidental ou modificações indesejadas.</li>
+                </ul>
+            </li>
+            <li><strong>Soft Delete para Blobs:</strong>
+                <ul>
+                    <li>Conceito: Habilitar a exclusão suave para blobs, que retém os dados por um período configurável após a exclusão, permitindo a recuperação.</li>
+                    <li>Casos de Uso: Proteção contra exclusão acidental.</li>
+                </ul>
+            </li>
         </ul>
 
-        <h4>9.1.4. [cite_start]Implementar políticas para APIs [cite: 449]</h4>
-        [cite_start]<p>As políticas do APIM são uma forma poderosa de alterar o comportamento das APIs através de XML. [cite: 450]</p>
+        <h2>Implementar a segurança do Azure (15-20%)</h2>
+        <p>Esta seção da certificação AZ-204 aborda as práticas e serviços para proteger suas soluções no Azure, com foco em autenticação, autorização, gerenciamento de segredos e identidades gerenciadas.</p>
+
+        <h3>6. Implementar autenticação e autorização de usuário</h3>
+        <p>Este tópico se aprofunda nos mecanismos para garantir que apenas usuários e aplicativos autorizados acessem seus recursos.</p>
+
+        <h4>6.1. Autenticar e autorizar usuários usando a plataforma Microsoft Identity</h4>
         <ul>
-            [cite_start]<li>Tipos de Políticas: Entender os diferentes escopos de política (global, produto, API, operação). [cite: 451]</li>
-            [cite_start]<li><strong>Políticas Comuns:</strong> [cite: 452]
+            <li>Plataforma Microsoft Identity: Entender que esta plataforma é uma evolução do Azure Active Directory (AAD), englobando todos os serviços e ferramentas para autenticação e autorização em aplicações, incluindo AAD, Azure AD B2C e Azure AD B2B.</li>
+            <li>OAuth 2.0 e OpenID Connect: Compreender os protocolos subjacentes para autenticação e autorização.</li>
+            <li><strong>Microsoft Authentication Library (MSAL):</strong>
                 <ul>
-                    [cite_start]<li>Controle de Acesso: <code>ip-filter</code> (filtrar por IP), <code>check-header</code> (verificar cabeçalhos). [cite: 453]</li>
-                    [cite_start]<li>Limitação de Taxa (Rate Limiting): <code>rate-limit-by-key</code> (limitar o número de chamadas por chave de assinatura ou usuário). [cite: 454]</li>
-                    [cite_start]<li>Cache: <code>cache-lookup</code>, <code>cache-store</code> (armazenar em cache respostas para melhorar o desempenho e reduzir a carga no backend). [cite: 455]</li>
-                    [cite_start]<li>Transformação de Dados: <code>set-header</code>, <code>set-body</code>, <code>rewrite-uri</code> (modificar cabeçalhos, corpo da requisição/resposta, reescrever URLs). [cite: 456]</li>
-                    [cite_start]<li>Segurança: <code>validate-jwt</code> (validar JSON Web Tokens). [cite: 457]</li>
-                    [cite_start]<li>Tratamento de Erros: <code>on-error</code> (definir comportamento para erros de política ou backend). [cite: 458]</li>
+                    <li>Uso do MSAL: Saber como usar as bibliotecas MSAL (para .NET, Java, Node.js, Python, JavaScript, etc.) para integrar a autenticação em suas aplicações cliente e web.</li>
+                    <li>Fluxos de Autenticação: Entender os diferentes fluxos (código de autorização, implícito, on-behalf-of, credenciais de cliente) e quando usá-los.</li>
+                    <li>Tokens (ID Token, Access Token): Distinguir entre ID tokens (para autenticação de usuário) e Access tokens (para autorização e acesso a APIs).</li>
                 </ul>
             </li>
-            [cite_start]<li>Encadeamento de Políticas: Entender como as políticas são processadas em uma sequência (entrada, saída, erro). [cite: 459]</li>
         </ul>
 
-        <h3>9.2. [cite_start]Desenvolver soluções baseadas em evento [cite: 460]</h3>
-        [cite_start]<p>Este tópico foca em como construir aplicações que reagem a eventos em tempo real usando serviços de mensagens e streaming do Azure. [cite: 461]</p>
-
-        <h4>9.2.1. [cite_start]Implementar soluções que usam Grade de Evento Azure [cite: 462]</h4>
+        <h4>6.2. Autenticar e autorizar usuários e aplicativos utilizando o Microsoft Entra ID</h4>
         <ul>
-            [cite_start]<li>Conceito de Azure Event Grid: Entender o Event Grid como um serviço de roteamento de eventos totalmente gerenciado que permite construir aplicações reativas baseadas em eventos em escala. [cite: 463]</li>
-            [cite_start]<li><strong>Publicadores de Eventos:</strong> [cite: 464]
+            <li><strong>Microsoft Entra ID (Azure Active Directory):</strong>
                 <ul>
-                    [cite_start]<li>Recursos do Azure: Saber que muitos serviços do Azure (Blob Storage, Resource Groups, Azure Subscriptions) publicam eventos automaticamente para o Event Grid. [cite: 465]</li>
-                    [cite_start]<li>Domínios de Eventos: Entender como usar domínios de eventos para gerenciar tópicos de eventos para um grande número de organizações ou aplicações. [cite: 466]</li>
-                    [cite_start]<li>Tópicos Personalizados: Publicar eventos de suas próprias aplicações usando tópicos personalizados do Event Grid. [cite: 467]</li>
+                    <li>Registro de Aplicativos: Saber como registrar um aplicativo no Microsoft Entra ID para que ele possa ser autenticado e autorizado. Isso inclui configurar permissões de API, URIs de redirecionamento e credenciais de cliente.</li>
+                    <li>Tipos de Contas Suportadas: Entender as opções para quem pode usar o aplicativo (somente contas do diretório atual, qualquer diretório, contas da Microsoft pessoais).</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Assinantes de Eventos (Event Handlers):</strong> [cite: 468]
+            <li><strong>Permissões e Consentimento:</strong>
                 <ul>
-                    [cite_start]<li>Azure Functions: Usar Azure Functions para reagir a eventos do Event Grid. [cite: 469]</li>
-                    [cite_start]<li>Logic Apps, Webhooks, Azure Automation, etc.: Conhecer outros serviços que podem atuar como event handlers. [cite: 470]</li>
+                    <li>Permissões Delegadas: Entender como o aplicativo age em nome de um usuário.</li>
+                    <li>Permissões de Aplicativo: Entender como o aplicativo age por conta própria (sem um usuário logado).</li>
+                    <li>Consentimento do Usuário/Administrador: Compreender o processo de consentimento para que o aplicativo possa acessar recursos.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Assinaturas de Eventos:</strong> [cite: 471]
+            <li><strong>Entidades de Serviço:</strong>
                 <ul>
-                    [cite_start]<li>Criação: Criar assinaturas de eventos para direcionar eventos de um tópico para um ou mais event handlers. [cite: 472]</li>
-                    [cite_start]<li>Filtragem de Eventos: Filtrar eventos com base em tipo de evento, assunto ou dados do evento para que o event handler receba apenas eventos relevantes. [cite: 473]</li>
+                    <li>Conceito: Entender que uma entidade de serviço é uma identidade não-humana usada por aplicativos, serviços ou ferramentas para acessar recursos do Azure.</li>
+                    <li>Criação e Gerenciamento: Saber como criar e configurar entidades de serviço para acesso programático a recursos do Azure (ex: para pipelines de CI/CD, aplicações daemon).</li>
+                    <li>Role-Based Access Control (RBAC): Atribuir funções RBAC a entidades de serviço para controlar o acesso a recursos específicos (ex: Contributor para um grupo de recursos).</li>
                 </ul>
             </li>
-            [cite_start]<li>Casos de Uso: Automação de infraestrutura, processamento de imagens/arquivos quando um blob é carregado, auditoria de mudanças de recursos, integração entre sistemas desacoplados. [cite: 474]</li>
         </ul>
 
-        <h4>9.2.2. [cite_start]Implementar soluções que usam o Hub de Evento Azure [cite: 475]</h4>
+        <h4>6.3. Criar e implementar assinaturas de acesso compartilhado</h4>
         <ul>
-            [cite_start]<li>Conceito de Azure Event Hubs: Entender o Event Hubs como um serviço de ingestão de streaming de dados em larga escala, capaz de receber milhões de eventos por segundo. [cite: 476] [cite_start]Ideal para cenários de Big Data, IoT e telemetria. [cite: 477]</li>
-            [cite_start]<li><strong>Produtores de Eventos:</strong> [cite: 478]
+            <li><strong>Assinaturas de Acesso Compartilhado (SAS - Shared Access Signatures):</strong>
                 <ul>
-                    [cite_start]<li>Envio de Eventos: Saber como enviar eventos para um Event Hub usando os SDKs apropriados (ex: .NET SDK, Java SDK, Node.js SDK, Python SDK). [cite: 479]</li>
-                    [cite_start]<li>Partições: Entender o conceito de partições para paralelizar a ingestão e o consumo de eventos. [cite: 480]</li>
+                    <li>Conceito: Gerar SAS para conceder acesso limitado e delegado a recursos do Azure Storage (Blob, Fila, Tabela) ou Azure Service Bus sem expor as chaves da conta de armazenamento/namespace.</li>
+                    <li>Tipos de SAS (Storage): Entender SAS de serviço, SAS de conta e SAS de delegação do usuário (para Blob Storage).</li>
+                    <li>Políticas de Acesso Armazenadas (Stored Access Policies): Entender como usar políticas de acesso armazenadas para gerenciar e revogar SAS de forma mais eficaz.</li>
+                    <li>Permissões e Validade: Configurar permissões (leitura, escrita, exclusão, listagem) e o período de validade da SAS.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Consumidores de Eventos:</strong> [cite: 481]
+            <li><strong>Implementação:</strong>
                 <ul>
-                    [cite_start]<li>Grupos de Consumidores: Entender a importância dos grupos de consumidores para permitir que múltiplas aplicações ou instâncias de consumidores leiam os mesmos eventos de forma independente. [cite: 482]</li>
-                    [cite_start]<li>Leitura de Eventos: Consumir eventos de um Event Hub usando os SDKs. [cite: 483]</li>
-                    [cite_start]<li>Checkpoints: Gerenciar checkpoints (marcando a posição do último evento processado) para garantir resiliência e recuperação de falhas. [cite: 484] [cite_start]O Event Hubs Processor é frequentemente usado para gerenciar checkpoints e balanceamento de carga entre consumidores. [cite: 485]</li>
+                    <li>Programática: Saber como gerar SAS usando os SDKs do Azure em sua aplicação.</li>
+                    <li>Casos de Uso: Permitir que clientes web/móveis façam upload/download direto para o Blob Storage, acesso temporário a dados sem credenciais completas.</li>
                 </ul>
             </li>
-            [cite_start]<li>Casos de Uso: Ingestão de telemetria de IoT, captura de logs de aplicações distribuídas, streaming de dados para análise em tempo real, integração com Azure Stream Analytics, Azure Databricks. [cite: 486]</li>
         </ul>
 
-        <h3>9.3. [cite_start]Desenvolver soluções baseadas em mensagem [cite: 487]</h3>
-        [cite_start]<p>Este tópico se concentra nos serviços de mensagens para comunicação assíncrona e desacoplamento de componentes. [cite: 488]</p>
-
-        <h4>9.3.1. [cite_start]Implementar soluções que usam o Barramento de Serviços Azure [cite: 489]</h4>
+        <h4>6.4. Implementar soluções que interagem com o Microsoft Graph</h4>
         <ul>
-            [cite_start]<li>Conceito de Azure Service Bus: Entender o Service Bus como um broker de mensagens corporativo gerenciado que suporta filas e tópicos. [cite: 490] [cite_start]Ideal para integração de aplicações empresariais e comunicação assíncrona transacional. [cite: 491]</li>
-            [cite_start]<li><strong>Filas (Queues):</strong> [cite: 492]
+            <li><strong>Microsoft Graph:</strong>
                 <ul>
-                    [cite_start]<li>Casos de Uso: Comunicação ponto a ponto, balanceamento de carga, garantia de entrega (at-least-once). [cite: 493]</li>
-                    [cite_start]<li>Envio de Mensagens: Enviar mensagens para uma fila usando os SDKs. [cite: 494]</li>
-                    [cite_start]<li>Recebimento de Mensagens: Receber e processar mensagens de uma fila (peek-lock, receive-and-delete). [cite: 495]</li>
-                    [cite_start]<li>Dead-Letter Queue (DLQ): Entender o DLQ para mensagens que não puderam ser processadas. [cite: 496]</li>
+                    <li>Conceito: Entender o Microsoft Graph como uma API unificada para acessar dados e inteligência em todo o Microsoft 365, Windows 10 e Enterprise Mobility + Security.</li>
+                    <li>Casos de Uso: Gerenciar usuários, grupos, calendários, arquivos, email, dispositivos, etc., de forma programática.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Tópicos e Assinaturas (Topics and Subscriptions):</strong> [cite: 497]
+            <li><strong>Autenticação e Autorização:</strong>
                 <ul>
-                    [cite_start]<li>Casos de Uso: Publicar/assinar (publish/subscribe) para cenários de comunicação um-para-muitos. [cite: 498]</li>
-                    [cite_start]<li>Regras de Filtro: Usar filtros em assinaturas para que os consumidores recebam apenas mensagens específicas de um tópico. [cite: 499]</li>
+                    <li>Permissões do Microsoft Graph: Saber como solicitar e obter as permissões corretas para acessar recursos específicos do Graph (ex: <code>User.Read</code>, <code>User.ReadBasic.All</code>, <code>Directory.Read.All</code>).</li>
+                    <li>Obtenção de Tokens: Utilizar a MSAL para obter tokens de acesso que podem ser usados para fazer chamadas ao Microsoft Graph.</li>
                 </ul>
             </li>
-            [cite_start]<li><strong>Recursos Avançados:</strong> [cite: 500]
-                <ul>
-                    [cite_start]<li>Sessões de Mensagem: Entender sessões para processamento de mensagens ordenadas ou agrupadas. [cite: 501]</li>
-                    [cite_start]<li>Agendamento de Mensagens: Enviar mensagens para serem processadas em um horário futuro. [cite: 502]</li>
-                    [cite_start]<li>Transações: Agrupar operações de envio/recebimento de mensagens em uma única transação. [cite: 503]</li>
-                </ul>
-            </li>
-            [cite_start]<li>Autenticação: Usar Identidades Gerenciadas ou Assinaturas de Acesso Compartilhado (SAS) para autenticar no Service Bus. [cite: 504]</li>
+            <li>SDKs do Microsoft Graph: Saber como usar os SDKs do Microsoft Graph (para .NET, Java, Node.js, Python, etc.) para simplificar a interação com a API.</li>
+            <li>Consultas: Entender como construir consultas para o Graph, incluindo filtragem, ordenação e expansão de relacionamentos.</li>
         </ul>
 
-        <h4>9.3.2. [cite_start]Implementar soluções que usam filas de Armazenamento de Fila Azure [cite: 505]</h4>
+        <h3>7. Implementar soluções seguras do Azure</h3>
+        <p>Este tópico foca em como proteger os dados de configuração e credenciais em suas aplicações.</p>
+
+        <h4>7.1. Dados seguros de configuração de aplicativo usando a Configuração de Aplicativos ou o Azure Key Vault</h4>
         <ul>
-            [cite_start]<li>Conceito de Azure Queue Storage: Entender o Queue Storage como um serviço de fila de mensagens simples e econômico, construído sobre o Azure Storage. [cite: 506] [cite_start]Ideal para cenários de desacoplamento de tarefas e processamento assíncrono básico. [cite: 507]</li>
-            [cite_start]<li><strong>Filas e Mensagens:</strong> [cite: 508]
+            <li><strong>Azure App Configuration:</strong>
                 <ul>
-                    [cite_start]<li>Casos de Uso: Processamento de tarefas em segundo plano, comunicação simples entre componentes. [cite: 509]</li>
-                    [cite_start]<li>Adicionar Mensagens: Adicionar mensagens a uma fila. [cite: 510]</li>
-                    [cite_start]<li>Recuperar Mensagens: Obter mensagens da fila (com timeout de visibilidade). [cite: 511]</li>
-                    [cite_start]<li>Excluir Mensagens: Remover mensagens após o processamento bem-sucedido. [cite: 512]</li>
-                    [cite_start]<li>Contagem de Dequeue: Monitorar quantas vezes uma mensagem foi recuperada. [cite: 513]</li>
+                    <li>Conceito: Entender o App Configuration como um serviço centralizado para gerenciar configurações de aplicativos de forma dinâmica e segura.</li>
+                    <li>Casos de Uso: Gerenciamento de feature flags, variáveis de ambiente, strings de conexão para múltiplas aplicações e ambientes.</li>
+                    <li>Integração: Saber como integrar o App Configuration em sua aplicação usando os SDKs (ex: .NET Configuration Provider).</li>
+                    <li>Referência a Key Vault: Conectar valores de configuração no App Configuration a segredos armazenados no Azure Key Vault.</li>
                 </ul>
             </li>
-            [cite_start]<li>Diferenças do Service Bus: Entender as principais diferenças entre Queue Storage e Service Bus (escala, recursos, garantias de mensagens, complexidade), e quando usar um em vez do outro. [cite: 514] [cite_start]Queue Storage é mais simples e econômico para filas básicas, enquanto Service Bus oferece recursos de mensagens corporativas mais avançados. [cite: 515]</li>
+            <li><strong>Azure Key Vault:</strong>
+                <ul>
+                    <li>Conceito: Entender o Key Vault como um serviço de nuvem para armazenar e gerenciar com segurança chaves criptográficas, segredos (como senhas, strings de conexão) e certificados.</li>
+                    <li>Casos de Uso: Proteção de credenciais, gerenciamento de certificados SSL/TLS, armazenamento de chaves de criptografia.</li>
+                </ul>
+            </li>
+            <li>Escolha entre App Configuration e Key Vault: Saber quando usar cada serviço. O Key Vault é para segredos de alto valor e chaves criptográficas, enquanto o App Configuration é para configurações de aplicação mais gerais (que podem incluir referências a segredos do Key Vault).</li>
         </ul>
+
+        <h4>7.2. Desenvolver um código que use chaves, segredos e certificados armazenados no Azure Key Vault</h4>
+        <ul>
+            <li><strong>Acesso ao Key Vault:</strong>
+                <ul>
+                    <li>Identidades Gerenciadas: A abordagem preferencial. Saber como configurar identidades gerenciadas para o seu aplicativo Azure (App Service, Functions, VM) e conceder a essa identidade permissões de acesso ao Key Vault.</li>
+                    <li>Entidades de Serviço: Usar entidades de serviço com segredos ou certificados para autenticar em cenários onde identidades gerenciadas não são aplicáveis.</li>
+                </ul>
+            </li>
+            <li><strong>Operações com o SDK do Key Vault:</strong>
+                <ul>
+                    <li>SecretsClient/SecretClient (SDKs modernos): Saber como usar os SDKs apropriados para:
+                        <ul>
+                            <li>Obter Segredos: Recuperar segredos por nome e versão.</li>
+                            <li>Definir Segredos: Criar ou atualizar segredos.</li>
+                            <li>Excluir Segredos: Remover segredos (com soft-delete).</li>
+                        </ul>
+                    </li>
+                    <li>Chaves e Certificados: Embora o foco do AZ-204 seja mais em segredos, ter uma compreensão básica do armazenamento e recuperação de chaves e certificados também é útil.</li>
+                </ul>
+            </li>
+            <li><strong>Best Practices:</strong>
+                <ul>
+                    <li>Rotação de Segredos: Implementar mecanismos para rotacionar segredos regularmente.</li>
+                    <li>Soft Delete e Purge Protection: Entender esses recursos para proteger contra exclusão acidental ou maliciosa.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>7.3. Implementação de identidades gerenciadas para recursos do Azure</h4>
+        <ul>
+            <li><strong>Conceito de Identidades Gerenciadas:</strong>
+                <ul>
+                    <li>Autenticação sem Credenciais: Entender que identidades gerenciadas fornecem uma identidade para seus serviços Azure (App Service, Functions, VMs, etc.) no Microsoft Entra ID, eliminando a necessidade de gerenciar credenciais em seu código.</li>
+                    <li><strong>Tipos:</strong>
+                        <ul>
+                            <li>Atribuídas pelo Sistema: Criadas automaticamente com o recurso Azure e têm o mesmo ciclo de vida.</li>
+                            <li>Atribuídas pelo Usuário: Criadas independentemente e podem ser atribuídas a múltiplos recursos.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>Criação e Atribuição: Saber como habilitar identidades gerenciadas (tanto atribuídas pelo sistema quanto pelo usuário) para recursos Azure.</li>
+            <li>Atribuição de Funções (RBAC): Conceder permissões de Role-Based Access Control (RBAC) às identidades gerenciadas para que elas possam acessar outros serviços do Azure (ex: Azure Key Vault, Azure Storage, Azure SQL Database).</li>
+            <li><strong>Utilização no Código:</strong>
+                <ul>
+                    <li>Azure.Identity Library (para .NET/Python/Java): Usar a biblioteca <code>Azure.Identity</code> para obter automaticamente tokens de acesso para a identidade gerenciada, permitindo que o aplicativo se autentique em outros serviços do Azure.</li>
+                    <li>Exemplo: Acesso a um blob no Azure Storage ou a um segredo no Key Vault usando a identidade gerenciada, sem strings de conexão ou chaves embutidas.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>8. Monitorar e solucionar problemas de soluções do Azure (5 a 10%)</h2>
+        <p>Esta seção da certificação AZ-204 foca nas habilidades para observar o desempenho de suas aplicações, identificar e resolver problemas usando as ferramentas de monitoramento do Azure. O Application Insights é o serviço central aqui.</p>
+
+        <h3>8.1. Monitorar e solucionar problemas de soluções usando o Application Insights</h3>
+        <p>O Application Insights é um serviço de Gerenciamento de Desempenho de Aplicativos (APM) para desenvolvedores web profissionais. Ele monitora suas aplicações ao vivo, automaticamente detectando anomalias de desempenho.</p>
+
+        <h4>8.1.1. Monitorar e analisar métricas, logs e rastreamentos</h4>
+        <ul>
+            <li><strong>Métricas do Aplicativo:</strong>
+                <ul>
+                    <li>Coleta: Entender quais métricas o Application Insights coleta automaticamente (tempo de resposta de requisições, taxa de falhas, contagem de dependências, CPU, memória, etc.).</li>
+                    <li>Visualização: Utilizar o Metrics Explorer no portal do Azure para criar gráficos e analisar o desempenho em diferentes dimensões.</li>
+                    <li>Métricas Personalizadas: Saber como instrumentar sua aplicação para enviar métricas personalizadas (ex: contagem de itens em um carrinho de compras, duração de uma operação de negócio específica).</li>
+                </ul>
+            </li>
+            <li><strong>Logs (Telemetria de Log):</strong>
+                <ul>
+                    <li>Coleta de Logs: Integrar loggers padrão (ex: NLog, Log4net, Serilog para .NET; Console.log para Node.js) ou frameworks de logging para que os logs da sua aplicação sejam enviados para o Application Insights.</li>
+                    <li>Consultas Kusto (KQL): Dominar a linguagem Kusto Query Language (KQL) para consultar e analisar logs em detalhe (ex: encontrar todas as exceções para uma determinada requisição, correlacionar logs de diferentes componentes).</li>
+                    <li>Tipos de Telemetria: Entender os tipos de telemetria (requisições, dependências, exceções, eventos, métricas, rastreamentos, page views) e como eles são usados.</li>
+                </ul>
+            </li>
+            <li><strong>Rastreamentos (Traces) e Dependências:</strong>
+                <ul>
+                    <li>Coleta Automática: Entender como o Application Insights automaticamente coleta rastreamentos de requisições e chamadas de dependência (bancos de dados, APIs externas, filas).</li>
+                    <li>Mapa do Aplicativo: Utilizar o Mapa do Aplicativo para visualizar a topologia da sua aplicação e identificar gargalos ou falhas de comunicação entre serviços.</li>
+                    <li>Detalhes de Transação de Ponta a Ponta: Analisar as operações detalhadamente, vendo a sequência de chamadas, tempos de duração e logs associados para cada etapa da requisição.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>8.1.2. Implementar alertas e testes Web do Application Insights</h4>
+        <ul>
+            <li><strong>Alertas:</strong>
+                <ul>
+                    <li>Criação de Regras de Alerta: Configurar regras de alerta baseadas em métricas (ex: taxa de CPU alta, tempo de resposta lento, taxa de falhas), logs (ex: contagem de exceções específicas excedendo um limite) ou na disponibilidade.</li>
+                    <li>Grupos de Ação (Action Groups): Definir ações a serem tomadas quando um alerta é disparado (enviar e-mail, SMS, chamar um webhook, disparar um Azure Function, criar um ticket ITSM).</li>
+                    <li>Severidade: Entender os diferentes níveis de severidade dos alertas.</li>
+                </ul>
+            </li>
+            <li><strong>Testes de Disponibilidade (Web Tests):</strong>
+                <ul>
+                    <li>Testes de Ping de URL: Criar testes simples para verificar se um endpoint web está respondendo.</li>
+                    <li>Testes de URL Padrão (Standard URL Tests): Testes mais avançados que podem validar conteúdo de resposta, cabeçalhos e SSL.</li>
+                    <li>Testes de Várias Etapas (Multi-step Web Tests): Gravar e reproduzir sequências de requisições web para simular cenários de usuário mais complexos (ex: login, adicionar item ao carrinho).</li>
+                    <li>Localizações de Teste: Configurar testes para serem executados de várias localizações geográficas para verificar o desempenho global.</li>
+                    <li>Alertas de Disponibilidade: Configurar alertas com base nos resultados dos testes web (ex: se o teste falhar em N localizações).</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>8.1.3. Instrumentar um aplicativo ou serviço para usar o Application Insights</h4>
+        <ul>
+            <li><strong>Adicionar SDK do Application Insights:</strong>
+                <ul>
+                    <li>Bibliotecas de Telemetria: Saber como adicionar os pacotes SDK apropriados para sua tecnologia (ex: <code>Microsoft.ApplicationInsights.AspNetCore</code> para .NET Core, <code>applicationinsights</code> para Node.js, <code>opencensus-ext-azure</code> para Python).</li>
+                    <li>Strings de Conexão/Chaves de Instrumentação: Configurar o SDK com a string de conexão ou chave de instrumentação do seu recurso do Application Insights.</li>
+                </ul>
+            </li>
+            <li><strong>Configuração Automática (Auto-instrumentation):</strong>
+                <ul>
+                    <li>Azure Web Apps: Habilitar o Application Insights no nível do Serviço de Aplicativo sem modificações de código para runtimes suportados (ex: .NET, Node.js).</li>
+                    <li>Azure Functions: Habilitar o Application Insights diretamente no Function App.</li>
+                    <li>Contêineres/VMs: Usar a extensão Azure Monitor para VMs ou agentes OpenTelemetry/Application Insights para contêineres para coletar telemetria.</li>
+                </ul>
+            </li>
+            <li><strong>Instrumentação Manual (Custom Telemetry):</strong>
+                <ul>
+                    <li>TrackEvent: Registrar eventos de negócio (ex: "ItemAdicionadoAoCarrinho").</li>
+                    <li>TrackMetric: Enviar pontos de dados numéricos (ex: tempo de processamento de uma função interna).</li>
+                    <li>TrackTrace: Enviar mensagens de log personalizadas.</li>
+                    <li>TrackException: Registrar exceções capturadas.</li>
+                    <li>TrackDependency: Rastrear chamadas para serviços externos ou bancos de dados que não são automaticamente detectados.</li>
+                </ul>
+            </li>
+            <li>Contexto de Operação e Correlação: Entender como o Application Insights correlaciona automaticamente telemetria de diferentes componentes da sua aplicação (via ID de Operação), permitindo a visualização de transações completas.</li>
+        </ul>
+
+        <h2>9. Conectar e consumir serviços do Azure e serviços de terceiros (20-25%)</h2>
+        <p>Esta seção da certificação AZ-204 aborda a integração de suas soluções com diversos serviços, tanto nativos do Azure quanto de terceiros, com foco em gerenciamento de API, processamento de eventos e mensagens.</p>
+
+        <h3>9.1. Implementar a gestão da API</h3>
+        <p>O Azure API Management (APIM) é um serviço totalmente gerenciado para publicação, segurança, manutenção e análise de APIs.</p>
+
+        <h4>9.1.1. Criar uma instância do Gerenciamento de API do Azure</h4>
+        <ul>
+            <li>Conceito de APIM: Entender o APIM como um gateway de API que permite centralizar o gerenciamento de todas as suas APIs, independentemente de onde elas estão hospedadas (Azure, local, outra nuvem).</li>
+            <li>SKUs do APIM: Conhecer as diferentes SKUs (Developer, Basic, Standard, Premium) e suas capacidades (VNet, replicação geográfica, múltiplas APIs).</li>
+            <li>Criação: Saber como provisionar uma instância do APIM via portal do Azure, Azure CLI ou PowerShell.</li>
+        </ul>
+
+        <h4>9.1.2. Criar e documentar APIs</h4>
+        <ul>
+            <li>Importar APIs: Importar APIs existentes (ex: de Azure Functions, Azure App Services, OpenAPI/Swagger specifications, Logic Apps, SOAP) para o APIM.</li>
+            <li>Definir APIs: Criar APIs do zero, definindo operações, parâmetros e respostas.</li>
+            <li>Versionamento de API: Implementar estratégias de versionamento para APIs (via URL, cabeçalho, ou consulta) para gerenciar diferentes versões da sua API.</li>
+            <li><strong>Documentação (Portal do Desenvolvedor):</strong>
+                <ul>
+                    <li>Portal do Desenvolvedor: Configurar e personalizar o portal do desenvolvedor no APIM, que fornece documentação interativa (usando Swagger UI/OpenAPI), testes de API e gerenciamento de assinaturas para consumidores de API.</li>
+                    <li>Publicação de APIs: Publicar APIs no portal do desenvolvedor para que os consumidores possam descobri-las e integrá-las.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>9.1.3. Configurar o acesso às APIs</h4>
+        <ul>
+            <li><strong>Chaves de Assinatura (Subscription Keys):</strong>
+                <ul>
+                    <li>Gerenciamento: Entender como o APIM usa chaves de assinatura para controlar o acesso às APIs, permitindo que os consumidores obtenham suas próprias chaves para acessar APIs específicas.</li>
+                    <li>Escopos: Gerenciar chaves no nível do produto, API ou operação.</li>
+                </ul>
+            </li>
+            <li><strong>Autenticação do Back-end:</strong>
+                <ul>
+                    <li>Certificados de Cliente: Usar certificados de cliente para autenticar o APIM com serviços de backend.</li>
+                    <li>Identidades Gerenciadas: Configurar identidades gerenciadas para que o APIM possa acessar serviços de backend de forma segura (ex: Azure Key Vault).</li>
+                    <li>OAuth 2.0/OpenID Connect: Configurar o APIM para atuar como um gateway de segurança, validando tokens JWT de clientes e, opcionalmente, obtendo novos tokens para o backend.</li>
+                </ul>
+            </li>
+            <li>CORS (Cross-Origin Resource Sharing): Configurar políticas CORS no APIM para permitir chamadas de API de domínios específicos.</li>
+        </ul>
+
+        <h4>9.1.4. Implementar políticas para APIs</h4>
+        <p>As políticas do APIM são uma forma poderosa de alterar o comportamento das APIs através de XML.</p>
+        <ul>
+            <li>Tipos de Políticas: Entender os diferentes escopos de política (global, produto, API, operação).</li>
+            <li><strong>Políticas Comuns:</strong>
+                <ul>
+                    <li>Controle de Acesso: <code>ip-filter</code> (filtrar por IP), <code>check-header</code> (verificar cabeçalhos).</li>
+                    <li>Limitação de Taxa (Rate Limiting): <code>rate-limit-by-key</code> (limitar o número de chamadas por chave de assinatura ou usuário).</li>
+                    <li>Cache: <code>cache-lookup</code>, <code>cache-store</code> (armazenar em cache respostas para melhorar o desempenho e reduzir a carga no backend).</li>
+                    <li>Transformação de Dados: <code>set-header</code>, <code>set-body</code>, <code>rewrite-uri</code> (modificar cabeçalhos, corpo da requisição/resposta, reescrever URLs).</li>
+                    <li>Segurança: <code>validate-jwt</code> (validar JSON Web Tokens).</li>
+                    <li>Tratamento de Erros: <code>on-error</code> (definir comportamento para erros de política ou backend).</li>
+                </ul>
+            </li>
+            <li>Encadeamento de Políticas: Entender como as políticas são processadas em uma sequência (entrada, saída, erro).</li>
+        </ul>
+
+        <h3>9.2. Desenvolver soluções baseadas em evento</h3>
+        <p>Este tópico foca em como construir aplicações que reagem a eventos em tempo real usando serviços de mensagens e streaming do Azure.</p>
+
+        <h4>9.2.1. Implementar soluções que usam Grade de Evento Azure</h4>
+        <ul>
+            <li>Conceito de Azure Event Grid: Entender o Event Grid como um serviço de roteamento de eventos totalmente gerenciado que permite construir aplicações reativas baseadas em eventos em escala.</li>
+            <li><strong>Publicadores de Eventos:</strong>
+                <ul>
+                    <li>Recursos do Azure: Saber que muitos serviços do Azure (Blob Storage, Resource Groups, Azure Subscriptions) publicam eventos automaticamente para o Event Grid.</li>
+                    <li>Domínios de Eventos: Entender como usar domínios de eventos para gerenciar tópicos de eventos para um grande número de organizações ou aplicações.</li>
+                    <li>Tópicos Personalizados: Publicar eventos de suas próprias aplicações usando tópicos personalizados do Event Grid.</li>
+                </ul>
+            </li>
+            <li><strong>Assinantes de Eventos (Event Handlers):</strong>
+                <ul>
+                    <li>Azure Functions: Usar Azure Functions para reagir a eventos do Event Grid.</li>
+                    <li>Logic Apps, Webhooks, Azure Automation, etc.: Conhecer outros serviços que podem atuar como event handlers.</li>
+                </ul>
+            </li>
+            <li><strong>Assinaturas de Eventos:</strong>
+                <ul>
+                    <li>Criação: Criar assinaturas de eventos para direcionar eventos de um tópico para um ou mais event handlers.</li>
+                    <li>Filtragem de Eventos: Filtrar eventos com base em tipo de evento, assunto ou dados do evento para que o event handler receba apenas eventos relevantes.</li>
+                </ul>
+            </li>
+            <li>Casos de Uso: Automação de infraestrutura, processamento de imagens/arquivos quando um blob é carregado, auditoria de mudanças de recursos, integração entre sistemas desacoplados.</li>
+        </ul>
+
+        <h4>9.2.2. Implementar soluções que usam o Hub de Evento Azure</h4>
+        <ul>
+            <li>Conceito de Azure Event Hubs: Entender o Event Hubs como um serviço de ingestão de streaming de dados em larga escala, capaz de receber milhões de eventos por segundo. Ideal para cenários de Big Data, IoT e telemetria.</li>
+            <li><strong>Produtores de Eventos:</strong>
+                <ul>
+                    <li>Envio de Eventos: Saber como enviar eventos para um Event Hub usando os SDKs apropriados (ex: .NET SDK, Java SDK, Node.js SDK, Python SDK).</li>
+                    <li>Partições: Entender o conceito de partições para paralelizar a ingestão e o consumo de eventos.</li>
+                </ul>
+            </li>
+            <li><strong>Consumidores de Eventos:</strong>
+                <ul>
+                    <li>Grupos de Consumidores: Entender a importância dos grupos de consumidores para permitir que múltiplas aplicações ou instâncias de consumidores leiam os mesmos eventos de forma independente.</li>
+                    <li>Leitura de Eventos: Consumir eventos de um Event Hub usando os SDKs.</li>
+                    <li>Checkpoints: Gerenciar checkpoints (marcando a posição do último evento processado) para garantir resiliência e recuperação de falhas. O Event Hubs Processor é frequentemente usado para gerenciar checkpoints e balanceamento de carga entre consumidores.</li>
+                </ul>
+            </li>
+            <li>Casos de Uso: Ingestão de telemetria de IoT, captura de logs de aplicações distribuídas, streaming de dados para análise em tempo real, integração com Azure Stream Analytics, Azure Databricks.</li>
+        </ul>
+
+        <h3>9.3. Desenvolver soluções baseadas em mensagem</h3>
+        <p>Este tópico se concentra nos serviços de mensagens para comunicação assíncrona e desacoplamento de componentes.</p>
+
+        <h4>9.3.1. Implementar soluções que usam o Barramento de Serviços Azure</h4>
+        <ul>
+            <li>Conceito de Azure Service Bus: Entender o Service Bus como um broker de mensagens corporativo gerenciado que suporta filas e tópicos. Ideal para integração de aplicações empresariais e comunicação assíncrona transacional.</li>
+            <li><strong>Filas (Queues):</strong>
+                <ul>
+                    <li>Casos de Uso: Comunicação ponto a ponto, balanceamento de carga, garantia de entrega (at-least-once).</li>
+                    <li>Envio de Mensagens: Enviar mensagens para uma fila usando os SDKs.</li>
+                    <li>Recebimento de Mensagens: Receber e processar mensagens de uma fila (peek-lock, receive-and-delete).</li>
+                    <li>Dead-Letter Queue (DLQ): Entender o DLQ para mensagens que não puderam ser processadas.</li>
+                </ul>
+            </li>
+            <li><strong>Tópicos e Assinaturas (Topics and Subscriptions):</strong>
+                <ul>
+                    <li>Casos de Uso: Publicar/assinar (publish/subscribe) para cenários de comunicação um-para-muitos.</li>
+                    <li>Regras de Filtro: Usar filtros em assinaturas para que os consumidores recebam apenas mensagens específicas de um tópico.</li>
+                </ul>
+            </li>
+            <li><strong>Recursos Avançados:</strong>
+                <ul>
+                    <li>Sessões de Mensagem: Entender sessões para processamento de mensagens ordenadas ou agrupadas.</li>
+                    <li>Agendamento de Mensagens: Enviar mensagens para serem processadas em um horário futuro.</li>
+                    <li>Transações: Agrupar operações de envio/recebimento de mensagens em uma única transação.</li>
+                </ul>
+            </li>
+            <li>Autenticação: Usar Identidades Gerenciadas ou Assinaturas de Acesso Compartilhado (SAS) para autenticar no Service Bus.</li>
+        </ul>
+
+        <h4>9.3.2. Implementar soluções que usam filas de Armazenamento de Fila Azure</h4>
+        <ul>
+            <li>Conceito de Azure Queue Storage: Entender o Queue Storage como um serviço de fila de mensagens simples e econômico, construído sobre o Azure Storage. Ideal para cenários de desacoplamento de tarefas e processamento assíncrono básico.</li>
+            <li><strong>Filas e Mensagens:</strong>
+                <ul>
+                    <li>Casos de Uso: Processamento de tarefas em segundo plano, comunicação simples entre componentes.</li>
+                    <li>Adicionar Mensagens: Adicionar mensagens a uma fila.</li>
+                    <li>Recuperar Mensagens: Obter mensagens da fila (com timeout de visibilidade).</li>
+                    <li>Excluir Mensagens: Remover mensagens após o processamento bem-sucedido.</li>
+                    <li>Contagem de Dequeue: Monitorar quantas vezes uma mensagem foi recuperada.</li>
+                </ul>
+            </li>
+            <li>Diferenças do Service Bus: Entender as principais diferenças entre Queue Storage e Service Bus (escala, recursos, garantias de mensagens, complexidade), e quando usar um em vez do outro. Queue Storage é mais simples e econômico para filas básicas, enquanto Service Bus oferece recursos de mensagens corporativas mais avançados.</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2023 Guia de Certificação Microsoft Azure AZ-204. Todos os direitos reservados.</p>
     </div>
 </body>
 </html>
